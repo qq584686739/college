@@ -6,22 +6,22 @@ import java.util.Date;
  * Created by DIY on 2017/8/16.
  */
 public class Dept {
-    private Integer id;
-    private String name;
-    private Integer managerId;
-    private String country;
-    private String city;
-    private String town;
-    private String address;
-    private String area;
-    private String license;
-    private String bankCard;
-    private Date updateTime;
-    private Date createTime;
-    private String state;
-    private Integer pid;
-    private String pids;
-    private Date expirationTime;
+    private Integer id;         //自增主键id
+    private String name;        //平台名字
+    private Integer managerId;  //负责人id
+    private String country;     //国家
+    private String city;        //城市
+    private String town;        //镇、区域
+    private String address;     //地址
+    private String area;        //面积
+    private String license;     //营业执照
+    private String bankCard;    //银行卡号
+    private Date updateTime;    //更新时间
+    private Date createTime;    //创建时间
+    private String state;       //状态：0：正常，1：冻结
+    private Integer pid;        //上级推荐人
+    private String pids;        //上级推荐人连
+    private Date expirationTime;    //到期时间
 
     public Dept() {
     }

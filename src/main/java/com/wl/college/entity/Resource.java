@@ -4,11 +4,11 @@ package com.wl.college.entity;
  * Created by DIY on 2017/8/16.
  */
 public class Resource {
-    private Integer id;
-    private String name;
-    private String author;
-    private String url;
-    private String type;
+    private Integer id;             //自增主键id
+    private String name;            //资源名称
+    private String author;          //资源所属作者
+    private String url;             //资源链接
+    private String type;            //资源类型
     private Integer section_id;
     private Integer number;
     private String grade;

@@ -5,15 +5,15 @@ package com.wl.college.entity;
  */
 public class Course {
     private Integer id;
-    private String name;
-    private Double price; //价钱
-    private Integer deptId; //平台id
-    private String icon;
-    private Integer pid;
-    private String details;
-    private String description;
-    private String pids;
-    private Integer number;
+    private String name;            //课程名
+    private Double price;        //价钱
+    private Integer deptId;     //所属平台id
+    private String icon;        //课程图标
+    private Integer pid;        //上级课程
+    private String details;     //详情
+    private String description; //描述
+    private String pids;        //上级依赖连
+    private Integer number;      //产品数量
 
     public Course() {
     }

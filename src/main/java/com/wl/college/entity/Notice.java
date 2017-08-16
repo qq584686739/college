@@ -6,13 +6,13 @@ import java.util.Date;
  * Created by DIY on 2017/8/16.
  */
 public class Notice {
-    private Integer id;
-    private String title;
-    private String content;
-    private Integer fromId;
-    private Integer toId;
-    private String state;
-    private Date createTime;
+    private Integer id;             //自增主键id
+    private String title;           //通知主题
+    private String content;         //通知主要内容
+    private Integer fromId;         //发通知人id
+    private Integer toId;           //收通知人id
+    private String state;           //状态0：未读，1：已读
+    private Date createTime;        //创建时间
 
     public Notice() {
     }

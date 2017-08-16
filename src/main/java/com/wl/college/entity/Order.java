@@ -6,15 +6,15 @@ import java.util.Date;
  * Created by DIY on 2017/8/16.
  */
 public class Order {
-    private Integer id;
-    private String type;
-    private Integer resourceId;
-    private String state;
-    private Date updateTime;
-    private Date createTime;
-    private Integer userId;
-    private Integer credits;
-    private Integer amount;
+    private Integer id;         //主键id
+    private String type;        //类型
+    private Integer resourceId; //资源、课程类型
+    private String state;       //状态（0成功 1未支付 2取消订单）
+    private Date updateTime;    //更新时间
+    private Date createTime;    //创建时间
+    private Integer userId;     //用户id
+    private Integer credits;    //所需积分
+    private Integer amount;     //钱
 
     public Order() {
     }

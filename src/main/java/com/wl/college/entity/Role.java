@@ -11,8 +11,8 @@ public class Role {
     private String name;    //名称
     private String alias;    //昵称
     private String note;    //备注
-    private Date createTime;
-    private Date updateTime;
+    private Date createTime;    //创建时间
+    private Date updateTime;    //更新时间
 
     public Integer getId() {
         return id;

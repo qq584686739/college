@@ -7,12 +7,12 @@ import java.util.Date;
  * Created by DIY on 2017/8/16.
  */
 public class DeptTicket {
-    private Integer id;
-    private String name;
-    private String type;
-    private String url;
-    private Integer deptId;
-    private Date createTime;
+    private Integer id;         //自增主键id
+    private String name;        //名称
+    private String type;         //类型
+    private String url;         //资源路径
+    private Integer deptId;     //平台id
+    private Date createTime;   //创建时间
 
     public DeptTicket() {
     }
