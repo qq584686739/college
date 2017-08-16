@@ -8,6 +8,8 @@ import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.util.WebUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -15,13 +17,16 @@ import java.io.Serializable;
 import java.util.Deque;
 import java.util.LinkedList;
 
+@Component
 public class KickoutSessionControlFilter extends AccessControlFilter {
 
     private String kickoutUrl; //踢出后到的地址
     private boolean kickoutAfter = false; //踢出之前登录的/之后登录的用户 默认踢出之前登录的用户
     private int maxSession = 1; //同一个帐号最大会话数 默认1
 
+    @Autowired
     private SessionManager sessionManager;
+
     private Cache<String, Deque<Serializable>> cache;
 
     public void setKickoutUrl(String kickoutUrl) {
@@ -40,6 +45,7 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
         this.sessionManager = sessionManager;
     }
 
+    @Autowired
     public void setCacheManager(CacheManager cacheManager) {
         this.cache = cacheManager.getCache("shiro-kickout-session");
     }

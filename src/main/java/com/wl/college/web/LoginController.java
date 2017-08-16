@@ -9,6 +9,7 @@ package com.wl.college.web;
 import com.wl.college.dto.BaseResult;
 import com.wl.college.enums.Constants;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresUser;
 import org.apache.shiro.subject.Subject;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -148,6 +149,7 @@ public class LoginController {
 
 
     @RequestMapping(value = "/test", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+    @RequiresUser
     public BaseResult<Object> test() {
 
         System.out.println("test");

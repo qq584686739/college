@@ -2,15 +2,22 @@
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:util="http://www.springframework.org/schema/util"
        xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns="http://www.springframework.org/schema/beans"
+       xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
-        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-
+    <!--aop-->
     <aop:config proxy-target-class="true"/>
 
+    <!-- 没有权限处理 -->
+    <bean class="com.wl.college.exception.DefaultExceptionHandler"/>
+
+    <!--扫描包-->
+    <context:component-scan base-package="com.wl.college.realm"/>
+    <context:component-scan base-package="com.wl.college.shiro"/>
+    <context:component-scan base-package="com.wl.college.filter"/>
 
     <!-- 相当于调用SecurityUtils.setSecurityManager(securityManager) -->
     <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
@@ -18,6 +25,7 @@
         <property name="arguments" ref="securityManager"/>
     </bean>
 
+    <!--也是调度securityManager-->
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>
     </bean>
@@ -36,97 +44,6 @@
         <property name="rememberMeManager" ref="rememberMeManager"/>
     </bean>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!--aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-->
-
-
-
-    <!-- 没有权限处理 -->
-    <bean class="com.wl.college.exception.DefaultExceptionHandler"/>
-
-
-
-
-
-    <bean id="springCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
-        <property name="cacheManager" ref="ehcacheManager"/>
-    </bean>
-
-    <!--ehcache-->
-    <bean id="ehcacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-        <property name="configLocation" value="classpath:ehcache/ehcache.xml"/>
-    </bean>
-
-
-    <!-- 缓存管理器 -->
-    <bean id="cacheManager" class="com.wl.college.spring.SpringCacheManagerWrapper">
-        <property name="cacheManager" ref="springCacheManager"/>
-    </bean>
-
-    <!-- 凭证匹配器 -->
-    <bean id="credentialsMatcher" class="com.wl.college.utils.RetryLimitHashedCredentialsMatcher">
-        <constructor-arg ref="cacheManager"/>
-    </bean>
-
-    <!-- userRealm实现 -->
-    <!--<bean id="userRealm" class="com.wl.college.realm.UserRealm">-->
-        <!--<property name="credentialsMatcher" ref="credentialsMatcher"/>-->
-        <!--<property name="cachingEnabled" value="false"/>-->
-    <!--</bean>-->
-
-    <!--accountRealm-->
-    <!--<bean id="accountRealm" class="com.wl.college.realm.AccountRealm">-->
-        <!--<property name="credentialsMatcher" ref="credentialsMatcher"/>-->
-        <!--<property name="cachingEnabled" value="false"/>-->
-    <!--</bean>-->
-
-    <!-- 会话ID生成器 -->
-    <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
-
-    <!-- 会话Cookie模板 -->
-    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
-        <constructor-arg value="sid"/>
-        <property name="httpOnly" value="true"/>
-        <property name="maxAge" value="-1"/>
-    </bean>
-
-    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
-        <constructor-arg value="rememberMe"/>
-        <property name="httpOnly" value="true"/>
-        <property name="maxAge" value="604800"/><!-- 7天 -->
-    </bean>
-
-    <!-- rememberMe管理器 -->
-    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
-        <property name="cipherKey"
-                  value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>
-        <property name="cookie" ref="rememberMeCookie"/>
-    </bean>
-
-    <!-- 会话DAO -->
-    <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
-        <property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>
-        <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
-    </bean>
-
-    <!-- 会话验证调度器 -->
-    <bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler">
-        <property name="sessionValidationInterval" value="1800000"/>
-        <property name="sessionManager" ref="sessionManager"/>
-    </bean>
-
     <!-- 会话管理器 -->
     <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
         <property name="globalSessionTimeout" value="1800000"/>
@@ -138,39 +55,57 @@
         <property name="sessionIdCookie" ref="sessionIdCookie"/>
     </bean>
 
-
-
-
-
-    <!-- 基于Form表单的身份验证过滤器 -->
-    <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
-        <!--<property name="usernameParam" value="name"/>
-        <property name="passwordParam" value="password"/>-->
-        <property name="rememberMeParam" value="rememberMe"/>
-
-        <!--登录地址-->
-        <property name="loginUrl" value="/login"/>
+    <!-- 会话DAO -->
+    <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
+        <property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>
+        <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
     </bean>
 
-    <bean id="kickoutSessionControlFilter" class="com.wl.college.filter.KickoutSessionControlFilter">
-        <property name="cacheManager" ref="cacheManager"/>
+    <!-- 会话Cookie模板 -->
+    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="sid"/>
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="-1"/>
+    </bean>
+
+    <!-- 会话ID生成器 -->
+    <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
+
+    <!-- 会话验证调度器 -->
+    <bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler">
+        <property name="sessionValidationInterval" value="1800000"/>
         <property name="sessionManager" ref="sessionManager"/>
-        <property name="kickoutAfter" value="false"/>
-        <property name="maxSession" value="1"/>
-
-        <!-- 踢出后的地址 -->
-        <property name="kickoutUrl" value="/login?kickout=1"/>
     </bean>
 
-    <bean id="sysUserFilter" class="com.wl.college.filter.SysUserFilter"/>
-    <bean id="forceLogoutFilter" class="com.wl.college.filter.ForceLogoutFilter"/>
+    <!--springCacheManager-->
+    <bean id="springCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+        <property name="cacheManager" ref="ehcacheManager"/>
+    </bean>
+
+    <!--ehcache-->
+    <bean id="ehcacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:ehcache/ehcache.xml"/>
+    </bean>
+
+    <!-- rememberMe管理器 -->
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <property name="cipherKey"
+                  value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>
+        <property name="cookie" ref="rememberMeCookie"/>
+    </bean>
+
+    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="rememberMe"/>
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="604800"/><!-- 7天 -->
+    </bean>
 
     <!-- Shiro的Web过滤器 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
         <!--<property name="loginUrl" value="/user/login"/>-->
         <property name="loginUrl" value="/login"/>
-        <property name="unauthorizedUrl" value="/index1.html"/>
+        <!--<property name="unauthorizedUrl" value="/index1.html"/>-->
         <property name="filters">
             <util:map>
                 <entry key="authc" value-ref="formAuthenticationFilter"/>
@@ -207,7 +142,15 @@
         </property>
     </bean>
 
-    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+    <!-- 基于Form表单的身份验证过滤器 -->
+    <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
+        <!--<property name="usernameParam" value="name"/>
+        <property name="passwordParam" value="password"/>-->
+        <property name="rememberMeParam" value="rememberMe"/>
+        <!--登录地址-->
+        <property name="loginUrl" value="/login"/>
+    </bean>
 
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
 </beans>

@@ -1,10 +1,12 @@
-package com.wl.college.utils;
+package com.wl.college.shiro;
 
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -12,10 +14,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * 匹配器
  */
+@Component("credentialsMatcher")
 public class RetryLimitHashedCredentialsMatcher extends SimpleCredentialsMatcher {
 
     private Cache<String, AtomicInteger> passwordRetryCache;
 
+
+    @Autowired
     public RetryLimitHashedCredentialsMatcher(CacheManager cacheManager) {
         passwordRetryCache = cacheManager.getCache("passwordRetryCache");
     }

@@ -2,11 +2,13 @@ package com.wl.college.filter;
 
 
 import org.apache.shiro.web.filter.PathMatchingFilter;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 
+@Component
 public class SysUserFilter extends PathMatchingFilter {
 
 //    @Autowired
@@ -26,7 +28,7 @@ public class SysUserFilter extends PathMatchingFilter {
      */
     @Override
     protected boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
-//        Integer id = null;
+        Integer id = null;
 //        try{
 //            id = (Integer) SecurityUtils.getSubject().getPrincipal();
 //        }catch (Exception e){

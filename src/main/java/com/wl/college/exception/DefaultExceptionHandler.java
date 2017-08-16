@@ -2,6 +2,7 @@ package com.wl.college.exception;
 
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -10,10 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
+ * 没有权限处理
  * 检查权限
  */
 @ControllerAdvice
-//@RestController
+@Component
 public class DefaultExceptionHandler {
     /**
      * 没有权限 异常
@@ -23,6 +25,12 @@ public class DefaultExceptionHandler {
     @ExceptionHandler({UnauthorizedException.class})
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public void processUnauthenticatedException(HttpServletResponse response) {
+        System.out.println("没有权限处理！");
+        System.out.println("没有权限处理！");
+        System.out.println("没有权限处理！");
+        System.out.println("没有权限处理！");
+        System.out.println("没有权限处理！");
+        System.out.println("没有权限处理！");
         System.out.println("没有权限处理！");
     }
 }

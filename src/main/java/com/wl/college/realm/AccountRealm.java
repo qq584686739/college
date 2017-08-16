@@ -1,19 +1,26 @@
 package com.wl.college.realm;
 
+import com.wl.college.shiro.RetryLimitHashedCredentialsMatcher;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * 客户登录验证器
  */
+@Component
 public class AccountRealm extends AuthorizingRealm {
 
 //    @Resource
 //    private AccountService accountService;
+
+    @Autowired
+    private RetryLimitHashedCredentialsMatcher credentialsMatcher;
 
     @Override
     public String getName() {

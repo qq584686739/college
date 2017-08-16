@@ -54,17 +54,14 @@ public class Constants {
 
 
 
-    //返回的状态码-没有登录
-    public static final Integer NOT_LOGIN_RESPONSE_STATE = 903;
+
     //返回的状态码-正常
     public static final Integer GOOD_RESPONSE_STATE = 200;
     //返回的状态码-异地登录
     public static final Integer DIFFERENT_ADDRESS_RESPONSE_STATE = 901;
     //返回的状态码-被管理员踢出
     public static final Integer KICKOUT_RESPONSE_STATE = 902;
-
-
-
-
+    //返回的状态码-没有登录
+    public static final Integer NOT_LOGIN_RESPONSE_STATE = 903;
 
 }

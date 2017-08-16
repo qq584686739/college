@@ -140,7 +140,7 @@
 
   <!-- shiro end -->
 
-  <!--spring start -->
+  shiroring start -->
   <dependency>
     <groupId>org.springframework</groupId>
     <artifactId>spring-core</artifactId>
@@ -194,7 +194,7 @@
     <artifactId>spring-test</artifactId>
     <version>${spring.version}</version>
   </dependency>
-  <!--spring end -->
+  shiroring end -->
 
   <!--springmvc 控制层 start -->
   <dependency>

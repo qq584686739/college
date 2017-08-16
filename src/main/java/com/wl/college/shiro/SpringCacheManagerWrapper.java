@@ -1,20 +1,24 @@
-package com.wl.college.spring;
+package com.wl.college.shiro;
 
 import net.sf.ehcache.Ehcache;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.util.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.support.SimpleValueWrapper;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
 /**
  * 包装Spring cache抽象
  */
+@Component("cacheManager")
 public class SpringCacheManagerWrapper implements CacheManager {
 
-    private org.springframework.cache.CacheManager cacheManager;
+    @Autowired
+    private org.springframework.cache.CacheManager springCacheManager;
 
     /**
      * 设置spring cache manager
@@ -22,11 +26,11 @@ public class SpringCacheManagerWrapper implements CacheManager {
      * @param cacheManager
      */
     public void setCacheManager(org.springframework.cache.CacheManager cacheManager) {
-        this.cacheManager = cacheManager;
+        this.springCacheManager = cacheManager;
     }
 
     public <K, V> Cache<K, V> getCache(String name) throws CacheException {
-        org.springframework.cache.Cache springCache = cacheManager.getCache(name);
+        org.springframework.cache.Cache springCache = springCacheManager.getCache(name);
         return new SpringCacheWrapper(springCache);
     }
 
@@ -64,7 +68,7 @@ public class SpringCacheManagerWrapper implements CacheManager {
                 Ehcache ehcache = (Ehcache) springCache.getNativeCache();
                 return ehcache.getSize();
             }
-            throw new UnsupportedOperationException("invoke spring cache abstract size method not supported");
+            throw new UnsupportedOperationException("invoke shiro cache abstract size method not supported");
         }
 
         public Set keys() {
@@ -72,7 +76,7 @@ public class SpringCacheManagerWrapper implements CacheManager {
                 Ehcache ehcache = (Ehcache) springCache.getNativeCache();
                 return new HashSet(ehcache.getKeys());
             }
-            throw new UnsupportedOperationException("invoke spring cache abstract keys method not supported");
+            throw new UnsupportedOperationException("invoke shiro cache abstract keys method not supported");
         }
 
         public Collection values() {
@@ -92,7 +96,7 @@ public class SpringCacheManagerWrapper implements CacheManager {
                     return Collections.emptyList();
                 }
             }
-            throw new UnsupportedOperationException("invoke spring cache abstract values method not supported");
+            throw new UnsupportedOperationException("invoke shiro cache abstract values method not supported");
         }
     }
 }
