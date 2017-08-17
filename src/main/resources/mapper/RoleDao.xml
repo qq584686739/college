@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wl.college.dao.RoleDao">
+
+    <sql id="Base_Column_List" >
+        id, role, description, available, create_time, update_time
+    </sql>
+
+    <!-- 找到系统所有角色 -->
+    <select id="findAll" resultType="com.wl.college.entity.Role">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM role
+    </select>
+
+</mapper>

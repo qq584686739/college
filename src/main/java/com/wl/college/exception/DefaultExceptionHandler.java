@@ -25,6 +25,7 @@ public class DefaultExceptionHandler {
     @ExceptionHandler({UnauthorizedException.class})
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public void processUnauthenticatedException(HttpServletResponse response) {
+        // TODO: 2017/8/17 待处理
         System.out.println("没有权限处理！");
         System.out.println("没有权限处理！");
         System.out.println("没有权限处理！");

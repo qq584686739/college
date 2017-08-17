@@ -2,6 +2,59 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wl.college.dao.UserDao">
 
+    <!--user表基础sql片段-->
+    <sql id="Base_Column_List" >
+        id, name, referral_code, password, salt, mail, phone, full_name, country, city, address,
+        id_card, id_card_front, id_card_back, id_card_with, pid, pids, state, create_time,
+        update_time, bank_card, bank_card_front, bank_card_back, bank_card_state, id_card_state,
+        birthdate, gender, dept_id, sign_in_day, last_sign_in
+    </sql>
+
+    <sql id="Role_List" >
+        id, role, description, available, create_time, update_time
+    </sql>
+
+    <!--根据唯一标记获取客户-->
+    <select id="getUserByTag" resultType="com.wl.college.entity.User">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM user
+        WHERE 1=1 AND
+        <if test="id != null" >
+            id = #{id,jdbcType=INTEGER} AND
+        </if>
+        <if test="email != null" >
+            email = #{email,jdbcType=VARCHAR} AND
+        </if>
+        <if test="phone != null" >
+            phone = #{phone,jdbcType=VARCHAR} AND
+        </if>
+        <if test="idCard != null" >
+            idCard = #{idCard,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="hasRoles" resultType="com.wl.college.entity.Role">
+        SELECT
+        <include refid="Role_List" />
+        FROM role r
+        JOIN user_role ur ON r.id=ur.role_id
+        JOIN user u ON ur.user_id=u.id
+        WHERE 1=1 AND
+        <if test="id != null" >
+            id = #{id,jdbcType=INTEGER} AND
+        </if>
+        <if test="email != null" >
+            email = #{email,jdbcType=VARCHAR} AND
+        </if>
+        <if test="phone != null" >
+            phone = #{phone,jdbcType=VARCHAR} AND
+        </if>
+        <if test="idCard != null" >
+            idCard = #{idCard,jdbcType=VARCHAR}
+        </if>
+    </select>
+
     <!-- 插入并返回自增ID -->
     <insert id="createUser" useGeneratedKeys="true" keyProperty="user.id">
         INSERT INTO user (name, password, mail, phone,full_name,country,city,address,id_card,id_card_front,id_card_back,
@@ -11,138 +64,10 @@
         #{user.pid},#{user.pids},#{user.bankCardFront},#{user.bankCardBack},#{user.birthdate},#{user.gender},#{user.deptId})
     </insert>
 
-    <!-- 根据ID更新 -->
-    <update id="updateUser">
-        UPDATE _user u
-        <set>
-            <if test="user.name != null">
-                u.name = #{user.name,jdbcType=VARCHAR},
-            </if>
-            <if test="user.password != null">
-                u.password = #{user.password,jdbcType=VARCHAR},
-            </if>
-            <if test="user.email != null">
-                u.email = #{user.email,jdbcType=VARCHAR},
-            </if>
-            <if test="user.phone != null">
-                u.phone = #{user.phone,jdbcType=VARCHAR},
-            </if>
-            <if test="user.state != null">
-                u.state = #{user.state,jdbcType=VARCHAR},
-            </if>
-        </set>
-        where u.id = #{user.id,jdbcType=INTEGER}
-        AND u.update_time = #{user.updateTime,jdbcType=TIMESTAMP};
-    </update>
 
-    <!-- 根据ID删除 -->
-    <delete id="deleteUser">
-        DELETE FROM _user
-        WHERE id = #{id,jdbcType=INTEGER};
-    </delete>
-
-    <!--查询user列表-->
-    <select id="findSome" resultType="com.wl.college.entity.User">
-        SELECT DISTINCT
-            u.id, u.name, u.email, u.phone, u.state, u.create_time, u.update_time
-        FROM _user u, _user_role ur, _role r
-        WHERE 1=1
-        <if test="user.id != null">
-            AND u.id = #{user.id,jdbcType=INTEGER}
-        </if>
-        <if test="user.name != null">
-            AND u.name = #{user.name ,jdbcType=VARCHAR}
-        </if>
-        <if test="user.email != null">
-            AND u.email = #{user.email,jdbcType=VARCHAR}
-        </if>
-        <if test="user.phone != null">
-            AND u.phone = #{user.phone,jdbcType=VARCHAR}
-        </if>
-        <if test="role != null">
-            AND r.alias = #{role} AND r.id = ur.role_id AND ur.user_id = u.id
-        </if>
-        ORDER BY u.id DESC
-        LIMIT #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER};
-    </select>
-
-    <select id="findPermissionsAliasById" resultType="java.lang.String">
-        SELECT p.alias
-        FROM _permission p
-        JOIN _role_permission rp
-        ON p.id=rp.permission_id
-        WHERE rp.role_id
-        IN(SELECT role_id FROM _user_role ur JOIN _user u ON ur.user_id=u.id WHERE u.id = #{id,jdbcType=INTEGER});
-    </select>
-
-    <select id="findById" resultType="com.wl.college.entity.User">
-        SELECT *
-        FROM _user
-        WHERE id = #{id,jdbcType=INTEGER} LIMIT 1;
-    </select>
-
-    <select id="findByIds" resultType="com.wl.college.entity.User">
-        SELECT * FROM _user
-        WHERE id IN
-        <foreach collection="array" item="id" open="(" close=")" separator=",">
-            #{id}
-        </foreach>
-    </select>
-
-    <select id="findPermissionsNameById" resultType="java.lang.String">
-        SELECT p.name
-        FROM _permission p
-        JOIN _role_permission rp
-        ON p.id=rp.permission_id
-        WHERE rp.role_id
-        IN(SELECT role_id FROM _user_role ur JOIN _user u ON ur.user_id=u.id WHERE u.id = #{id,jdbcType=INTEGER});
-    </select>
-
-
-    <!--根据userId找到role.name的集合-->
-    <select id="findRoleNamesByUserId" resultType="java.lang.String">
-          SELECT r.name FROM _role r
-          JOIN _user_role ur ON ur.role_id = r.id
-          WHERE ur.user_id = #{userId}
-    </select>
-
-
-    <select id="findRoleIdsByUserId" resultType="java.lang.Integer">
-        SELECT role_id
-        FROM _user_role
-        WHERE user_id = ${userId}
-    </select>
-
-
-    <insert id="createUserRole">
-        INSERT INTO user_role(user_id, role_id)
-        VALUES
-        <foreach collection="roleList" item="item" separator="," >
-            (#{userId,jdbcType=INTEGER},#{item})
-        </foreach>
-    </insert>
-
-    <delete id="deleteUserRole">
-        DELETE FROM _user_role
-        WHERE user_id = #{userId,jdbcType=INTEGER}
-    </delete>
-
-    <update id="banState">
-        UPDATE _user SET state = #{state}
-        WHERE id = #{id}
-    </update>
-
-
-    <update id="updateState">
-        UPDATE user
-        SET state = #{state}
-        WHERE id = #{userId}
-    </update>
     <update id="updateDept">
         UPDATE user
         SET dept_id = #{deptId}
         WHERE id = #{userId}
     </update>
-
-
 </mapper>

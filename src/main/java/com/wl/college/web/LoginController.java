@@ -1,30 +1,39 @@
 package com.wl.college.web;
 
 import com.wl.college.dto.BaseResult;
+import com.wl.college.entity.Role;
 import com.wl.college.enums.Constants;
+import com.wl.college.realm.UsernamePasswordUsertypeToken;
+import com.wl.college.service.RoleService;
+import com.wl.college.service.UserService;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authz.annotation.RequiresUser;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @CrossOrigin
 @RestController
 public class LoginController {
 
-//    @Resource
-//    private UserService userService;
+    private final UserService userService;
+
+    private final RoleService roleService;
+
+    @Autowired
+    public LoginController(RoleService roleService, UserService userService) {
+        this.roleService = roleService;
+        this.userService = userService;
+    }
 
 //    @Resource
 //    private AccountService accountService;
 
-    /**
+    /*
      * 未登录访问接口提示没有登录；
      * 已经登录访问接口提示登陆成功；
      * 被踢出后访问任意需要登录的资源跳转到该接口提示被踢出，请重新登录；
@@ -60,118 +69,61 @@ public class LoginController {
 //        return new BaseResult<Object>(isLogin, info);
 //    }
 
-    /**
-     * 统一登录接口
-     * @param object user的id或者account的email
-     * @param password  密码
-     * @param rememberMe    是否记住我，可以不传该字段，或者传空，true，false
-     * @param rank  职位，user或account
-     * @return
-     */
-
 
     /**
      * 统一登录
      *
-     * @param id         管理员的id
-     * @param email      用户的邮箱
+     * @param loginName         登录名（phone or email）
      * @param password   密码
      * @param rememberMe 记住我
-     * @return
+     * @return BaseResult<Object>
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
-    public BaseResult<Object> login(Integer id, String email, String password, String rememberMe) {
-
+    public BaseResult<Object> login(String loginName, String password, String rememberMe) {
         try{
-
             boolean remember = rememberMe != null && rememberMe.equals("true");
             Subject subject = SecurityUtils.getSubject();
-            UsernamePasswordToken token = new UsernamePasswordToken(String.valueOf(id), password);
+            String loginFlag = loginName==null?"": loginName.contains("@") ?"email":"phone";       //判断loginName是否有@，有@则是邮箱登录，没有则是手机号登录
+            UsernamePasswordUsertypeToken token = new UsernamePasswordUsertypeToken(loginName, password, loginFlag);
             token.setRememberMe(remember);      //设置记住我
 
             subject.login(token);           //登录
 
+            boolean isLogin = subject.isAuthenticated();
+            if (isLogin) {
+                //登录成功，返回角色
+                List<Role> roles;
+                if(loginFlag.equals("email")){
+                    //邮箱登录
+                    roles = userService.hasRoles(null, loginName, null, null);
+                }else{
+                    //手机号登录
+                    roles = userService.hasRoles(null, null, loginName, null);
+                }
+                return new BaseResult<>(false, roles);
+            }else{
+                //登录失败
+                return new BaseResult<>(false, "登录失败（到时候以错误代码替代）");
+            }
         }catch (Exception e){
-
+            return new BaseResult<>(false, "登录失败（到时候以错误代码替代）");
         }
-
-
-        return null;
-//        try {
-//            Account account = null;
-//            if (id == null && email != null) {
-//                account = accountService.getAccountByTag(null, email, null);
-//                if (account != null) {
-//                    id = account.getId();
-//                }
-//                if (id == null) {
-//                    return new BaseResult<>(false, Constants.LOGIN_FAIL);
-//                }
-//            }
-//
-//            if (rank == null || !rank.equals("user") && !rank.equals("account")) {
-//                return new BaseResult<>(false, Constants.RANK_ERROR);
-//            }
-//
-//            boolean remember = rememberMe != null && rememberMe.equals("true");
-//            Subject subject = SecurityUtils.getSubject();
-//            UsernamePasswordUsertypeToken token = new UsernamePasswordUsertypeToken(id, password, rank);
-//            token.setRememberMe(remember);      //设置记住我
-//
-//            subject.login(token);           //登录
-//
-//            boolean isLogin = subject.isAuthenticated();
-//            if (isLogin) {
-//                if (rank.equals("user")) {
-//                    Set<String> permissions = userService.findPermissionsAliasById(id);      //根据id找权限
-//                    subject.getSession().setAttribute("rank", "user");
-//                    return new BaseResult<>(true, permissions);
-//                } else if (rank.equals("account")) {
-//                    subject.getSession().setAttribute("rank", "account");                   //在session设置是客户，在session管理需要用到
-//                    // 现在需求变了：可以看到所有人在线并且管理所有人
-//                    return new BaseResult<>(true, id);     //客户登陆成功返回id
-//                }
-//            }
-//        } catch (RuntimeException e) {
-//            e.printStackTrace();
-//            return new BaseResult<>(false, e.getMessage());         //返回响应的信息
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return new BaseResult<>(false, Constants.LOGIN_FAIL);
     }
 
-//    @RequestMapping(value = "/logout", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
-//    public BaseResult<Object> logout() {
-//
-//        Subject subject = SecurityUtils.getSubject();
-//        if (subject.isAuthenticated()) {
-//            subject.logout();
-//        } else {
-//            return new BaseResult<>(false, Constants.ERROR_LOGOUT);
-//        }
-//
-//        //退出返回true和error
-//        return new BaseResult<>(true, null);
-//    }
-
-
-    @RequestMapping(value = "/test", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
-    @RequiresUser
-    public BaseResult<Object> test() {
-
-        System.out.println("test");
-
+    /**
+     * 统一退出登录
+     * @return BaseResult<Object>
+     */
+    @RequestMapping(value = "/logout", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+    public BaseResult<Object> logout() {
         Subject subject = SecurityUtils.getSubject();
         if (subject.isAuthenticated()) {
             subject.logout();
         } else {
-            return new BaseResult<Object>(false, Constants.ERROR_LOGOUT);
+            return new BaseResult<>(false, Constants.ERROR_LOGOUT);
         }
 
         //退出返回true和error
-        return new BaseResult<Object>(true, null);
+        return new BaseResult<>(true, null);
     }
-
-
 }

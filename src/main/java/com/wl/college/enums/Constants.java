@@ -3,6 +3,7 @@ package com.wl.college.enums;
 
 public class Constants {
     public static final String CURRENT_USER = "user";
+    /**用户被踢出去*/
     public static final String SESSION_FORCE_LOGOUT_KEY = "session.force.logout";
 
     //用户图片文件数据库存储地址
@@ -14,11 +15,6 @@ public class Constants {
     //DEPT图片文件服务器存储地址
     public static final String DEPT_FILE_SAVE_ABSOLUTE_PATH = "/data/nginx/html/my/dept/img/";
 
-
-
-
-
-
     //登录信息
     //登陆成功
     public static final String LOGIN_SUCCESS = "You have logged in successfully!";
@@ -28,7 +24,7 @@ public class Constants {
     public static final String DIFFERENT_ADDRESS_LOGIN = "Your account is logged on in different places. Please log in again!";
     //您已经被管理员踢出，请重新登录
     public static final String KICKOUT = "You have been kicked out by the administrator. Please log in again!";
-    //没有登录，退出登录失败
+    /**没有登录，退出登录失败*/
     public static final String ERROR_LOGOUT = "You are not logged in. You cannot quit";
     //rank参数错误，请重试
     public static final String RANK_ERROR = "Parameter error by \"rank\"";
@@ -67,9 +63,9 @@ public class Constants {
     public static final Integer GOOD_RESPONSE_STATE = 200;
     //返回的状态码-异地登录
     public static final Integer DIFFERENT_ADDRESS_RESPONSE_STATE = 901;
-    //返回的状态码-被管理员踢出
+    /**返回的状态码-被管理员踢出**/
     public static final Integer KICKOUT_RESPONSE_STATE = 902;
-    //返回的状态码-没有登录
+    /**返回的状态码-没有登录*/
     public static final Integer NOT_LOGIN_RESPONSE_STATE = 903;
 
 }
