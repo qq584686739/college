@@ -15,4 +15,13 @@ public interface RoleService {
      */
     List<Role> listAll();
 
+    /**
+     * 创建一个角色,并分配权限
+     *
+     * @param role
+     * @param permissions
+     * @return
+     */
+    void createRole(Role role, List<Integer> permissions);
+
 }

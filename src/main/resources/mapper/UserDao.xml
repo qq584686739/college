@@ -19,39 +19,40 @@
         SELECT
         <include refid="Base_Column_List" />
         FROM user
-        WHERE 1=1 AND
+        WHERE 1=1
         <if test="id != null" >
-            id = #{id,jdbcType=INTEGER} AND
+            AND id = #{id,jdbcType=INTEGER}
         </if>
         <if test="email != null" >
-            email = #{email,jdbcType=VARCHAR} AND
+            AND email = #{email,jdbcType=VARCHAR}
         </if>
         <if test="phone != null" >
-            phone = #{phone,jdbcType=VARCHAR} AND
+            AND phone = #{phone,jdbcType=VARCHAR}
         </if>
         <if test="idCard != null" >
-            idCard = #{idCard,jdbcType=VARCHAR}
+            AND idCard = #{idCard,jdbcType=VARCHAR}
         </if>
     </select>
 
+    <!--查找user所拥有的角色-->
     <select id="hasRoles" resultType="com.wl.college.entity.Role">
         SELECT
         <include refid="Role_List" />
         FROM role r
         JOIN user_role ur ON r.id=ur.role_id
         JOIN user u ON ur.user_id=u.id
-        WHERE 1=1 AND
+        WHERE 1=1
         <if test="id != null" >
-            id = #{id,jdbcType=INTEGER} AND
+            AND id = #{id,jdbcType=INTEGER}
         </if>
         <if test="email != null" >
-            email = #{email,jdbcType=VARCHAR} AND
+            AND email = #{email,jdbcType=VARCHAR}
         </if>
         <if test="phone != null" >
-            phone = #{phone,jdbcType=VARCHAR} AND
+            AND phone = #{phone,jdbcType=VARCHAR}
         </if>
         <if test="idCard != null" >
-            idCard = #{idCard,jdbcType=VARCHAR}
+            AND idCard = #{idCard,jdbcType=VARCHAR}
         </if>
     </select>
 

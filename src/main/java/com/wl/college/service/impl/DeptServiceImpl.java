@@ -6,6 +6,7 @@ import com.wl.college.entity.Dept;
 import com.wl.college.entity.User;
 import com.wl.college.service.DeptService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import static com.wl.college.enums.Constants.USER_FILE_SAVE_RELATIVE_PATH;
 /**
  * Created by DIY on 2017/8/17.
  */
+@Service
 public class DeptServiceImpl implements DeptService{
 
     private final DeptDao deptDao;
@@ -37,7 +39,7 @@ public class DeptServiceImpl implements DeptService{
         //加权限
         roleList.add(1);
         //添加用户权限
-        userDao.createUserRole(user.getId(),roleList);
+//        userDao.createUserRole(user.getId(),roleList);
         dept.setManagerId(user.getId());
         //创建平台
         deptDao.create(dept);

@@ -24,4 +24,11 @@ public class RoleServiceImpl implements RoleService {
         return roleDao.findAll();
     }
 
+    @Override
+    public void createRole(Role role, List<Integer> permissions) {
+        roleDao.createRole(role);
+        if(permissions!=null && permissions.size()>0){
+            roleDao.createRolePermission(role.getId(), permissions);
+        }
+    }
 }

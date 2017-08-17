@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wl.college.dao.RoleDao">
 
+    <!--role基础sql片段-->
     <sql id="Base_Column_List" >
         id, role, description, available, create_time, update_time
     </sql>
@@ -12,5 +13,20 @@
         <include refid="Base_Column_List" />
         FROM role
     </select>
+
+    <!--创建role-->
+    <insert id="createRole" keyProperty="role.id">
+        insert into role (role, description,available)
+        values (#{role.role,jdbcType=VARCHAR}, #{role.description,jdbcType=VARCHAR},#{role.available,jdbcType=VARCHAR})
+    </insert>
+
+    <!--批量创建role_permission-->
+    <insert id="createRolePermission">
+        INSERT INTO role_permission (role_id, permission_id)
+        VALUES
+        <foreach collection="permissions" item="item" separator=",">
+            (#{id},#{item})
+        </foreach>
+    </insert>
 
 </mapper>

@@ -12,7 +12,6 @@ public interface UserDao {
 
     /**
      * 创建一个用户
-     *
      * @param user
      * @return
      */
