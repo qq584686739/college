@@ -22,8 +22,18 @@ public class DeptController {
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
-    public Object register(Dept dept, User user) {
-        deptService.register(dept,user);
+    public Object register(Dept dept) {
+        try {
+            return deptService.register(dept);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @RequestMapping(method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
+    public Object update(Dept dept) {
+        deptService.update(dept);
         return null;
     }
 }

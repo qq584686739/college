@@ -8,5 +8,7 @@ import com.wl.college.entity.User;
  */
 public interface DeptService {
 
-    Dept register(Dept dept, User user);
+    Dept register(Dept dept);
+
+    Dept update(Dept dept);
 }

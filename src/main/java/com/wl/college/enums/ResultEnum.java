@@ -23,6 +23,9 @@ public enum ResultEnum {
     // 用户相关异常
     INVALID_USER(1001001, "invalid user"),
 
+    // 图片上传失败
+    IMG_ERROR(4001001, "img upload error"),
+
     //职位操作相关异常
     RANK_APPLICATION_CHECK_INFO_GET_ERROR(3001001, "rank application check info get error");
 

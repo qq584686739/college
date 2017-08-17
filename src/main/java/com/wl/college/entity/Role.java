@@ -8,9 +8,9 @@ import java.util.Date;
  */
 public class Role {
     private Integer id;    //id
-    private String name;    //名称
-    private String alias;    //昵称
-    private String note;    //备注
+    private String role;    //名称
+    private String description;    //昵称
+    private String available;    //备注
     private Date createTime;    //创建时间
     private Date updateTime;    //更新时间
 
@@ -22,28 +22,28 @@ public class Role {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getRole() {
+        return role;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    public String getAlias() {
-        return alias;
+    public String getDescription() {
+        return description;
     }
 
-    public void setAlias(String alias) {
-        this.alias = alias;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getNote() {
-        return note;
+    public String getAvailable() {
+        return available;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setAvailable(String available) {
+        this.available = available;
     }
 
     public Date getCreateTime() {

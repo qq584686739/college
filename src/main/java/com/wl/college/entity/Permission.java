@@ -8,9 +8,10 @@ import java.util.Date;
  */
 public class Permission {
     private Integer id;    //id
-    private String name;    //名(后端用)
-    private String alias;    //昵称(前端用)
-    private String note;    //说明
+    private String permission;    //名
+    private String description;    //描述
+    private Integer pid;//父id
+    private String pids;    //父连
     private Date createTime;    //创建时间
     private Date updateTime;    //更新时间
 
@@ -22,28 +23,36 @@ public class Permission {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getPermission() {
+        return permission;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPermission(String permission) {
+        this.permission = permission;
     }
 
-    public String getAlias() {
-        return alias;
+    public String getDescription() {
+        return description;
     }
 
-    public void setAlias(String alias) {
-        this.alias = alias;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getNote() {
-        return note;
+    public Integer getPid() {
+        return pid;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setPid(Integer pid) {
+        this.pid = pid;
+    }
+
+    public String getPids() {
+        return pids;
+    }
+
+    public void setPids(String pids) {
+        this.pids = pids;
     }
 
     public Date getCreateTime() {

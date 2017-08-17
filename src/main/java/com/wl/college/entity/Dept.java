@@ -22,8 +22,27 @@ public class Dept {
     private Integer pid;        //上级推荐人
     private String pids;        //上级推荐人连
     private Date expirationTime;    //到期时间
+    private String licenseImg; //营业执照照片
+
+    private User manager;
 
     public Dept() {
+    }
+
+    public String getLicenseImg() {
+        return licenseImg;
+    }
+
+    public void setLicenseImg(String licenseImg) {
+        this.licenseImg = licenseImg;
+    }
+
+    public User getManager() {
+        return manager;
+    }
+
+    public void setManager(User manager) {
+        this.manager = manager;
     }
 
     public Integer getId() {

@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wl.college.dao.DeptDao">
 
-    <insert id="create">
-
+    <insert id="create" useGeneratedKeys="true" keyProperty="dept.id">
+        INSERT INTO dept SET (name,manager_id,country,city,town,address,area,)
     </insert>
     <select id="findById" resultType="com.wl.college.entity.Dept">
 
