@@ -7,10 +7,10 @@ import java.util.Date;
  * Created by yugoh on 2017/5/18.
  */
 public class Role {
-    private Integer id;    //id
-    private String role;    //名称
-    private String description;    //昵称
-    private String available;    //备注
+    private Integer id;                 //id
+    private String role;                //角色标志
+    private String description;    //角色描述
+    private String available;    //是否启用
     private Date createTime;    //创建时间
     private Date updateTime;    //更新时间
 

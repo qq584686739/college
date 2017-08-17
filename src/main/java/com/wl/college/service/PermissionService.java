@@ -12,4 +12,11 @@ public interface PermissionService {
      * @return List<Permission>
      */
     List<Permission> findAll();
+
+    /**
+     * 创建一个权限
+     * @param permission
+     */
+    void createPermission(Permission permission);
+
 }

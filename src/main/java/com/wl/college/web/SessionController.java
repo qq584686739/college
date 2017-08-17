@@ -1,20 +1,12 @@
 package com.wl.college.web;
 
 import com.wl.college.dto.BaseResult;
-import com.wl.college.enums.Constants;
 import com.wl.college.enums.OperationType;
-import com.wl.college.service.UserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
-import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.subject.Subject;
-import org.apache.shiro.subject.support.DefaultSubjectContext;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.io.Serializable;
-import java.util.*;
 
 
 @CrossOrigin
@@ -25,7 +17,7 @@ public class SessionController {
     @Resource
     private SessionDAO sessionDAO;
 //    @Resource
-//    private UserService userService;
+//    private UserService1 userService;
 //    @Resource
 //    private AccountService accountService;
 

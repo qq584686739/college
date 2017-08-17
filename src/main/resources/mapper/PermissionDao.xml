@@ -12,4 +12,9 @@
     FROM permission
   </select>
 
+    <insert id="createPermission">
+        insert into permission (permission, description, pid, pids)
+        values (#{permission.permission}, #{permission.description},#{permission.pid}, #{permission.pids})
+    </insert>
+
 </mapper>
