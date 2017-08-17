@@ -30,6 +30,7 @@ public class DeptServiceImpl implements DeptService{
     @Transactional
     @Override
     public Dept register(Dept dept, User user) {
+
         //创建用户(负责人)
         userDao.createUser(user);
         List<Integer> roleList=new ArrayList<Integer>();
