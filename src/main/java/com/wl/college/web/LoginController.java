@@ -3,6 +3,7 @@ package com.wl.college.web;
 import com.wl.college.dto.BaseResult;
 import com.wl.college.enums.Constants;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.apache.shiro.subject.Subject;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -81,7 +82,18 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
     public BaseResult<Object> login(Integer id, String email, String password, String rememberMe) {
 
+        try{
 
+            boolean remember = rememberMe != null && rememberMe.equals("true");
+            Subject subject = SecurityUtils.getSubject();
+            UsernamePasswordToken token = new UsernamePasswordToken(String.valueOf(id), password);
+            token.setRememberMe(remember);      //设置记住我
+
+            subject.login(token);           //登录
+
+        }catch (Exception e){
+
+        }
 
 
         return null;

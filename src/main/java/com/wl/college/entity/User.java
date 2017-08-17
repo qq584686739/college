@@ -25,18 +25,18 @@ public class User {
     private int pid;
     private String pids;
     private String state;
-    private String createTime;
-    private String updateTime;
+    private Date createTime;
+    private Date updateTime;
     private String bankCard;
     private String bankCardFront;
     private String bankCardBack;
     private String bankCardState;
     private String idCardState;
-    private String birthdate;
+    private Date birthdate;
     private String gender;
     private int deptId;
     private int signInDay;
-    private String lastSignIn;
+    private Date lastSignIn;
 
     public int getId() {
         return id;
@@ -182,19 +182,19 @@ public class User {
         this.state = state;
     }
 
-    public String getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public String getUpdateTime() {
+    public Date getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(String updateTime) {
+    public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
 
@@ -238,11 +238,11 @@ public class User {
         this.idCardState = idCardState;
     }
 
-    public String getBirthdate() {
+    public Date getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(String birthdate) {
+    public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
 
@@ -270,11 +270,11 @@ public class User {
         this.signInDay = signInDay;
     }
 
-    public String getLastSignIn() {
+    public Date getLastSignIn() {
         return lastSignIn;
     }
 
-    public void setLastSignIn(String lastSignIn) {
+    public void setLastSignIn(Date lastSignIn) {
         this.lastSignIn = lastSignIn;
     }
 }
