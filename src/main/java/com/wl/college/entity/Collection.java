@@ -1,14 +1,17 @@
 package com.wl.college.entity;
 
+import java.util.Date;
+
 /**
  * Created by DIY on 2017/8/17.
  */
-public class UserCollection {
+public class Collection {
     private Integer id;
     private Integer userId;
     private Integer resourceId;
+    private Date createTime;
 
-    public UserCollection() {
+    public Collection() {
     }
 
     public Integer getId() {
@@ -33,5 +36,13 @@ public class UserCollection {
 
     public void setResourceId(Integer resourceId) {
         this.resourceId = resourceId;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }
