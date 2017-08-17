@@ -1,6 +1,7 @@
 package com.wl.college.enums;
 
 /**
+ * 权限
  * Created by DIY on 2017/6/16.
  */
 public class OperationType {

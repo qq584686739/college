@@ -2,9 +2,57 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wl.college.dao.UserDao">
 
+    <!--user表基础sql片段-->
+    <sql id="Base_Column_List" >
+        id, name, referral_code, password, salt, mail, phone, full_name, country, city, address,
+        id_card, id_card_front, id_card_back, id_card_with, pid, pids, state, create_time,
+        update_time, bank_card, bank_card_front, bank_card_back, bank_card_state, id_card_state,
+        birthdate, gender, dept_id, sign_in_day, last_sign_in
+    </sql>
+
+    <sql id="Role_List" >
+        id, role, description, available, create_time, update_time
+    </sql>
+
+    <!--根据唯一标记获取客户-->
     <select id="getUserByTag" resultType="com.wl.college.entity.User">
-        select
+        SELECT
+          <include refid="Base_Column_List" />
+        FROM user
+        WHERE 1=1 AND
+        <if test="id != null" >
+            id = #{id,jdbcType=INTEGER} AND
+        </if>
+        <if test="email != null" >
+            email = #{email,jdbcType=VARCHAR} AND
+        </if>
+        <if test="phone != null" >
+            phone = #{phone,jdbcType=VARCHAR} AND
+        </if>
+        <if test="idCard != null" >
+            idCard = #{idCard,jdbcType=VARCHAR}
+        </if>
     </select>
 
+    <select id="hasRoles" resultType="com.wl.college.entity.Role">
+        SELECT
+        <include refid="Role_List" />
+        FROM role r
+        JOIN user_role ur ON r.id=ur.role_id
+        JOIN user u ON ur.user_id=u.id
+        WHERE 1=1 AND
+        <if test="id != null" >
+            id = #{id,jdbcType=INTEGER} AND
+        </if>
+        <if test="email != null" >
+            email = #{email,jdbcType=VARCHAR} AND
+        </if>
+        <if test="phone != null" >
+            phone = #{phone,jdbcType=VARCHAR} AND
+        </if>
+        <if test="idCard != null" >
+            idCard = #{idCard,jdbcType=VARCHAR}
+        </if>
+    </select>
 
 </mapper>

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
@@ -32,7 +31,7 @@ public class GlobalExceptionResolver implements HandlerExceptionResolver {
         // 返回json格式的错误信息
         try {
             PrintWriter writer = response.getWriter();
-            BaseResult<String> result = new BaseResult(false, ex.getMessage());
+            BaseResult result = new BaseResult(false, ex.getMessage());
             writer.write(JSON.toJSONString(result));
             writer.flush();
         } catch (Exception e) {

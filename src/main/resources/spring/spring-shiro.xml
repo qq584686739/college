@@ -34,7 +34,6 @@
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realms">
             <list>
-                <ref bean="accountRealm"/>
                 <ref bean="userRealm"/>
             </list>
         </property>
@@ -103,7 +102,6 @@
     <!-- Shiro的Web过滤器 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
-        <!--<property name="loginUrl" value="/user/login"/>-->
         <property name="loginUrl" value="/login"/>
         <!--<property name="unauthorizedUrl" value="/index1.html"/>-->
         <property name="filters">

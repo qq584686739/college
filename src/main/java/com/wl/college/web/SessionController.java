@@ -38,7 +38,7 @@ public class SessionController {
     public BaseResult<Object> list() {
 //        List<Map<String, Object>> result = new ArrayList<>();
 //        try{
-//            Collection<Session> sessionAll = sessionDAO.getActiveSessions();        //得到所有的session
+//            UserCollection<Session> sessionAll = sessionDAO.getActiveSessions();        //得到所有的session
 //            //遍历一下，删掉没有登录的
 //            for (Session sessionTemp : sessionAll) {
 //                Serializable sessionId = sessionTemp.getId();               //得到每一个sessionId

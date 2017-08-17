@@ -66,6 +66,8 @@
           <element id="library" level="project" name="Maven: com.dyuproject.protostuff:protostuff-api:1.0.8" />
           <element id="library" level="project" name="Maven: com.dyuproject.protostuff:protostuff-runtime:1.0.8" />
           <element id="library" level="project" name="Maven: com.dyuproject.protostuff:protostuff-collectionschema:1.0.8" />
+          <element id="library" level="project" name="Maven: com.aliyun:aliyun-java-sdk-core:3.2.2" />
+          <element id="library" level="project" name="Maven: com.aliyun:aliyun-java-sdk-dm:3.0.1-rc3" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-quartz:1.2.2" />
           <element id="library" level="project" name="Maven: org.opensymphony.quartz:quartz:1.6.1" />
           <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.6" />

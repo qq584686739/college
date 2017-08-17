@@ -5,13 +5,13 @@ import java.util.Date;
 /**
  * Created by DIY on 2017/8/17.
  */
-public class Collection {
+public class UserCollection {
     private Integer id;
     private Integer userId;
     private Integer resourceId;
     private Date createTime;
 
-    public Collection() {
+    public UserCollection() {
     }
 
     public Integer getId() {

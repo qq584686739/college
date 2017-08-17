@@ -1,6 +1,8 @@
 package com.wl.college.filter;
 
 
+import com.wl.college.enums.Constants;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.web.filter.PathMatchingFilter;
 import org.springframework.stereotype.Component;
 
@@ -28,7 +30,7 @@ public class SysUserFilter extends PathMatchingFilter {
      */
     @Override
     protected boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
-        Integer id = null;
+//        Integer id = null;
 //        try{
 //            id = (Integer) SecurityUtils.getSubject().getPrincipal();
 //        }catch (Exception e){

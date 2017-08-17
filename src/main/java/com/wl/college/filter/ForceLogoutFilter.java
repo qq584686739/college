@@ -3,7 +3,6 @@ package com.wl.college.filter;
 import com.wl.college.enums.Constants;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.web.filter.AccessControlFilter;
-import org.apache.shiro.web.util.WebUtils;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletRequest;
@@ -28,7 +27,7 @@ public class ForceLogoutFilter extends AccessControlFilter {
         if (session == null) {
 //            throw new RuntimeException();
 //            return true;
-            return false;
+            return false;       //进入下面的方法
         }
 
         //如果被管理员踢出去，则return false，没有被踢出去，则返回true
@@ -48,7 +47,7 @@ public class ForceLogoutFilter extends AccessControlFilter {
         try {
             if(getSubject(request, response) != null){
                 getSubject(request, response).logout();//强制退出
-                response1.setStatus(Constants.NOT_LOGIN_RESPONSE_STATE);            //被踢出去，返回902
+                response1.setStatus(Constants.KICKOUT_RESPONSE_STATE);            //被踢出去！返回902
                 return false;
             }
         } catch (Exception e) {/*ignore exception*/}

@@ -23,13 +23,6 @@ public enum ResultEnum {
     // 用户相关异常
     INVALID_USER(1001001, "invalid user"),
 
-    //MT5异常
-    MT5_INVOKE_ERROR(2001001, "mt5 api invoke error"),
-    MT5_DEPOSIT(2001002, "mt5 UserDepositChange error"),
-    MT5_BALANCE(2001003, "mt5 balance not enough"),
-    MT_RET_ERR_NOTFOUND(2001004, "mt5 order not found"),
-    MT5_BALANCE_GET_ERROR(2001005, "mt5 balance get error"),
-
     //职位操作相关异常
     RANK_APPLICATION_CHECK_INFO_GET_ERROR(3001001, "rank application check info get error");
 
