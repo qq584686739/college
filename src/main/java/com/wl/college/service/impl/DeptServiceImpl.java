@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.wl.college.enums.Constants.USER_FILE_SAVE_RELATIVE_PATH;
+
 /**
  * Created by DIY on 2017/8/17.
  */
@@ -31,6 +33,7 @@ public class DeptServiceImpl implements DeptService{
         //创建用户(负责人)
         userDao.createUser(user);
         List<Integer> roleList=new ArrayList<Integer>();
+        //加权限
         roleList.add(1);
         //添加用户权限
         userDao.createUserRole(user.getId(),roleList);
