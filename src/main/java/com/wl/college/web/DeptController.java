@@ -31,7 +31,7 @@ public class DeptController {
         return false;
     }
 
-    @RequestMapping(method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
+    @RequestMapping(value="/update",method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
     public Object update(Dept dept) {
         deptService.update(dept);
         return null;

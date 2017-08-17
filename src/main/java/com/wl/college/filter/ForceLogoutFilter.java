@@ -2,6 +2,7 @@ package com.wl.college.filter;
 
 import com.wl.college.enums.Constants;
 import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.springframework.stereotype.Component;
 
@@ -44,9 +45,11 @@ public class ForceLogoutFilter extends AccessControlFilter {
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
         HttpServletResponse response1 = (HttpServletResponse) response;
+        Subject subject = getSubject(request, response);
         try {
-            if(getSubject(request, response) != null){
+            if(subject != null && subject.isAuthenticated()){
                 getSubject(request, response).logout();//强制退出
+                System.out.println("被踢出去了");
                 response1.setStatus(Constants.KICKOUT_RESPONSE_STATE);            //被踢出去！返回902
                 return false;
             }
@@ -55,6 +58,7 @@ public class ForceLogoutFilter extends AccessControlFilter {
 //        String loginUrl = getLoginUrl() + (getLoginUrl().contains("?") ? "&" : "?") + "forceLogout=1";
 //        System.out.println("test.loginUrl = " + loginUrl);
 //        WebUtils.issueRedirect(request, response, loginUrl);
+        System.out.println("没有登录903");
         response1.setStatus(Constants.NOT_LOGIN_RESPONSE_STATE);                    //没有登录！903
         return false;
     }

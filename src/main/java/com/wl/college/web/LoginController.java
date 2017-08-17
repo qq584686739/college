@@ -7,7 +7,10 @@ import com.wl.college.realm.UsernamePasswordUsertypeToken;
 import com.wl.college.service.RoleService;
 import com.wl.college.service.UserService;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresUser;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +22,8 @@ import java.util.List;
 @CrossOrigin
 @RestController
 public class LoginController {
+
+    private static final Logger log = LoggerFactory.getLogger(RoleController.class);
 
     private final UserService userService;
 
@@ -80,6 +85,7 @@ public class LoginController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
     public BaseResult<Object> login(String loginName, String password, String rememberMe) {
+        log.info("invoke----------/login.POST");
         try{
             boolean remember = rememberMe != null && rememberMe.equals("true");
             Subject subject = SecurityUtils.getSubject();
@@ -114,16 +120,16 @@ public class LoginController {
      * 统一退出登录
      * @return BaseResult<Object>
      */
+    @RequiresUser
     @RequestMapping(value = "/logout", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
     public BaseResult<Object> logout() {
+        log.info("invoke----------/logout.GET");
         Subject subject = SecurityUtils.getSubject();
         if (subject.isAuthenticated()) {
             subject.logout();
         } else {
             return new BaseResult<>(false, Constants.ERROR_LOGOUT);
         }
-
-        //退出返回true和error
         return new BaseResult<>(true, null);
     }
 }

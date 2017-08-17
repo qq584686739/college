@@ -24,6 +24,11 @@ public class RoleServiceImpl implements RoleService {
         return roleDao.findAll();
     }
 
+    /**
+     * 创建一个role并分配权限
+     * @param role
+     * @param permissions
+     */
     @Override
     public void createRole(Role role, List<Integer> permissions) {
         roleDao.createRole(role);
