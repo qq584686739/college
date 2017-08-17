@@ -1,11 +1,5 @@
 package com.wl.college.web;
 
-//import com.m.crm.dto.BaseResult;
-//import com.m.crm.entity.Account;
-//import com.m.crm.enums.Constants;
-//import com.m.crm.realm.UsernamePasswordUsertypeToken;
-//import com.m.crm.service.AccountService;
-//import com.m.crm.service.UserService;
 import com.wl.college.dto.BaseResult;
 import com.wl.college.enums.Constants;
 import org.apache.shiro.SecurityUtils;
@@ -39,31 +33,31 @@ public class LoginController {
      * @param response
      * @return 若是已经登陆成功的则返回true，没有登录或者
      */
-    @RequestMapping(value = "/login", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
-    public BaseResult<Object> login_get(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("login进来了");
-        String info = Constants.NOT_LOGIN;
-        boolean isLogin;
-        try {
-            isLogin = SecurityUtils.getSubject().isAuthenticated();
-            response.setStatus(Constants.NOT_LOGIN_RESPONSE_STATE);
-            if (isLogin) {
-                info = Constants.LOGIN_SUCCESS;
-                response.setStatus(Constants.GOOD_RESPONSE_STATE);
-            }
-            if (request.getParameter("kickout") != null) {      //被挤掉的时候转发带着kickout=1
-                info = Constants.DIFFERENT_ADDRESS_LOGIN;
-                response.setStatus(Constants.DIFFERENT_ADDRESS_RESPONSE_STATE);
-            } else if (request.getParameter("forceLogout") != null) {
-                info = Constants.KICKOUT;
-                response.setStatus(Constants.KICKOUT_RESPONSE_STATE);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new BaseResult<Object>(false, info);
-        }
-        return new BaseResult<Object>(isLogin, info);
-    }
+//    @RequestMapping(value = "/login", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+//    public BaseResult<Object> login_get(HttpServletRequest request, HttpServletResponse response) {
+//        System.out.println("login进来了");
+//        String info = Constants.NOT_LOGIN;
+//        boolean isLogin;
+//        try {
+//            isLogin = SecurityUtils.getSubject().isAuthenticated();
+//            response.setStatus(Constants.NOT_LOGIN_RESPONSE_STATE);
+//            if (isLogin) {
+//                info = Constants.LOGIN_SUCCESS;
+//                response.setStatus(Constants.GOOD_RESPONSE_STATE);
+//            }
+//            if (request.getParameter("kickout") != null) {      //被挤掉的时候转发带着kickout=1
+//                info = Constants.DIFFERENT_ADDRESS_LOGIN;
+//                response.setStatus(Constants.DIFFERENT_ADDRESS_RESPONSE_STATE);
+//            } else if (request.getParameter("forceLogout") != null) {
+//                info = Constants.KICKOUT;
+//                response.setStatus(Constants.KICKOUT_RESPONSE_STATE);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return new BaseResult<Object>(false, info);
+//        }
+//        return new BaseResult<Object>(isLogin, info);
+//    }
 
     /**
      * 统一登录接口
@@ -82,12 +76,14 @@ public class LoginController {
      * @param email      用户的邮箱
      * @param password   密码
      * @param rememberMe 记住我
-     * @param rank       职位 user、account
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
-    public BaseResult<Object> login(Integer id, String email, String password, String rememberMe, String rank) {
-        System.out.println("login post 进入...");
+    public BaseResult<Object> login(Integer id, String email, String password, String rememberMe) {
+
+
+
+
         return null;
 //        try {
 //            Account account = null;

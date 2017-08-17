@@ -9,35 +9,34 @@ import java.util.Date;
 public class User {
     private int id;
     private String name;
-    private String referral_code;
+    private String referralCode;
     private String password;
     private String salt;
     private String mail;
     private String phone;
-    private String full_name;
+    private String fullName;
     private String country;
     private String city;
     private String address;
-    private String id_card;
-    private String id_card_front;
-    private String id_card_back;
-    private String id_card_with;
+    private String idCard;
+    private String idCardFront;
+    private String idCardBack;
+    private String idCardWith;
     private int pid;
     private String pids;
     private String state;
-    private String create_time;
-    private String update_time;
-    private String bank_card;
-    private String bank_card_front;
-    private String bank_card_back;
-    private String bank_card_state;
-    private String id_card_state;
+    private String createTime;
+    private String updateTime;
+    private String bankCard;
+    private String bankCardFront;
+    private String bankCardBack;
+    private String bankCardState;
+    private String idCardState;
     private String birthdate;
     private String gender;
-    private int dept_id;
-    private int sign_in_day;
-    private String last_sign_in;
-
+    private int deptId;
+    private int signInDay;
+    private String lastSignIn;
 
     public int getId() {
         return id;
@@ -55,12 +54,12 @@ public class User {
         this.name = name;
     }
 
-    public String getReferral_code() {
-        return referral_code;
+    public String getReferralCode() {
+        return referralCode;
     }
 
-    public void setReferral_code(String referral_code) {
-        this.referral_code = referral_code;
+    public void setReferralCode(String referralCode) {
+        this.referralCode = referralCode;
     }
 
     public String getPassword() {
@@ -95,12 +94,12 @@ public class User {
         this.phone = phone;
     }
 
-    public String getFull_name() {
-        return full_name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFull_name(String full_name) {
-        this.full_name = full_name;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getCountry() {
@@ -127,36 +126,36 @@ public class User {
         this.address = address;
     }
 
-    public String getId_card() {
-        return id_card;
+    public String getIdCard() {
+        return idCard;
     }
 
-    public void setId_card(String id_card) {
-        this.id_card = id_card;
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
     }
 
-    public String getId_card_front() {
-        return id_card_front;
+    public String getIdCardFront() {
+        return idCardFront;
     }
 
-    public void setId_card_front(String id_card_front) {
-        this.id_card_front = id_card_front;
+    public void setIdCardFront(String idCardFront) {
+        this.idCardFront = idCardFront;
     }
 
-    public String getId_card_back() {
-        return id_card_back;
+    public String getIdCardBack() {
+        return idCardBack;
     }
 
-    public void setId_card_back(String id_card_back) {
-        this.id_card_back = id_card_back;
+    public void setIdCardBack(String idCardBack) {
+        this.idCardBack = idCardBack;
     }
 
-    public String getId_card_with() {
-        return id_card_with;
+    public String getIdCardWith() {
+        return idCardWith;
     }
 
-    public void setId_card_with(String id_card_with) {
-        this.id_card_with = id_card_with;
+    public void setIdCardWith(String idCardWith) {
+        this.idCardWith = idCardWith;
     }
 
     public int getPid() {
@@ -183,60 +182,60 @@ public class User {
         this.state = state;
     }
 
-    public String getCreate_time() {
-        return create_time;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setCreate_time(String create_time) {
-        this.create_time = create_time;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
-    public String getUpdate_time() {
-        return update_time;
+    public String getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdate_time(String update_time) {
-        this.update_time = update_time;
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
 
-    public String getBank_card() {
-        return bank_card;
+    public String getBankCard() {
+        return bankCard;
     }
 
-    public void setBank_card(String bank_card) {
-        this.bank_card = bank_card;
+    public void setBankCard(String bankCard) {
+        this.bankCard = bankCard;
     }
 
-    public String getBank_card_front() {
-        return bank_card_front;
+    public String getBankCardFront() {
+        return bankCardFront;
     }
 
-    public void setBank_card_front(String bank_card_front) {
-        this.bank_card_front = bank_card_front;
+    public void setBankCardFront(String bankCardFront) {
+        this.bankCardFront = bankCardFront;
     }
 
-    public String getBank_card_back() {
-        return bank_card_back;
+    public String getBankCardBack() {
+        return bankCardBack;
     }
 
-    public void setBank_card_back(String bank_card_back) {
-        this.bank_card_back = bank_card_back;
+    public void setBankCardBack(String bankCardBack) {
+        this.bankCardBack = bankCardBack;
     }
 
-    public String getBank_card_state() {
-        return bank_card_state;
+    public String getBankCardState() {
+        return bankCardState;
     }
 
-    public void setBank_card_state(String bank_card_state) {
-        this.bank_card_state = bank_card_state;
+    public void setBankCardState(String bankCardState) {
+        this.bankCardState = bankCardState;
     }
 
-    public String getId_card_state() {
-        return id_card_state;
+    public String getIdCardState() {
+        return idCardState;
     }
 
-    public void setId_card_state(String id_card_state) {
-        this.id_card_state = id_card_state;
+    public void setIdCardState(String idCardState) {
+        this.idCardState = idCardState;
     }
 
     public String getBirthdate() {
@@ -255,27 +254,27 @@ public class User {
         this.gender = gender;
     }
 
-    public int getDept_id() {
-        return dept_id;
+    public int getDeptId() {
+        return deptId;
     }
 
-    public void setDept_id(int dept_id) {
-        this.dept_id = dept_id;
+    public void setDeptId(int deptId) {
+        this.deptId = deptId;
     }
 
-    public int getSign_in_day() {
-        return sign_in_day;
+    public int getSignInDay() {
+        return signInDay;
     }
 
-    public void setSign_in_day(int sign_in_day) {
-        this.sign_in_day = sign_in_day;
+    public void setSignInDay(int signInDay) {
+        this.signInDay = signInDay;
     }
 
-    public String getLast_sign_in() {
-        return last_sign_in;
+    public String getLastSignIn() {
+        return lastSignIn;
     }
 
-    public void setLast_sign_in(String last_sign_in) {
-        this.last_sign_in = last_sign_in;
+    public void setLastSignIn(String lastSignIn) {
+        this.lastSignIn = lastSignIn;
     }
 }

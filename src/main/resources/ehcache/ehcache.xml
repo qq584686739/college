@@ -33,6 +33,7 @@
            statistics="true">
     </cache>
 
+    <!--session缓存-->
     <cache name="shiro-activeSessionCache"
            maxEntriesLocalHeap="2000"
            eternal="false"
