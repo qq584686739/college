@@ -5,8 +5,20 @@ import com.wl.college.entity.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Set;
+
 
 public interface UserDao {
+
+    /**
+     * 创建一个用户
+     *
+     * @param user
+     * @return
+     */
+    void createUser(@Param("user") User user);
+
+    void updateDept(@Param("userId") int userId, @Param("deptId") Integer deptId);
 
     /**
      * 根据唯一标记获取客户

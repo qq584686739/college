@@ -6,6 +6,14 @@ public class Constants {
     /**用户被踢出去*/
     public static final String SESSION_FORCE_LOGOUT_KEY = "session.force.logout";
 
+    //用户图片文件数据库存储地址
+    public static final String USER_FILE_SAVE_RELATIVE_PATH = "/user/img/";
+    //用户图片文件服务器存储地址
+    public static final String USER_FILE_SAVE_ABSOLUTE_PATH = "/data/nginx/html/my/user/img/";
+    //DEPT图片文件数据库存储地址
+    public static final String DEPT_FILE_SAVE_RELATIVE_PATH = "/dept/img/";
+    //DEPT图片文件服务器存储地址
+    public static final String DEPT_FILE_SAVE_ABSOLUTE_PATH = "/data/nginx/html/my/dept/img/";
 
     //登录信息
     //登陆成功

@@ -17,7 +17,7 @@
     <!--根据唯一标记获取客户-->
     <select id="getUserByTag" resultType="com.wl.college.entity.User">
         SELECT
-          <include refid="Base_Column_List" />
+        <include refid="Base_Column_List" />
         FROM user
         WHERE 1=1 AND
         <if test="id != null" >
@@ -55,4 +55,19 @@
         </if>
     </select>
 
+    <!-- 插入并返回自增ID -->
+    <insert id="createUser" useGeneratedKeys="true" keyProperty="user.id">
+        INSERT INTO user (name, password, mail, phone,full_name,country,city,address,id_card,id_card_front,id_card_back,
+        id_card_with,bank_card,pid,pids,bank_card_front,bank_card_back,birthdate,gender,dept_id)
+        VALUES (#{user.name},#{user.password},#{user.mail},#{user.phone},#{user.fullName},#{user.country},#{user.city},
+        #{user.address},#{user.idCard},#{user.idCardFront},#{user.idCardBack},#{user.idCardWith},#{user.bankCard},
+        #{user.pid},#{user.pids},#{user.bankCardFront},#{user.bankCardBack},#{user.birthdate},#{user.gender},#{user.deptId})
+    </insert>
+
+
+    <update id="updateDept">
+        UPDATE user
+        SET dept_id = #{deptId}
+        WHERE id = #{userId}
+    </update>
 </mapper>
