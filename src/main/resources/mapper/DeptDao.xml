@@ -3,9 +3,40 @@
 <mapper namespace="com.wl.college.dao.DeptDao">
 
     <insert id="create" useGeneratedKeys="true" keyProperty="dept.id">
-        INSERT INTO dept SET (name,manager_id,country,city,town,address,area,)
+        INSERT INTO dept (name,manager_id,country,city,town,address,area,state,expiration_time) VALUES (#{dept.name},
+        #{dept.managerId},#{dept.country},#{dept.city},#{dept.town},#{dept.address},#{dept.area},#{dept.state},
+        #{dept.expirationTime});
     </insert>
+    <update id="update">
+        update dept
+        <set>
+            <if test="dept.name != null">
+                `name` = #{dept.name},
+            </if>
+            <if test="dept.country != null">
+                country = #{dept.country},
+            </if>
+            <if test="dept.city != null">
+                city = #{dept.city},
+            </if>
+            <if test="dept.town != null">
+                town = #{dept.town},
+            </if>
+            <if test="dept.address != null">
+                address = #{dept.address},
+            </if>
+            <if test="dept.area != null">
+                area = #{dept.area},
+            </if>
+            <if test="dept.state != null">
+                state = #{dept.state},
+            </if>
+            <if test="dept.expirationTime != null">
+                expiration_time = #{dept.expirationTime},
+            </if>
+        </set>
+    </update>
     <select id="findById" resultType="com.wl.college.entity.Dept">
-
+        SELECT * FROM  dept where id=#{id}
     </select>
 </mapper>

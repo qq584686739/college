@@ -10,4 +10,6 @@ public interface DeptDao {
     void create(@Param("dept") Dept dept);
 
     Dept findById(@Param("id") Integer id);
+
+    Integer update(@Param("dept") Dept dept);
 }
