@@ -106,12 +106,13 @@ public class LoginController {
                     //手机号登录
                     roles = userService.hasRoles(null, null, loginName, null);
                 }
-                return new BaseResult<>(false, roles);
+                return new BaseResult<>(true, roles);
             }else{
                 //登录失败
                 return new BaseResult<>(false, "登录失败（到时候以错误代码替代）");
             }
         }catch (Exception e){
+            e.printStackTrace();
             return new BaseResult<>(false, "登录失败（到时候以错误代码替代）");
         }
     }

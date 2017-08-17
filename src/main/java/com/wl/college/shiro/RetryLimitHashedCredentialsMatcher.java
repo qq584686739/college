@@ -13,13 +13,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * 匹配器
  */
+
 @Component("credentialsMatcher")
 public class RetryLimitHashedCredentialsMatcher extends SimpleCredentialsMatcher {
 
     private Cache<String, AtomicInteger> passwordRetryCache;
 
-
     @Autowired
+    private CacheManager cacheManager;
+
+
     public RetryLimitHashedCredentialsMatcher(CacheManager cacheManager) {
         passwordRetryCache = cacheManager.getCache("passwordRetryCache");
     }

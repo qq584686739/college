@@ -8,6 +8,7 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
@@ -17,14 +18,11 @@ import org.springframework.stereotype.Component;
 /**
  * 管理员登录验证器
  */
-@Component
+
 public class UserRealm extends AuthorizingRealm {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private RetryLimitHashedCredentialsMatcher credentialsMatcher;
 
     @Override
     public String getName() {
