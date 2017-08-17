@@ -62,11 +62,75 @@
         VALUES (#{user.name},#{user.password},#{user.mail},#{user.phone},#{user.fullName},#{user.country},#{user.city},
         #{user.address},#{user.pid},#{user.pids},#{user.deptId})
     </insert>
-
-
     <update id="updateDept">
         UPDATE user
         SET dept_id = #{deptId}
         WHERE id = #{userId}
+    </update>
+    <update id="update">
+        update user
+        <set>
+            <if test="user.name != null">
+                `name` = #{dept.name},
+            </if>
+            <if test="user.mail != null">
+                country = #{user.mail},
+            </if>
+            <if test="user.city != null">
+                city = #{user.city},
+            </if>
+            <if test="user.town != null">
+                town = #{user.town},
+            </if>
+            <if test="user.address != null">
+                address = #{user.address},
+            </if>
+            <if test="user.phone != null">
+                phone = #{user.phone},
+            </if>
+            <if test="user.state != null">
+                state = #{user.state},
+            </if>
+            <if test="user.fullName != null">
+                full_name = #{user.fullName},
+            </if>
+            <if test="user.idCard != null">
+                id_card = #{user.idCard},
+            </if>
+            <if test="user.idCardFront != null">
+                id_card_front = #{user.idCardFront},
+            </if>
+            <if test="user.idCardWith != null">
+                id_card_back = #{user.idCardWith},
+            </if>
+            <if test="user.bankCard != null">
+                bank_card = #{user.bankCard},
+            </if>
+            <if test="user.bankCardFront != null">
+                bank_card_front = #{user.bankCardFront},
+            </if>
+            <if test="user.bankCardBack != null">
+                bank_card_back = #{user.bankCardBack},
+            </if>
+            <if test="user.bankCardState != null">
+                bank_card_state = #{user.bankCardState},
+            </if>
+            <if test="user.idCardState != null">
+                id_card_state = #{user.idCardState},
+            </if>
+            <if test="user.birthdate != null">
+                birthdate = #{user.birthdate},
+            </if>
+            <if test="user.deptId != null">
+                dept_id = #{user.deptId},
+            </if>
+            <if test="user.signInDay != null">
+                sign_in_day = #{user.signInDay},
+            </if>
+            <if test="user.lastSignIn != null">
+                last_sign_in = #{user.lastSignIn},
+            </if>
+        </set>
+        where id=#{userId}
     </update>
 </mapper>

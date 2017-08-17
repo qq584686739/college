@@ -50,6 +50,9 @@ public class DeptServiceImpl implements DeptService{
 
     @Override
     public Dept update(Dept dept) {
+        Integer update = deptDao.update(dept);
+        final Dept result = deptDao.findById(dept.getId());
+        userDao.update(dept.getManager(),dept.getManagerId());
         return null;
     }
 }
