@@ -110,4 +110,8 @@ public interface UserDao {
      * @param state
      */
     void updateState(@Param("userId") Integer userId, @Param("state") String state);
+
+    void insert(@Param("user") User user);
+
+    void updateDept(@Param("userId") int userId, @Param("deptId") Integer deptId);
 }

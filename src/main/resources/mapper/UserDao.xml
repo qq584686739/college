@@ -4,11 +4,11 @@
 
     <!-- 插入并返回自增ID -->
     <insert id="createUser" useGeneratedKeys="true" keyProperty="user.id">
-        INSERT INTO _user (name, password, email, phone)
-        VALUES (#{user.name,jdbcType=VARCHAR},
-                #{user.password,jdbcType=VARCHAR},
-                #{user.email,jdbcType=VARCHAR},
-                #{user.phone,jdbcType=VARCHAR})
+        INSERT INTO user (name, password, mail, phone,full_name,country,city,address,id_card,id_card_front,id_card_back,
+        id_card_with,bank_card,pid,pids,bank_card_front,bank_card_back,birthdate,gender,dept_id)
+        VALUES (#{user.name},#{user.password},#{user.mail},#{user.phone},#{user.fullName},#{user.country},#{user.city},
+        #{user.address},#{user.idCard},#{user.idCardFront},#{user.idCardBack},#{user.idCardWith},#{user.bankCard},
+        #{user.pid},#{user.pids},#{user.bankCardFront},#{user.bankCardBack},#{user.birthdate},#{user.gender},#{user.deptId})
     </insert>
 
     <!-- 根据ID更新 -->
@@ -115,7 +115,7 @@
 
 
     <insert id="createUserRole">
-        INSERT INTO _user_role(user_id, role_id)
+        INSERT INTO user_role(user_id, role_id)
         VALUES
         <foreach collection="roleList" item="item" separator="," >
             (#{userId,jdbcType=INTEGER},#{item})
@@ -134,8 +134,13 @@
 
 
     <update id="updateState">
-        UPDATE _user
+        UPDATE user
         SET state = #{state}
+        WHERE id = #{userId}
+    </update>
+    <update id="updateDept">
+        UPDATE user
+        SET dept_id = #{deptId}
         WHERE id = #{userId}
     </update>
 
