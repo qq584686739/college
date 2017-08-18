@@ -3,13 +3,14 @@ package com.wl.college.entity;
 import java.util.Date;
 
 /**
+ * 用户收藏
  * Created by DIY on 2017/8/17.
  */
 public class UserCollection {
-    private Integer id;
-    private Integer userId;
-    private Integer resourceId;
-    private Date createTime;
+    private Integer id;// 主键
+    private Integer userId; //用户id
+    private Integer resourceId;//z资源id
+    private Date createTime;//创建时间
 
     public UserCollection() {
     }

@@ -6,11 +6,11 @@ package com.wl.college.entity;
 public class UserTeacher {
     private Integer id;
     private Integer userId;
-    private String teacherName;
-    private String skill;
-    private String profile;
-    private String headPicture;
-    private Integer priority;
+    private String teacherName;//老师姓名
+    private String skill;//技能
+    private String profile;//个人简介
+    private String headPicture;//头像
+    private Integer priority;//优先级
 
     public UserTeacher() {
     }

@@ -5,9 +5,9 @@ package com.wl.college.entity;
  */
 public class ShoppingCart {
     private Integer id;
-    private Integer userId;
-    private Integer resourceId;
-    private String type;
+    private Integer userId;//用户id
+    private Integer resourceId;//资源id
+    private String type;//类型
 
     public ShoppingCart() {
     }

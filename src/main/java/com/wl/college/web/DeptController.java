@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
  * Created by DIY on 2017/8/17.
  */
 @RestController
-@RequestMapping("/dept")
+@RequestMapping("/depts")
 public class DeptController {
     private final DeptService deptService;
 

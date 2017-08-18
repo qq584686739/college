@@ -4,11 +4,11 @@ package com.wl.college.entity;
  * Created by DIY on 2017/8/17.
  */
 public class UserCourse {
-    private Integer id;
-    private Integer UserId;
-    private Integer courseId;
-    private Integer schedule;
-    private Integer isTest;
+    private Integer id;//自增主键
+    private Integer userId;//用户id
+    private Integer courseId;//课程号
+    private Integer schedule;//进度
+    private Integer isTest;//是否可用考试
 
     public UserCourse() {
     }
@@ -22,11 +22,11 @@ public class UserCourse {
     }
 
     public Integer getUserId() {
-        return UserId;
+        return userId;
     }
 
     public void setUserId(Integer userId) {
-        UserId = userId;
+        this.userId = userId;
     }
 
     public Integer getCourseId() {
