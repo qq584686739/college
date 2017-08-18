@@ -3,21 +3,21 @@
 <mapper namespace="com.wl.college.dao.RoleDao">
 
     <!--role基础sql片段-->
-    <sql id="Base_Column_List" >
+    <sql id="Base_Column_List">
         id, role, description, available, create_time, update_time
     </sql>
 
     <!-- 找到系统所有角色 -->
     <select id="findAll" resultType="com.wl.college.entity.Role">
         SELECT
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         FROM role
     </select>
 
     <!--创建role-->
     <insert id="createRole" keyProperty="role.id">
-        insert into role (role, description,available)
-        values (#{role.role,jdbcType=VARCHAR}, #{role.description,jdbcType=VARCHAR},#{role.available,jdbcType=VARCHAR})
+        INSERT INTO role (role, description, available)
+        VALUES (#{role.role,jdbcType=VARCHAR}, #{role.description,jdbcType=VARCHAR}, #{role.available,jdbcType=VARCHAR})
     </insert>
 
     <!--批量创建role_permission-->
@@ -33,13 +33,13 @@
     <update id="updateRole">
         UPDATE role r
         SET
-          r.role = #{role.role},
-        <if test="role.description != null" >
+        r.role = #{role.role},
+        <if test="role.description != null">
             r.description = #{role.description},
         </if>
-          r.available = #{role.available}
+        r.available = #{role.available}
         WHERE
-          r.id = #{role.id}
+        r.id = #{role.id}
     </update>
 
     <!--根据role的id删除role_permission-->
@@ -53,7 +53,7 @@
     <!--根据id获得role-->
     <select id="getOne" resultType="com.wl.college.entity.Role">
         SELECT
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         FROM role
         WHERE id = #{id}
     </select>

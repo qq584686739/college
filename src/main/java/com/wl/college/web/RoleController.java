@@ -5,7 +5,6 @@ import com.wl.college.dto.BaseResult;
 import com.wl.college.entity.Role;
 import com.wl.college.enums.OperationType;
 import com.wl.college.service.RoleService;
-import org.apache.ibatis.annotations.Param;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/role")
 public class RoleController {
@@ -60,7 +58,7 @@ public class RoleController {
             }
         }
         roleService.createRole(role, permissionsList);      //创建角色同时分配权限
-    return new BaseResult<>(true, null);
+        return new BaseResult<>(true, null);
     }
 
 
@@ -94,8 +92,8 @@ public class RoleController {
      */
     @RequestMapping(value = "/getOne", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
 //    @RequiresPermissions(OperationType.ROLE_UPDATE)
-    public BaseResult getOne(@RequestParam Integer id) {
+    public BaseResult<Role> getOne(@RequestParam Integer id) {
         log.info("invoke----------/role/getOne.GET");
-        return new BaseResult(true, roleService.getOne(id));      //根据id获得一个role并返回
+        return new BaseResult<>(true, roleService.getOne(id));      //根据id获得一个role并返回
     }
 }

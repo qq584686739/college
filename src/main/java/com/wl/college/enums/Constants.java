@@ -21,8 +21,7 @@ public class Constants {
     public static final String DIFFERENT_ADDRESS_LOGIN = "Your account is logged on in different places. Please log in again!";
     //您已经被管理员踢出，请重新登录
     public static final String KICKOUT = "You have been kicked out by the administrator. Please log in again!";
-    /**没有登录，退出登录失败*/
-    public static final String ERROR_LOGOUT = "You are not logged in. You cannot quit";
+
     //rank参数错误，请重试
     public static final String RANK_ERROR = "Parameter error by \"rank\"";
     //用户名或密码错误

@@ -12,6 +12,7 @@ public interface UserDao {
 
     /**
      * 创建一个用户
+     *
      * @param user
      * @return
      */
@@ -21,23 +22,25 @@ public interface UserDao {
 
     /**
      * 根据唯一标记获取客户
+     *
      * @param id
      * @param email
      * @param phone
      * @param idCard
      * @return
      */
-    User getUserByTag(@Param("id")Integer id, @Param("email")String email, @Param("phone")String phone, @Param("idCard")String idCard) ;
+    User getUserByTag(@Param("id") Integer id, @Param("email") String email, @Param("phone") String phone, @Param("idCard") String idCard);
 
     /**
      * 根据唯一标记获得用户的角色
+     *
      * @param id
      * @param email
      * @param phone
      * @param idCard
      * @return
      */
-    List<Role> hasRoles(@Param("id")Integer id, @Param("email")String email, @Param("phone")String phone, @Param("idCard")String idCard);
+    List<Role> hasRoles(@Param("id") Integer id, @Param("email") String email, @Param("phone") String phone, @Param("idCard") String idCard);
 
     Integer update(@Param("user") User manager, @Param("userId") Integer managerId);
 
@@ -47,6 +50,7 @@ public interface UserDao {
 
     /**
      * 根据条件获取一部分user
+     *
      * @param user
      * @param offset
      * @param limit
@@ -55,16 +59,19 @@ public interface UserDao {
      * @return
      */
     List<User> listUser(
-            @Param("user")User user,
-            @Param("offset")Integer offset,
-            @Param("limit")Integer limit,
-            @Param("sort_field")String sort_field,
-            @Param("sort_rule")String sort_rule);
+            @Param("user") User user,
+            @Param("offset") Integer offset,
+            @Param("limit") Integer limit,
+            @Param("sort_field") String sort_field,
+            @Param("sort_rule") String sort_rule);
 
     /**
      * 根据筛选条件查找筛选条件下的所有user
+     *
      * @param user
      * @return Integer
      */
     Integer findCount(User user);
+
+
 }
