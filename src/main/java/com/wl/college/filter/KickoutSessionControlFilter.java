@@ -1,5 +1,6 @@
 package com.wl.college.filter;
 
+import com.wl.college.enums.Constants;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.session.Session;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 import java.util.Deque;
 import java.util.LinkedList;
@@ -20,27 +22,27 @@ import java.util.LinkedList;
 @Component
 public class KickoutSessionControlFilter extends AccessControlFilter {
 
-    private String kickoutUrl; //踢出后到的地址
+//    private String kickoutUrl; //踢出后到的地址
     private boolean kickoutAfter = false; //踢出之前登录的/之后登录的用户 默认踢出之前登录的用户
     private int maxSession = 1; //同一个帐号最大会话数 默认1
 
-    @Autowired
     private SessionManager sessionManager;
 
     private Cache<String, Deque<Serializable>> cache;
 
-    public void setKickoutUrl(String kickoutUrl) {
-        this.kickoutUrl = kickoutUrl;
-    }
+//    public void setKickoutUrl(String kickoutUrl) {
+//        this.kickoutUrl = kickoutUrl;
+//    }
 
-    public void setKickoutAfter(boolean kickoutAfter) {
-        this.kickoutAfter = kickoutAfter;
-    }
+//    public void setKickoutAfter(boolean kickoutAfter) {
+//        this.kickoutAfter = kickoutAfter;
+//    }
 
-    public void setMaxSession(int maxSession) {
-        this.maxSession = maxSession;
-    }
+//    public void setMaxSession(int maxSession) {
+//        this.maxSession = maxSession;
+//    }
 
+    @Autowired
     public void setSessionManager(SessionManager sessionManager) {
         this.sessionManager = sessionManager;
     }
@@ -106,8 +108,12 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
                 subject.logout();
             } catch (Exception e) { //ignore
             }
-            saveRequest(request);
-            WebUtils.issueRedirect(request, response, kickoutUrl);
+
+            //设置同一账号被挤掉，901状态码
+            ((HttpServletResponse)response).setStatus(Constants.DIFFERENT_ADDRESS_RESPONSE_STATE);        //同一账号被挤掉了！！！    901
+
+//            saveRequest(request);
+//            WebUtils.issueRedirect(request, response, kickoutUrl);
             return false;
         }
         return true;

@@ -20,14 +20,19 @@ public class SpringCacheManagerWrapper implements CacheManager {
     @Autowired
     private org.springframework.cache.CacheManager springCacheManager;
 
+    public org.springframework.cache.CacheManager getSpringCacheManager() {
+        return springCacheManager;
+    }
+
     /**
      * 设置spring cache manager
-     *
-     * @param cacheManager
+     * @param springCacheManager
      */
-    public void setCacheManager(org.springframework.cache.CacheManager cacheManager) {
-        this.springCacheManager = cacheManager;
+    public void setSpringCacheManager(org.springframework.cache.CacheManager springCacheManager) {
+        this.springCacheManager = springCacheManager;
     }
+
+
 
     public <K, V> Cache<K, V> getCache(String name) throws CacheException {
         org.springframework.cache.Cache springCache = springCacheManager.getCache(name);

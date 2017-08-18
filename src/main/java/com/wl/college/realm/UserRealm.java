@@ -19,10 +19,22 @@ import org.springframework.stereotype.Component;
  * 管理员登录验证器
  */
 
+@Component
 public class UserRealm extends AuthorizingRealm {
 
     @Autowired
     private UserService userService;
+
+
+    @Autowired
+    @Override
+    public void setCredentialsMatcher(CredentialsMatcher credentialsMatcher) {
+        super.setCredentialsMatcher(credentialsMatcher);
+    }
+
+    public UserRealm() {
+        super.setCachingEnabled(Boolean.FALSE);
+    }
 
     @Override
     public String getName() {
