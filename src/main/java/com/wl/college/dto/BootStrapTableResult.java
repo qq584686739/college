@@ -1,31 +1,42 @@
 package com.wl.college.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * ajax请求的关于BootStrap表格的数据结构
+ * bootstraptable请求返回
  *
  * @param <T>
  * @author yugoh
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BootStrapTableResult<T> implements Serializable {
 
     private static final long serialVersionUID = -4185151304730685014L;
 
-    private List<T> data;
+    private Integer total;
+    private List<T> rows;
 
-    public BootStrapTableResult(List<T> data) {
-        super();
-        this.data = data;
+    public BootStrapTableResult(Integer total, List<T> rows) {
+        this.total = total;
+        this.rows = rows;
     }
 
-    public List<T> getData() {
-        return data;
+    public Integer getTotal() {
+        return total;
     }
 
-    public void setData(List<T> data) {
-        this.data = data;
+    public void setTotal(Integer total) {
+        this.total = total;
     }
 
+    public List<T> getRows() {
+        return rows;
+    }
+
+    public void setRows(List<T> rows) {
+        this.rows = rows;
+    }
 }

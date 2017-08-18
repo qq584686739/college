@@ -33,7 +33,7 @@ public class DeptController {
     @PutMapping(value = "/change/state", produces = {"application/json;charset=UTF-8"})
     public BaseResult<Object> changeState(Integer id,String state) {
         deptService.changeState(id,state);
-        return new BaseResult(true, null);
+        return new BaseResult(true,null);
     }
 
 

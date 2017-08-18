@@ -6,6 +6,8 @@ import com.wl.college.dao.UserDao;
 import com.wl.college.entity.Dept;
 import com.wl.college.entity.User;
 import com.wl.college.enums.ResultEnum;
+import com.wl.college.exception.BizException;
+import com.wl.college.exception.BizExceptionEnum;
 import com.wl.college.service.DeptService;
 import com.wl.college.utils.IdCardUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +62,7 @@ public class DeptServiceImpl implements DeptService{
         //更新dept
         Integer deptUpdate = deptDao.update(dept);
         if(deptUpdate!=1){
-            throw  new RuntimeException(ResultEnum.DB_UPDATE_RESULT_ERROR.getMsg());
+            throw  new BizException(BizExceptionEnum.DB_UPDATE_RESULT_ERROR);
         }
         //根据dept 查找managerid
         Dept result = deptDao.findById(dept.getId());
@@ -72,7 +74,7 @@ public class DeptServiceImpl implements DeptService{
         //更新
         Integer userUpdate = userDao.update(manager, result.getManagerId());
         if(userUpdate!=1){
-            throw  new RuntimeException(ResultEnum.DB_UPDATE_RESULT_ERROR.getMsg());
+            throw  new BizException(BizExceptionEnum.DB_UPDATE_RESULT_ERROR);
         }
         System.out.println(result.getManagerId());
         User user=userDao.findById(result.getManagerId());

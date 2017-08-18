@@ -35,6 +35,6 @@
     <context:component-scan base-package="com.wl.college.web" />
 
     <!--全局异常捕捉 -->
-    <bean class="com.wl.college.exception.GlobalExceptionResolver" />
+    <bean class="com.wl.college.exception.GlobalExceptionHandler" />
 
 </beans>
