@@ -14,17 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/courses")
-public class CourseContriller {
+public class CourseController {
     final
     private CourseService courseService;
 
     @Autowired
-    public CourseContriller(CourseService courseService) {
+    public CourseController(CourseService courseService) {
         this.courseService = courseService;
     }
 
     /**
      * 添加课程
+     *
      * @param course
      * @return
      */

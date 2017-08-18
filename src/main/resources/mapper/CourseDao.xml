@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wl.college.dao.CourseDao">
+    <sql id="Base_Column_List">
+        id, name, dept_id, price, icon, pid, details, description, pids, number
+    </sql>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="course.id">
+        INSERT INTO course (id, name, dept_id,
+                            price, icon, pid, details,
+                            description, pids, number
+        )
+        VALUES (#{course.id}, #{course.name}, #{course.deptId}, #{course.price}, #{course.icon}, #{course.pid},
+                #{course.details},
+                #{course.description}, #{course.pids}, #{course.number}
+        )
+    </insert>
+    <select id="findById" resultType="com.wl.college.entity.Course">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM course
+        where id=#{id}
+    </select>
 </mapper>

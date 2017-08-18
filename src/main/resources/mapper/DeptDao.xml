@@ -3,21 +3,23 @@
 <mapper namespace="com.wl.college.dao.DeptDao">
     <sql id="Base_Column_List">
         dept.id, dept.name, dept.manager_id, dept.country, dept.city, dept.town, dept.address, dept.area, dept.license, dept.bank_card,
-         dept.create_time,dept.update_time, dept.state, dept.pid, dept.pids, dept.expiration_time,dept.license_img
+        dept.create_time, dept.update_time, dept.state, dept.pid, dept.pids, dept.expiration_time, dept.license_img
     </sql>
 
     <sql id="User_Column_List">
-        user.id as uid, user.name as uname, user.referral_code, user.password,user.salt, user.mail as umail, user.phone,
-        user.full_name,user.country as ucountry,user.city as ucity,user.address as uaddress, user.id_card, user.id_card_front,
-        user.id_card_back, user.id_card_with,user.pid as upid, user.pids as upids,user.state as ustate,
-        user.create_time as ucreate_time, user.update_time as uupdate_time, user.bank_card as ubank_card,user.bank_card_front,
+        user.id as uid, user.name as uname, user.referral_code, user.password, user.salt, user.mail as umail, user.phone,
+        user.full_name, user.country as ucountry, user.city as ucity, user.address as uaddress, user.id_card, user.id_card_front,
+        user.id_card_back, user.id_card_with, user.pid as upid, user.pids as upids, user.state as ustate,
+        user.create_time as ucreate_time, user.update_time as uupdate_time, user.bank_card as ubank_card, user.bank_card_front,
         user.bank_card_back, user.bank_card_state, user.id_card_state, user.birthdate, user.gender, user.dept_id,
         user.sign_in_day, user.last_sign_in
     </sql>
     <insert id="create" useGeneratedKeys="true" keyProperty="dept.id">
-        INSERT INTO dept (name,manager_id,country,city,town,address,area,state,expiration_time,bank_card,pid) VALUES (#{dept.name},
-        #{dept.managerId},#{dept.country},#{dept.city},#{dept.town},#{dept.address},#{dept.area},#{dept.state},
-        #{dept.expirationTime},#{dept.bankCard},#{dept.pid});
+        INSERT INTO dept (name, manager_id, country, city, town, address, area, state, expiration_time, bank_card, pid)
+        VALUES (#{dept.name},
+            #{dept.managerId}, #{dept.country}, #{dept.city}, #{dept.town}, #{dept.address}, #{dept.area},
+            #{dept.state},
+            #{dept.expirationTime}, #{dept.bankCard}, #{dept.pid});
     </insert>
     <update id="update">
         update dept
@@ -56,7 +58,9 @@
         where id =#{dept.id}
     </update>
     <update id="updateState">
-          update dept set state=#{state} where id=#{id}
+        UPDATE dept
+        SET state = #{state}
+        WHERE id = #{id}
     </update>
     <select id="findById" resultType="com.wl.college.entity.Dept">
         SELECT
@@ -78,25 +82,30 @@
         ORDER BY ${field} ${rule}
         LIMIT #{offset}, #{limit};
     </select>
+    <select id="total" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM dept, user
+        WHERE dept.manager_id = user.id;
+    </select>
 
-    <resultMap id="BaseResultMap" type="com.wl.college.entity.Dept" >
-        <id column="id" property="id" jdbcType="INTEGER" />
-        <result column="name" property="name" jdbcType="VARCHAR" />
-        <result column="manager_id" property="managerId" jdbcType="INTEGER" />
-        <result column="country" property="country" jdbcType="VARCHAR" />
-        <result column="city" property="city" jdbcType="VARCHAR" />
-        <result column="town" property="town" jdbcType="VARCHAR" />
-        <result column="address" property="address" jdbcType="VARCHAR" />
-        <result column="area" property="area" jdbcType="VARCHAR" />
-        <result column="license" property="license" jdbcType="VARCHAR" />
-        <result column="bank_card" property="bankCard" jdbcType="VARCHAR" />
-        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-        <result column="state" property="state" jdbcType="VARCHAR" />
-        <result column="pid" property="pid" jdbcType="INTEGER" />
-        <result column="pids" property="pids" jdbcType="VARCHAR" />
+    <resultMap id="BaseResultMap" type="com.wl.college.entity.Dept">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="manager_id" property="managerId" jdbcType="INTEGER"/>
+        <result column="country" property="country" jdbcType="VARCHAR"/>
+        <result column="city" property="city" jdbcType="VARCHAR"/>
+        <result column="town" property="town" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="area" property="area" jdbcType="VARCHAR"/>
+        <result column="license" property="license" jdbcType="VARCHAR"/>
+        <result column="bank_card" property="bankCard" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="state" property="state" jdbcType="VARCHAR"/>
+        <result column="pid" property="pid" jdbcType="INTEGER"/>
+        <result column="pids" property="pids" jdbcType="VARCHAR"/>
         <result column="expiration_time" property="expirationTime"/>
-        <result column="license_img" property="licenseImg"  />
+        <result column="license_img" property="licenseImg"/>
         <association property="manager" javaType="com.wl.college.entity.User">
             <id column="uid" property="id" jdbcType="INTEGER"/>
             <result column="uname" property="name" jdbcType="VARCHAR"/>

@@ -94,4 +94,9 @@ public class DeptServiceImpl implements DeptService{
     public List<Dept> list(Dept dept, Integer offset, Integer limit, String field, String rule) {
         return deptDao.list(dept,offset,limit,field,rule);
     }
+
+    @Override
+    public Integer total(Dept dept) {
+        return deptDao.total(dept);
+    }
 }

@@ -1,8 +1,8 @@
 package com.wl.college.web;
 
 import com.wl.college.dto.BaseResult;
+import com.wl.college.dto.BootStrapTableResult;
 import com.wl.college.entity.Dept;
-import com.wl.college.entity.User;
 import com.wl.college.service.DeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -62,12 +62,12 @@ public class DeptController {
      * @return
      */
     @GetMapping(produces = {"application/json;charset=UTF-8"})
-    public BaseResult<Object> list(@RequestParam(value = "dept", required = false) Dept dept,
-                                   @RequestParam(value = "offset",required = false, defaultValue = "0")Integer offset,
-                                   @RequestParam(value = "limit", required = false, defaultValue = "100")Integer limit,
-                                   @RequestParam(value = "sort", required = false, defaultValue = "id")String sort,
-                                   @RequestParam(value = "order", required = false, defaultValue = "ASC")String order) {
-        return new BaseResult<>(true, deptService.list(dept,offset,limit,sort,order));
+    public BootStrapTableResult<Dept> list(@RequestParam(value = "dept", required = false) Dept dept,
+                                           @RequestParam(value = "offset",required = false, defaultValue = "0")Integer offset,
+                                           @RequestParam(value = "limit", required = false, defaultValue = "100")Integer limit,
+                                           @RequestParam(value = "sort", required = false, defaultValue = "id")String sort,
+                                           @RequestParam(value = "order", required = false, defaultValue = "ASC")String order) {
+        return new BootStrapTableResult<Dept>(deptService.total(dept), deptService.list(dept,offset,limit,sort,order));
     }
 
 

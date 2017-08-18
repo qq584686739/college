@@ -41,4 +41,6 @@ public interface DeptService {
      * @return
      */
     List<Dept> list(Dept dept, Integer offset, Integer limit, String field, String rule);
+
+    Integer total(Dept dept);
 }

@@ -19,4 +19,6 @@ public interface DeptDao {
 
     List<Dept> list(@Param("dept") Dept dept, @Param("offset") Integer offset, @Param("limit") Integer limit,
                     @Param("field") String field, @Param("rule") String rule);
+
+    Integer total(@Param("dept") Dept dept);
 }
