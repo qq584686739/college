@@ -80,4 +80,10 @@ public class DeptServiceImpl implements DeptService{
         result.setManager(user);
         return result;
     }
+
+    @Override
+    public void changeState(Integer id, String state) {
+        deptDao.updateState(id,state);
+        userDao.updateStateByDept(id,state);
+    }
 }

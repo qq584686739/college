@@ -43,7 +43,11 @@
         </set>
         where id =#{dept.id}
     </update>
+    <update id="updateState">
+          update dept set state=#{state} where id=#{id}
+    </update>
     <select id="findById" resultType="com.wl.college.entity.Dept">
-        SELECT * FROM  dept where id=#{id}
+        SELECT id, name, manager_id, country, city, town, address, area, license, bank_card, create_time,
+    update_time, state, pid, pids, expiration_time,license_img FROM  dept where id=#{id}
     </select>
 </mapper>

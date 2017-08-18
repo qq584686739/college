@@ -42,4 +42,6 @@ public interface UserDao {
     Integer update(@Param("user") User manager, @Param("userId") Integer managerId);
 
     User findById(@Param("managerId") Integer managerId);
+
+    void updateStateByDept(@Param("id") Integer id, @Param("state") String state);
 }

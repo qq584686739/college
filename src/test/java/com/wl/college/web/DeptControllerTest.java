@@ -73,4 +73,12 @@ public class DeptControllerTest {
         ).andDo(print()).andExpect(status().isOk());;
     }
 
+    @Test
+    public void changeState() throws Exception {
+        mockMvc.perform(put("/dept/change/state")
+                .param("state","0")
+                .param("id","10")
+        ).andDo(print()).andExpect(status().isOk());;
+    }
+
 }

@@ -22,11 +22,19 @@ public class DeptController {
 
     @PostMapping(produces = {"application/json;charset=UTF-8"})
     public BaseResult<Dept> register(Dept dept) {
-        return new BaseResult<Dept>(true, deptService.register(dept));
+        return new BaseResult<>(true, deptService.register(dept));
     }
 
     @PutMapping(value = "/update", produces = {"application/json;charset=UTF-8"})
     public BaseResult<Dept> update(Dept dept) {
-        return new BaseResult<Dept>(true, deptService.update(dept));
+        return new BaseResult<>(true, deptService.update(dept));
     }
+
+    @PutMapping(value = "/change/state", produces = {"application/json;charset=UTF-8"})
+    public BaseResult<Object> changeState(Integer id,String state) {
+        deptService.changeState(id,state);
+        return new BaseResult(true, null);
+    }
+
+
 }

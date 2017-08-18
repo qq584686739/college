@@ -12,4 +12,6 @@ public interface DeptDao {
     Dept findById(@Param("id") Integer id);
 
     Integer update(@Param("dept") Dept dept);
+
+    Integer updateState(@Param("id") Integer id, @Param("state") String state);
 }
