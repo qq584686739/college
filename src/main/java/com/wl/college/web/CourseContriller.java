@@ -23,6 +23,11 @@ public class CourseContriller {
         this.courseService = courseService;
     }
 
+    /**
+     * 添加课程
+     * @param course
+     * @return
+     */
     @PostMapping(produces = {"application/json;charset=UTF-8"})
     public BaseResult<Course> create(Course course) {
         return new BaseResult<>(true, courseService.create(course));
