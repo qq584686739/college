@@ -26,4 +26,15 @@ public interface UserService {
      * @return List<Role>
      */
     List<Role> hasRoles(Integer id, String email, String phone, String idCard);
+
+    /**
+     * 根据条件获取一部分user
+     * @param user
+     * @param offset
+     * @param limit
+     * @param gender
+     * @param dept_id
+     * @return List<User>
+     */
+    List<User> listUser(User user, Integer offset, Integer limit, String gender, String dept_id);
 }

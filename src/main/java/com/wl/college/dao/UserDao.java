@@ -42,4 +42,19 @@ public interface UserDao {
     Integer update(@Param("user") User manager, @Param("userId") Integer managerId);
 
     User findById(@Param("managerId") Integer managerId);
+
+    /**
+     * 根据条件获取一部分user
+     * @param user
+     * @param offset
+     * @param limit
+     * @param gender
+     * @param dept_id
+     * @return
+     */
+    List<User> listUser(@Param("user")User user,
+                        @Param("offset")Integer offset,
+                        @Param("limit")Integer limit,
+                        @Param("gender")String gender,
+                        @Param("dept_id")String dept_id);
 }
