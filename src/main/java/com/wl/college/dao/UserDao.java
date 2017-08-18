@@ -40,4 +40,6 @@ public interface UserDao {
     List<Role> hasRoles(@Param("id")Integer id, @Param("email")String email, @Param("phone")String phone, @Param("idCard")String idCard);
 
     Integer update(@Param("user") User manager, @Param("userId") Integer managerId);
+
+    User findById(@Param("managerId") Integer managerId);
 }

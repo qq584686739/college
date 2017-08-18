@@ -55,6 +55,9 @@
             AND idCard = #{idCard}
         </if>
     </select>
+    <select id="findById" resultType="com.wl.college.entity.User">
+        SELECT * from `user` where id=#{managerId}
+    </select>
 
     <!-- 插入并返回自增ID -->
     <insert id="createUser" useGeneratedKeys="true" keyProperty="user.id">
