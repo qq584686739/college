@@ -70,7 +70,7 @@ public class DeptControllerTest {
                 .param("manager.bankCardFront","manager.bankCardFront")
                 .param("manager.bankCardBack","manager.bankCardBack")
                 .param("id","10")
-        ).andDo(print()).andExpect(status().isOk());;
+        ).andDo(print()).andExpect(status().isOk());
     }
 
     @Test
@@ -86,5 +86,7 @@ public class DeptControllerTest {
         mockMvc.perform(get("/depts")
         ).andDo(print()).andExpect(status().isOk());;
     }
+
+
 
 }

@@ -136,4 +136,7 @@
         </set>
         where id=#{userId}
     </update>
+    <update id="updateStateByDept">
+        UPDATE  user set state=#{state} where dept_id=#{id}
+    </update>
 </mapper>

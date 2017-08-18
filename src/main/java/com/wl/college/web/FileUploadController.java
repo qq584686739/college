@@ -25,17 +25,16 @@ public class FileUploadController {
     /**
      * 管理员给别人上传
      * @param file
-     * @param filePath
-     * @param name
-     * @param type
+     * @param name   id_card_back 等
+     * @param type  dept / user
      * @param id
      * @return
      */
     @RequestMapping(method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
     public Object register(@RequestParam("uploadFile") MultipartFile file,
-                           String filePath, String name,String type,Integer id) {
+                            String name,String type,Integer id) {
         try {
-            String path=type+"/"+id+"/"+filePath;
+            String path=type+"/"+id;
             return fileUploadService.upload(file,path,name+".jpg");
         }catch (Exception e){
             System.out.println(e.getMessage());

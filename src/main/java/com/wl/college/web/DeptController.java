@@ -57,18 +57,19 @@ public class DeptController {
      * @param dept
      * @param offset
      * @param limit
-     * @param field
-     * @param rule
+     * @param sort
+     * @param order
      * @return
      */
     @GetMapping(produces = {"application/json;charset=UTF-8"})
     public BaseResult<Object> list(@RequestParam(value = "dept", required = false) Dept dept,
                                    @RequestParam(value = "offset",required = false, defaultValue = "0")Integer offset,
                                    @RequestParam(value = "limit", required = false, defaultValue = "100")Integer limit,
-                                   @RequestParam(value = "sort_field", required = false, defaultValue = "id")String field,
-                                   @RequestParam(value = "sort_rule", required = false, defaultValue = "ASC")String rule) {
-        return new BaseResult<>(true, deptService.list(dept,offset,limit,field,rule));
+                                   @RequestParam(value = "sort", required = false, defaultValue = "id")String sort,
+                                   @RequestParam(value = "order", required = false, defaultValue = "ASC")String order) {
+        return new BaseResult<>(true, deptService.list(dept,offset,limit,sort,order));
     }
+
 
 
 }
