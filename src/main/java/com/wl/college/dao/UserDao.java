@@ -50,13 +50,21 @@ public interface UserDao {
      * @param user
      * @param offset
      * @param limit
-     * @param gender
-     * @param dept_id
+     * @param sort_field
+     * @param sort_rule
      * @return
      */
-    List<User> listUser(@Param("user")User user,
-                        @Param("offset")Integer offset,
-                        @Param("limit")Integer limit,
-                        @Param("gender")String gender,
-                        @Param("dept_id")String dept_id);
+    List<User> listUser(
+            @Param("user")User user,
+            @Param("offset")Integer offset,
+            @Param("limit")Integer limit,
+            @Param("sort_field")String sort_field,
+            @Param("sort_rule")String sort_rule);
+
+    /**
+     * 根据筛选条件查找筛选条件下的所有user
+     * @param user
+     * @return Integer
+     */
+    Integer findCount(User user);
 }

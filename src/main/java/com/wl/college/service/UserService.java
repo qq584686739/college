@@ -27,14 +27,22 @@ public interface UserService {
      */
     List<Role> hasRoles(Integer id, String email, String phone, String idCard);
 
+
     /**
      * 根据条件获取一部分user
      * @param user
      * @param offset
      * @param limit
-     * @param gender
-     * @param dept_id
+     * @param sort_field
+     * @param sort_rule
      * @return List<User>
      */
-    List<User> listUser(User user, Integer offset, Integer limit, String gender, String dept_id);
+    List<User> listUser(User user, Integer offset, Integer limit, String sort_field, String sort_rule);
+
+    /**
+     * 根据筛选调教查找条件下的所有user
+     * @param user
+     * @return
+     */
+    Integer findCount(User user);
 }

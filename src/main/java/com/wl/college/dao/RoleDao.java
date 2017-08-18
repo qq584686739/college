@@ -29,4 +29,23 @@ public interface RoleDao {
      * @param permissions
      */
     void createRolePermission(@Param("id")Integer id, @Param("permissions")List<Integer> permissions);
+
+    /**
+     * 修改一个role
+     * @param role
+     */
+    void updateRole(@Param("role")Role role);
+
+    /**
+     * 删除role_permission
+     * @param id
+     */
+    void deleteRolePermission(@Param("id") Integer id);
+
+    /**
+     * 根据id获得一个role
+     * @param id
+     * @return
+     */
+    Role getOne(@Param("id")Integer id);
 }

@@ -26,7 +26,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> listUser(User user, Integer offset, Integer limit, String gender, String dept_id) {
-        return userDao.listUser(user, offset, limit, gender, dept_id);
+    public List<User> listUser(User user, Integer offset, Integer limit, String sort_field, String sort_rule){
+        return userDao.listUser(user, offset, limit, sort_field, sort_rule);
+    }
+
+    @Override
+    public Integer findCount(User user) {
+        return userDao.findCount(user);
     }
 }

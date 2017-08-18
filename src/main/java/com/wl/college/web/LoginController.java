@@ -12,10 +12,7 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -84,35 +81,29 @@ public class LoginController {
      * @return BaseResult<Object>
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
-    public BaseResult<Object> login(String loginName, String password, String rememberMe) {
+    public BaseResult<Object> login(@RequestParam String loginName, @RequestParam String password,@RequestParam boolean rememberMe) {
         log.info("invoke----------/login.POST");
-        try{
-            boolean remember = rememberMe != null && rememberMe.equals("true");
-            Subject subject = SecurityUtils.getSubject();
-            String loginFlag = loginName==null?"": loginName.contains("@") ?"email":"phone";       //判断loginName是否有@，有@则是邮箱登录，没有则是手机号登录
-            UsernamePasswordUsertypeToken token = new UsernamePasswordUsertypeToken(loginName, password, loginFlag);
-            token.setRememberMe(remember);      //设置记住我
+        Subject subject = SecurityUtils.getSubject();
+        String loginFlag = loginName==null?"": loginName.contains("@") ?"email":"phone";       //判断loginName是否有@，有@则是邮箱登录，没有则是手机号登录
+        UsernamePasswordUsertypeToken token = new UsernamePasswordUsertypeToken(loginName, password, loginFlag);
+        token.setRememberMe(rememberMe);      //设置记住我
 
-            subject.login(token);           //登录
+        subject.login(token);           //登录
 
-            boolean isLogin = subject.isAuthenticated();
-            if (isLogin) {
-                //登录成功，返回角色
-                List<Role> roles;
-                if(loginFlag.equals("email")){
-                    //邮箱登录
-                    roles = userService.hasRoles(null, loginName, null, null);
-                }else{
-                    //手机号登录
-                    roles = userService.hasRoles(null, null, loginName, null);
-                }
-                return new BaseResult<>(true, roles);
+        boolean isLogin = subject.isAuthenticated();
+        if (isLogin) {
+            //登录成功，返回角色
+            List<Role> roles;
+            if(loginFlag.equals("email")){
+                //邮箱登录
+                roles = userService.hasRoles(null, loginName, null, null);
             }else{
-                //登录失败
-                return new BaseResult<>(false, "登录失败（到时候以错误代码替代）");
+                //手机号登录
+                roles = userService.hasRoles(null, null, loginName, null);
             }
-        }catch (Exception e){
-            e.printStackTrace();
+            return new BaseResult<>(true, roles);
+        }else{
+            //登录失败
             return new BaseResult<>(false, "登录失败（到时候以错误代码替代）");
         }
     }

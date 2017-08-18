@@ -4,9 +4,8 @@ import com.wl.college.dto.BaseResult;
 import com.wl.college.enums.OperationType;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
 
 
 @CrossOrigin
@@ -14,12 +13,14 @@ import javax.annotation.Resource;
 @RequestMapping("/sessions")
 @RequiresPermissions(OperationType.SESSION_ALL)
 public class SessionController {
-    @Resource
-    private SessionDAO sessionDAO;
+    private final SessionDAO sessionDAO;
+
+    @Autowired
+    public SessionController(SessionDAO sessionDAO) {
+        this.sessionDAO = sessionDAO;
+    }
 //    @Resource
 //    private UserService1 userService;
-//    @Resource
-//    private AccountService accountService;
 
     /**
      * 管理员查看在线客户和管理员
