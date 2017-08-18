@@ -17,12 +17,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Component("credentialsMatcher")
 public class RetryLimitHashedCredentialsMatcher extends SimpleCredentialsMatcher {
 
-    private Cache<String, AtomicInteger> passwordRetryCache;
+    private final Cache<String, AtomicInteger> passwordRetryCache;
 
     @Autowired
-    private CacheManager cacheManager;
-
-
     public RetryLimitHashedCredentialsMatcher(CacheManager cacheManager) {
         passwordRetryCache = cacheManager.getCache("passwordRetryCache");
     }
