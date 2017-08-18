@@ -20,24 +20,36 @@ public class DeptController {
         this.deptService = deptService;
     }
 
+    /**
+     * 管理员新增平台
+     * @param dept
+     * @return
+     */
     @PostMapping(produces = {"application/json;charset=UTF-8"})
     public BaseResult<Dept> register(Dept dept) {
-        try {
-            return  new BaseResult(true,deptService.register(dept));
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return new BaseResult(false,null);
+        return new BaseResult<>(true, deptService.register(dept));
     }
 
-    @PutMapping(value = "/update" , produces = {"application/json;charset=UTF-8"})
+    /**
+     * 更新平台文件信息
+     * @param dept
+     * @return
+     */
+    @PutMapping(value = "/update", produces = {"application/json;charset=UTF-8"})
     public BaseResult<Dept> update(Dept dept) {
-
-        try {
-            return  new BaseResult(true, deptService.update(dept));
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return new BaseResult(false,null);
+        return new BaseResult<>(true, deptService.update(dept));
     }
+
+    /**
+     * 修改平台状态
+     * @param id
+     * @param state
+     * @return
+     */
+    @PutMapping(value = "/change/state", produces = {"application/json;charset=UTF-8"})
+    public BaseResult<Object> changeState(Integer id,String state) {
+        deptService.changeState(id,state);
+        return new BaseResult<>(true,null);
+    }
+
 }

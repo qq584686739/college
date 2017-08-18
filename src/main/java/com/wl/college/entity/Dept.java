@@ -172,4 +172,28 @@ public class Dept {
     public void setExpirationTime(Date expirationTime) {
         this.expirationTime = expirationTime;
     }
+
+    @Override
+    public String toString() {
+        return "Dept{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", managerId=" + managerId +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", town='" + town + '\'' +
+                ", address='" + address + '\'' +
+                ", area='" + area + '\'' +
+                ", license='" + license + '\'' +
+                ", bankCard='" + bankCard + '\'' +
+                ", updateTime=" + updateTime +
+                ", createTime=" + createTime +
+                ", state='" + state + '\'' +
+                ", pid=" + pid +
+                ", pids='" + pids + '\'' +
+                ", expirationTime=" + expirationTime +
+                ", licenseImg='" + licenseImg + '\'' +
+                ", manager=" + manager +
+                '}';
+    }
 }

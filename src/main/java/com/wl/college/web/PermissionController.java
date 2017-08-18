@@ -48,7 +48,7 @@ public class PermissionController {
             e.printStackTrace();
             return null;
         }
-        return new BootStrapTableResult<>(list);
+        return new BootStrapTableResult<>(11,list);
     }
 
     /**

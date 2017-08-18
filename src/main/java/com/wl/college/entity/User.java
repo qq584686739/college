@@ -7,7 +7,7 @@ import java.util.Date;
  * Created by yugoh on 2017/5/19.
  */
 public class User {
-    private int id;
+    private Integer id;
     private String name;
     private String referralCode;
     private String password;
@@ -17,12 +17,13 @@ public class User {
     private String fullName;
     private String country;
     private String city;
+    private String town;
     private String address;
     private String idCard;
     private String idCardFront;
     private String idCardBack;
     private String idCardWith;
-    private int pid;
+    private Integer pid;
     private String pids;
     private String state;
     private Date createTime;
@@ -34,15 +35,15 @@ public class User {
     private String idCardState;
     private Date birthdate;
     private String gender;
-    private int deptId;
-    private int signInDay;
+    private Integer deptId;
+    private Integer signInDay;
     private Date lastSignIn;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -118,6 +119,14 @@ public class User {
         this.city = city;
     }
 
+    public String getTown() {
+        return town;
+    }
+
+    public void setTown(String town) {
+        this.town = town;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -158,11 +167,11 @@ public class User {
         this.idCardWith = idCardWith;
     }
 
-    public int getPid() {
+    public Integer getPid() {
         return pid;
     }
 
-    public void setPid(int pid) {
+    public void setPid(Integer pid) {
         this.pid = pid;
     }
 
@@ -254,19 +263,19 @@ public class User {
         this.gender = gender;
     }
 
-    public int getDeptId() {
+    public Integer getDeptId() {
         return deptId;
     }
 
-    public void setDeptId(int deptId) {
+    public void setDeptId(Integer deptId) {
         this.deptId = deptId;
     }
 
-    public int getSignInDay() {
+    public Integer getSignInDay() {
         return signInDay;
     }
 
-    public void setSignInDay(int signInDay) {
+    public void setSignInDay(Integer signInDay) {
         this.signInDay = signInDay;
     }
 

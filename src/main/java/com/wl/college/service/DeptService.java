@@ -11,4 +11,6 @@ public interface DeptService {
     Dept register(Dept dept);
 
     Dept update(Dept dept);
+
+    void changeState(Integer id, String state);
 }

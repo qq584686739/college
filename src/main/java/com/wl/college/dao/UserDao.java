@@ -43,6 +43,8 @@ public interface UserDao {
 
     User findById(@Param("managerId") Integer managerId);
 
+    void updateStateByDept(@Param("id") Integer id, @Param("state") String state);
+
     /**
      * 根据条件获取一部分user
      * @param user
