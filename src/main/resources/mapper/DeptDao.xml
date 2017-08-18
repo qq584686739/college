@@ -35,6 +35,7 @@
                 expiration_time = #{dept.expirationTime},
             </if>
         </set>
+        where id =#{dept.id}
     </update>
     <select id="findById" resultType="com.wl.college.entity.Dept">
         SELECT * FROM  dept where id=#{id}

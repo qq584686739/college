@@ -277,4 +277,40 @@ public class User {
     public void setLastSignIn(Date lastSignIn) {
         this.lastSignIn = lastSignIn;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", referralCode='" + referralCode + '\'' +
+                ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
+                ", mail='" + mail + '\'' +
+                ", phone='" + phone + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", address='" + address + '\'' +
+                ", idCard='" + idCard + '\'' +
+                ", idCardFront='" + idCardFront + '\'' +
+                ", idCardBack='" + idCardBack + '\'' +
+                ", idCardWith='" + idCardWith + '\'' +
+                ", pid=" + pid +
+                ", pids='" + pids + '\'' +
+                ", state='" + state + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", bankCard='" + bankCard + '\'' +
+                ", bankCardFront='" + bankCardFront + '\'' +
+                ", bankCardBack='" + bankCardBack + '\'' +
+                ", bankCardState='" + bankCardState + '\'' +
+                ", idCardState='" + idCardState + '\'' +
+                ", birthdate=" + birthdate +
+                ", gender='" + gender + '\'' +
+                ", deptId=" + deptId +
+                ", signInDay=" + signInDay +
+                ", lastSignIn=" + lastSignIn +
+                '}';
+    }
 }
