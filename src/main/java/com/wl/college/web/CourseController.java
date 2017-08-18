@@ -6,6 +6,7 @@ import com.wl.college.entity.Dept;
 import com.wl.college.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,8 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/courses")
 public class CourseController {
-    final
-    private CourseService courseService;
+    final private CourseService courseService;
 
     @Autowired
     public CourseController(CourseService courseService) {
@@ -26,12 +26,17 @@ public class CourseController {
     /**
      * 添加课程
      *
-     * @param course
+     * @param course 课程信息
      * @return
      */
     @PostMapping(produces = {"application/json;charset=UTF-8"})
     public BaseResult<Course> create(Course course) {
         return new BaseResult<>(true, courseService.create(course));
+    }
+
+    @PutMapping(produces = {"application/json;charset=UTF-8"})
+    public BaseResult<Course> update(Course course) {
+        return new BaseResult<>(true, courseService.update(course));
     }
 
 }

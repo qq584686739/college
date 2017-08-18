@@ -10,4 +10,6 @@ public interface CourseDao {
     Integer insert(@Param("course") Course course);
 
     Course findById(@Param("id") Integer id);
+
+    Integer update(@Param("course") Course course);
 }

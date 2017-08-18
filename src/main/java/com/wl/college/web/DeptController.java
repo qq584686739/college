@@ -67,7 +67,7 @@ public class DeptController {
                                            @RequestParam(value = "limit", required = false, defaultValue = "100")Integer limit,
                                            @RequestParam(value = "sort", required = false, defaultValue = "id")String sort,
                                            @RequestParam(value = "order", required = false, defaultValue = "ASC")String order) {
-        return new BootStrapTableResult<Dept>(deptService.total(dept), deptService.list(dept,offset,limit,sort,order));
+        return new BootStrapTableResult<>(deptService.total(dept), deptService.list(dept,offset,limit,sort,order));
     }
 
 

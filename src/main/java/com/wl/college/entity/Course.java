@@ -1,5 +1,7 @@
 package com.wl.college.entity;
 
+import java.util.Date;
+
 /**
  * Created by DIY on 2017/8/16.
  */
@@ -14,6 +16,8 @@ public class Course {
     private String description; //描述
     private String pids;        //上级依赖连
     private Integer number;      //产品数量
+    private Date updateTime;    //更新时间
+    private Date createTime;    //创建时间
 
     public Course() {
     }
@@ -98,6 +102,22 @@ public class Course {
         this.number = number;
     }
 
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
     @Override
     public String toString() {
         return "Course{" +
@@ -111,6 +131,8 @@ public class Course {
                 ", description='" + description + '\'' +
                 ", pids='" + pids + '\'' +
                 ", number=" + number +
+                ", updateTime=" + updateTime +
+                ", createTime=" + createTime +
                 '}';
     }
 }

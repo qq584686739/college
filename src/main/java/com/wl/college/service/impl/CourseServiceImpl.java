@@ -35,9 +35,28 @@ public class CourseServiceImpl implements CourseService {
         }
         Integer insert = courseDao.insert(course);
         if(insert!=1){
-            throw  new BizException(BizExceptionEnum.DB_UPDATE_RESULT_ERROR);
+            throw  new BizException(BizExceptionEnum.DB_INSERT_RESULT_ERROR);
         }
 
+        return courseDao.findById(course.getId());
+    }
+
+    @Override
+    public Course update(Course course) {
+        Integer pid = course.getPid();
+        System.out.println(course);
+        if (pid != null) {
+            Course pCourse = courseDao.findById(pid);
+            String pids = pCourse.getPids() ;
+            if(pids==null) {
+                pids="";
+            }
+            course.setPids(pids+ pid+ ",");
+        }
+        Integer update = courseDao.update(course);
+        if(update!=1){
+            throw new BizException(BizExceptionEnum.DB_UPDATE_RESULT_ERROR);
+        }
         return courseDao.findById(course.getId());
     }
 }

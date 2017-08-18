@@ -1,5 +1,8 @@
 package com.wl.college.web;
 
+import com.wl.college.dao.CourseDao;
+import com.wl.college.entity.Course;
+import com.wl.college.service.CourseService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +18,7 @@ import java.util.Date;
 
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -26,6 +30,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 public class CourseControllerTest {
     private MockMvc mockMvc;
+    @Autowired
+    private CourseDao courseDao;
 
     @Autowired
     protected WebApplicationContext wac;
@@ -40,13 +46,32 @@ public class CourseControllerTest {
         mockMvc.perform(post("/courses")
                 .param("name","name")
                 .param("price","1111.21")
-                .param("deptId","8")
+                .param("deptId","13")
                 .param("icon","icon")
-                .param("pid","1")
+                .param("pid","17")
                 .param("details","details")
                 .param("description","description")
                 .param("number","11")
         ).andDo(print()).andExpect(status().isOk());;
+    }
+
+    @Test
+    public void update() throws Exception {
+        Course byId = courseDao.findById(19);
+        System.out.println(byId);
+        System.out.println(byId.getUpdateTime().toString());
+        mockMvc.perform(put("/courses")
+                .param("name","n111ame")
+                .param("price","1111.21")
+                .param("deptId","13")
+                .param("icon","icon")
+                .param("pid","18")
+                .param("details","details")
+                .param("description","description")
+                .param("number","11")
+                .param("id","19")
+                .param("updateTime",byId.getUpdateTime().toString())
+        ).andDo(print()).andExpect(status().isOk());
     }
 
 }
