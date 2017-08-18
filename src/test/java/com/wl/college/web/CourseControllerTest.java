@@ -59,7 +59,8 @@ public class CourseControllerTest {
     public void update() throws Exception {
         Course byId = courseDao.findById(19);
         System.out.println(byId);
-        System.out.println(byId.getUpdateTime().toString());
+        new Date(byId.getUpdateTime().getTime()-14*60* 1000);
+        System.out.println();
         mockMvc.perform(put("/courses")
                 .param("name","n111ame")
                 .param("price","1111.21")
@@ -70,7 +71,7 @@ public class CourseControllerTest {
                 .param("description","description")
                 .param("number","11")
                 .param("id","19")
-                .param("updateTime",byId.getUpdateTime().toString())
+                .param("updateTime",new Date(byId.getUpdateTime().getTime()-14*60*60 *1000).toString() )
         ).andDo(print()).andExpect(status().isOk());
     }
 
