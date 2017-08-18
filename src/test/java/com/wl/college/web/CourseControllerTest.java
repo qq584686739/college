@@ -42,7 +42,7 @@ public class CourseControllerTest {
                 .param("price","1111.21")
                 .param("deptId","8")
                 .param("icon","icon")
-//                .param("pid","")
+                .param("pid","1")
                 .param("details","details")
                 .param("description","description")
                 .param("number","11")

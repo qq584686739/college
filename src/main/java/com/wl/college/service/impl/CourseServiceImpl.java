@@ -24,9 +24,14 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Course create(Course course) {
         Integer pid = course.getPid();
+        System.out.println(course);
         if (pid != null) {
             Course pCourse = courseDao.findById(pid);
-            course.setPids(pCourse.getPids() + "," + pid);
+            String pids = pCourse.getPids() ;
+            if(pids==null) {
+                pids="";
+            }
+            course.setPids(pids+ pid+ ",");
         }
         Integer insert = courseDao.insert(course);
         if(insert!=1){

@@ -97,4 +97,20 @@ public class Course {
     public void setNumber(Integer number) {
         this.number = number;
     }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", deptId=" + deptId +
+                ", icon='" + icon + '\'' +
+                ", pid=" + pid +
+                ", details='" + details + '\'' +
+                ", description='" + description + '\'' +
+                ", pids='" + pids + '\'' +
+                ", number=" + number +
+                '}';
+    }
 }
