@@ -133,6 +133,9 @@
             <if test="user.lastSignIn != null">
                 last_sign_in = #{user.lastSignIn},
             </if>
+            <if test="user.password != null">
+                password = #{user.password},
+            </if>
         </set>
         where id=#{userId}
     </update>

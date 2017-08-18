@@ -53,22 +53,23 @@ public class DeptControllerTest {
                 .param("manager.phone","123456")
                 .param("manager.fullName","sssss")
                 .param("bankCard","bankCard")
+                .param("pid","8")
         ).andDo(print()).andExpect(status().isOk());;
     }
 
     @Test
     public void update() throws Exception {
-        mockMvc.perform(put("/update")
+        mockMvc.perform(put("/dept/update")
                 .param("license","license")
                 .param("licenseImg","licenseImg")
-                .param("manager.idCard","manager.idCard")
+                .param("manager.idCard","610102198005121854")
                 .param("manager.idCardFront","manager.idCardFront")
                 .param("manager.idCardBack","manager.idCardBack")
                 .param("manager.idCardWith","manager.idCardWith")
                 .param("manager.bankCard","manager.bankCard")
                 .param("manager.bankCardFront","manager.bankCardFront")
                 .param("manager.bankCardBack","manager.bankCardBack")
-                .param("id","8")
+                .param("id","10")
         ).andDo(print()).andExpect(status().isOk());;
     }
 

@@ -3,9 +3,9 @@
 <mapper namespace="com.wl.college.dao.DeptDao">
 
     <insert id="create" useGeneratedKeys="true" keyProperty="dept.id">
-        INSERT INTO dept (name,manager_id,country,city,town,address,area,state,expiration_time) VALUES (#{dept.name},
+        INSERT INTO dept (name,manager_id,country,city,town,address,area,state,expiration_time,bank_card,pid) VALUES (#{dept.name},
         #{dept.managerId},#{dept.country},#{dept.city},#{dept.town},#{dept.address},#{dept.area},#{dept.state},
-        #{dept.expirationTime});
+        #{dept.expirationTime},#{dept.bankCard},#{dept.pid});
     </insert>
     <update id="update">
         update dept
@@ -33,6 +33,12 @@
             </if>
             <if test="dept.expirationTime != null">
                 expiration_time = #{dept.expirationTime},
+            </if>
+            <if test="dept.license != null">
+                license = #{dept.license},
+            </if>
+            <if test="dept.licenseImg != null">
+                license_img = #{dept.licenseImg},
             </if>
         </set>
         where id =#{dept.id}
