@@ -29,4 +29,33 @@
         </foreach>
     </insert>
 
+    <!--修改一个role-->
+    <update id="updateRole">
+        UPDATE role r
+        SET
+          r.role = #{role.role},
+        <if test="role.description != null" >
+            r.description = #{role.description},
+        </if>
+          r.available = #{role.available}
+        WHERE
+          r.id = #{role.id}
+    </update>
+
+    <!--根据role的id删除role_permission-->
+    <delete id="deleteRolePermission">
+        DELETE FROM
+            role_permission
+        WHERE
+            role_id = #{id}
+    </delete>
+
+    <!--根据id获得role-->
+    <select id="getOne" resultType="com.wl.college.entity.Role">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM role
+        WHERE id = #{id}
+    </select>
+
 </mapper>

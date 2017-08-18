@@ -36,4 +36,28 @@ public class RoleServiceImpl implements RoleService {
             roleDao.createRolePermission(role.getId(), permissions);
         }
     }
+
+    /**
+     * 更新一个role和role_permission
+     * @param role
+     * @param permissionsList
+     */
+    @Override
+    public void updateRole(Role role, List<Integer> permissionsList) {
+        roleDao.updateRole(role);
+        if(permissionsList!=null && permissionsList.size()>0){
+            roleDao.deleteRolePermission(role.getId());
+            roleDao.createRolePermission(role.getId(), permissionsList);
+        }
+    }
+
+    /**
+     * 根据id获得Role
+     * @param id
+     * @return
+     */
+    @Override
+    public Role getOne(Integer id) {
+        return roleDao.getOne(id);
+    }
 }

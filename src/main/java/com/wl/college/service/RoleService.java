@@ -24,4 +24,17 @@ public interface RoleService {
      */
     void createRole(Role role, List<Integer> permissions);
 
+    /**
+     * 更新role和role_permission
+     * @param role
+     * @param permissionsList
+     */
+    void updateRole(Role role, List<Integer> permissionsList);
+
+    /**
+     * 根据id获得role
+     * @param id
+     * @return
+     */
+    Role getOne(Integer id);
 }
