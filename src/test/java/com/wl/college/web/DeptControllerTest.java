@@ -59,7 +59,7 @@ public class DeptControllerTest {
 
     @Test
     public void update() throws Exception {
-        mockMvc.perform(put("/depts/update")
+        mockMvc.perform(put("/depts/perfection")
                 .param("license","license")
                 .param("licenseImg","licenseImg")
                 .param("manager.idCard","610102198005121854")
@@ -75,9 +75,15 @@ public class DeptControllerTest {
 
     @Test
     public void changeState() throws Exception {
-        mockMvc.perform(put("/depts/change/state")
+        mockMvc.perform(put("/depts/state")
                 .param("state","0")
                 .param("id","10")
+        ).andDo(print()).andExpect(status().isOk());;
+    }
+
+    @Test
+    public void list() throws Exception {
+        mockMvc.perform(get("/depts")
         ).andDo(print()).andExpect(status().isOk());;
     }
 

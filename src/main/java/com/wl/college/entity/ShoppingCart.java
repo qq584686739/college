@@ -1,6 +1,6 @@
 package com.wl.college.entity;
 
-/**
+/**购物车
  * Created by DIY on 2017/8/17.
  */
 public class ShoppingCart {

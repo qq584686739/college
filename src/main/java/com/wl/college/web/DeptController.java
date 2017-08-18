@@ -35,9 +35,9 @@ public class DeptController {
      * @param dept
      * @return
      */
-    @PutMapping(value = "/update", produces = {"application/json;charset=UTF-8"})
-    public BaseResult<Dept> update(Dept dept) {
-        return new BaseResult<>(true, deptService.update(dept));
+    @PutMapping(value = "/perfection", produces = {"application/json;charset=UTF-8"})
+    public BaseResult<Dept> perfection(Dept dept) {
+        return new BaseResult<>(true, deptService.perfection(dept));
     }
 
     /**
@@ -46,10 +46,29 @@ public class DeptController {
      * @param state
      * @return
      */
-    @PutMapping(value = "/change/state", produces = {"application/json;charset=UTF-8"})
+    @PutMapping(value = "/state", produces = {"application/json;charset=UTF-8"})
     public BaseResult<Object> changeState(Integer id,String state) {
         deptService.changeState(id,state);
         return new BaseResult<>(true,null);
     }
+
+    /**
+     * 平台列表
+     * @param dept
+     * @param offset
+     * @param limit
+     * @param field
+     * @param rule
+     * @return
+     */
+    @GetMapping(produces = {"application/json;charset=UTF-8"})
+    public BaseResult<Object> list(@RequestParam(value = "dept", required = false) Dept dept,
+                                   @RequestParam(value = "offset",required = false, defaultValue = "0")Integer offset,
+                                   @RequestParam(value = "limit", required = false, defaultValue = "100")Integer limit,
+                                   @RequestParam(value = "sort_field", required = false, defaultValue = "id")String field,
+                                   @RequestParam(value = "sort_rule", required = false, defaultValue = "ASC")String rule) {
+        return new BaseResult<>(true, deptService.list(dept,offset,limit,field,rule));
+    }
+
 
 }

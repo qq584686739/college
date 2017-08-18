@@ -69,18 +69,19 @@ public class GlobalExceptionHandler {
         return new BaseResult<>(false, new BizExceptionMessage(e.getBizExceptionEnum()));
     }
 
-    /**
-     * 整体异常
-     *
-     * @param request
-     * @return
-     */
-    @ExceptionHandler(Exception.class)
-    public BaseResult<Object> exception(HttpServletRequest request, Exception e) {
-        // TODO
-        LOG.error("uri: " + request.getRequestURI());
-        LOG.error(e.getClass().getName());
-        LOG.error(e.toString());
-        return new BaseResult<>(false, new BizExceptionMessage(BizExceptionEnum.INNER_ERROR));
-    }
+//    /**
+//     * 整体异常
+//     *
+//     * @param request
+//     * @return
+//     */
+//    @ExceptionHandler(Exception.class)
+//    public BaseResult<Object> exception(HttpServletRequest request, Exception e) {
+//        e.printStackTrace();
+//        // TODO
+//        LOG.error("uri: " + request.getRequestURI());
+//        LOG.error(e.getClass().getName());
+//        LOG.error(e.toString());
+//        return new BaseResult<>(false, new BizExceptionMessage(BizExceptionEnum.INNER_ERROR));
+//    }
 }
