@@ -24,4 +24,9 @@ public class UserServiceImpl implements UserService {
     public List<Role> hasRoles(Integer id, String email, String phone, String idCard) {
         return userDao.hasRoles(id, email, phone, idCard);
     }
+
+    @Override
+    public List<User> listUser(User user, Integer offset, Integer limit, String gender, String dept_id) {
+        return userDao.listUser(user, offset, limit, gender, dept_id);
+    }
 }
