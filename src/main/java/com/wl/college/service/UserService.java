@@ -9,6 +9,7 @@ public interface UserService {
 
     /**
      * 根据唯一标记获取客户
+     *
      * @param id
      * @param email
      * @param phone
@@ -19,6 +20,7 @@ public interface UserService {
 
     /**
      * 根据唯一标记获得用户的角色
+     *
      * @param id
      * @param email
      * @param phone
@@ -30,6 +32,7 @@ public interface UserService {
 
     /**
      * 根据条件获取一部分user
+     *
      * @param user
      * @param offset
      * @param limit
@@ -41,8 +44,16 @@ public interface UserService {
 
     /**
      * 根据筛选调教查找条件下的所有user
+     *
      * @param user
      * @return
      */
     Integer findCount(User user);
+
+    /**
+     * 更新user信息
+     *
+     * @param user
+     */
+    void updateUser(User user);
 }

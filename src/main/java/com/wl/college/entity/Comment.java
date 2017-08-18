@@ -7,13 +7,13 @@ import java.util.Date;
  */
 public class Comment {
     private Integer id;
-    private Integer userId;          //用户id
-    private Integer resourceId;     //资源id
-    private String content;         //评论
-    private Integer pid;            //该评论所属父评论,0：属于资源下的一级评论
-    private Integer deptId;         //平台id
-    private String  state;          //评论状态，0：待审核，1：审核通过， 2：审核失败
-    private Date createTime;        //创建时间
+    private Integer userId;                 //用户id
+    private Integer resourceId;             //资源id
+    private String content;                 //评论
+    private Integer pid;                    //该评论所属父评论,0：属于资源下的一级评论
+    private Integer deptId;                 //平台id
+    private String  state;                  //评论状态，0：待审核，1：审核通过， 2：审核失败
+    private Date createTime;                //创建时间
 
     public Comment() {
     }

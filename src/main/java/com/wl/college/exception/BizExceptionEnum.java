@@ -22,8 +22,18 @@ public enum BizExceptionEnum {
     INVALID_SEND_EMAIL_SPAM(10020002, "邮件发送失败, 被反垃圾系统检测为垃圾邮件"),
     INVALID_SEND_EMAIL(10020003, "邮件发送失败"),
 
+
+//------------------------------------------
+    //*登录错误*
+    //没有登录，退出登录失败
+    ERROR_LOGOUT(90001,"没有登录不能退出登录！"),
+
+//------------------------------------------
+
+
     // 系统异常
     INNER_ERROR(99980001, "系统错误");
+
 
     private int code;
     private String message;

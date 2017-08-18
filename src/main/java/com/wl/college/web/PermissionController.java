@@ -1,7 +1,6 @@
 package com.wl.college.web;
 
 import com.wl.college.dto.BaseResult;
-import com.wl.college.dto.BootStrapTableResult;
 import com.wl.college.entity.Permission;
 import com.wl.college.enums.OperationType;
 import com.wl.college.service.PermissionService;
@@ -35,11 +34,11 @@ public class PermissionController {
      * @return BootStrapTableResult<Permission>
      */
     @RequestMapping(method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
-    public BootStrapTableResult<Permission> listAll() {
+    public BaseResult listAll() {
         log.info("invoke----------/permission.GET");
         List<Permission> list;
         list = permissionService.findAll();
-        return new BootStrapTableResult<>(11,list);
+        return new BaseResult<>(true,list);
     }
 
     /**
