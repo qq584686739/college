@@ -58,7 +58,7 @@ public class DeptServiceImpl implements DeptService{
 
     @Transactional
     @Override
-    public Dept update(Dept dept) {
+    public Dept perfection(Dept dept) {
         //更新dept
         Integer deptUpdate = deptDao.update(dept);
         if(deptUpdate!=1){
@@ -83,9 +83,15 @@ public class DeptServiceImpl implements DeptService{
         return result;
     }
 
+
     @Override
     public void changeState(Integer id, String state) {
         deptDao.updateState(id,state);
         userDao.updateStateByDept(id,state);
+    }
+
+    @Override
+    public List<Dept> list(Dept dept, Integer offset, Integer limit, String field, String rule) {
+        return deptDao.list(dept,offset,limit,field,rule);
     }
 }

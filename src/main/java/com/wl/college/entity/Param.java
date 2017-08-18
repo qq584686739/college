@@ -7,9 +7,9 @@ import java.util.Date;
  */
 public class Param {
     private Integer id;
-    private String volume;
-    private Integer deptId;
-    private String type;
+    private String volume; //值
+    private Integer deptId;//平台id
+    private String type;//类型
     private Date createTime;
     private Date updateTime;
 
