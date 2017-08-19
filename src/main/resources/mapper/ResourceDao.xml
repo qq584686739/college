@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wl.college.dao.ResourceDao">
+    <sql id="Base_Column_List" >
+        id, name, author, url, type, section_id, number, grade, difficulty
+    </sql>
+    <insert id="create" useGeneratedKeys="true" keyProperty="resource.id">
+        insert into resource (name, author,url, type, section_id,number, grade, difficulty)
+        values (#{resource.name}, #{resource.author},#{resource.url}, #{resource.type}, #{resource.sectionId},
+                #{resource.number}, #{resource.grade}, #{resource.difficulty}
+        )
+    </insert>
+    <update id="update">
+        update resource
+        <set >
+            <if test="resource.name != null" >
+                name = #{resource.name},
+            </if>
+            <if test="resource.author != null" >
+                author = #{resource.author},
+            </if>
+            <if test="resource.url != null" >
+                url = #{resource.url},
+            </if>
+            <if test="resource.type != null" >
+                type = #{resource.type},
+            </if>
+            <if test="resource.sectionId != null" >
+                section_id = #{resource.sectionId},
+            </if>
+            <if test="resource.number != null" >
+                number = #{resource.number},
+            </if>
+            <if test="resource.grade != null" >
+                grade = #{resource.grade},
+            </if>
+            <if test="resource.difficulty != null" >
+                difficulty = #{resource.difficulty},
+            </if>
+        </set>
+        where id = #{resource.id}
+    </update>
+    <delete id="delete">
+        delete from resource
+        where id = #{resource.id}
+    </delete>
+    <select id="findById" resultType="com.wl.college.entity.Resource">
+        select
+        <include refid="Base_Column_List" />
+        from resource
+        where id = #{id}
+    </select>
+    <select id="total" resultType="java.lang.Integer">
+        select count(*)
+        from resource
+        <where>
+            <if test="resource.name != null" >
+                and name = #{resource.name}
+            </if>
+            <if test="resource.id != null" >
+                and id = #{resource.id}
+            </if>
+            <if test="resource.author != null" >
+                and author = #{resource.author}
+            </if>
+            <if test="resource.url != null" >
+                and url = #{resource.url}
+            </if>
+            <if test="resource.type != null" >
+                and type = #{resource.type}
+            </if>
+            <if test="resource.sectionId != null" >
+                and section_id = #{resource.sectionId}
+            </if>
+            <if test="resource.number != null" >
+                and number = #{resource.number}
+            </if>
+            <if test="resource.grade != null" >
+                and grade = #{resource.grade}
+            </if>
+            <if test="resource.difficulty != null" >
+                and difficulty = #{resource.difficulty}
+            </if>
+        </where>
+    </select>
+    <select id="list" resultType="com.wl.college.entity.Resource">
+        select
+        <include refid="Base_Column_List" />
+        from resource
+        <where>
+            <if test="resource.name != null" >
+                and name = #{resource.name}
+            </if>
+            <if test="resource.id != null" >
+                and id = #{resource.id}
+            </if>
+            <if test="resource.author != null" >
+                and author = #{resource.author}
+            </if>
+            <if test="resource.url != null" >
+                and url = #{resource.url}
+            </if>
+            <if test="resource.type != null" >
+                and type = #{resource.type}
+            </if>
+            <if test="resource.sectionId != null" >
+                and section_id = #{resource.sectionId}
+            </if>
+            <if test="resource.number != null" >
+                and number = #{resource.number}
+            </if>
+            <if test="resource.grade != null" >
+                and grade = #{resource.grade}
+            </if>
+            <if test="resource.difficulty != null" >
+                and difficulty = #{resource.difficulty}
+            </if>
+        </where>
+        ORDER BY ${sort} ${order}
+        LIMIT #{offset}, #{limit};
+    </select>
+</mapper>

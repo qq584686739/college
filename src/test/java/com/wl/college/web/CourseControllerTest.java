@@ -57,7 +57,7 @@ public class CourseControllerTest {
                 .param("description","description")
                 .param("number","11")
                 .param("pointId","20")
-        ).andDo(print()).andExpect(status().isOk());;
+        ).andDo(print()).andExpect(status().isOk());
     }
 
     @Test

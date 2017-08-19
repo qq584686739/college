@@ -9,7 +9,7 @@ public class Resource {
     private String author;          //资源所属作者
     private String url;             //资源链接
     private String type;            //资源类型
-    private Integer section_id;
+    private Integer sectionId;
     private Integer number;
     private String grade;
     private String difficulty;
@@ -57,12 +57,12 @@ public class Resource {
         this.type = type;
     }
 
-    public Integer getSection_id() {
-        return section_id;
+    public Integer getSectionId() {
+        return sectionId;
     }
 
-    public void setSection_id(Integer section_id) {
-        this.section_id = section_id;
+    public void setSectionId(Integer sectionId) {
+        this.sectionId = sectionId;
     }
 
     public Integer getNumber() {
