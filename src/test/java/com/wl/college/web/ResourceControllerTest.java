@@ -71,8 +71,7 @@ public class ResourceControllerTest {
 
     @Test
     public void delete() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/resources")
-                .param("id","1")
+        mockMvc.perform(MockMvcRequestBuilders.delete("/resources/1")
         ).andDo(print()).andExpect(status().isOk());
     }
 

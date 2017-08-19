@@ -25,7 +25,7 @@
     </update>
     <delete id="delete">
         DELETE FROM section
-        WHERE id = #{section.id}
+        WHERE id = #{id}
     </delete>
     <select id="findById" resultType="com.wl.college.entity.Section">
         select

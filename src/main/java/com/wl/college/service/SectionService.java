@@ -12,7 +12,7 @@ public interface SectionService {
 
     Section update(Section section);
 
-    void delete(Section section);
+    void delete(Integer section);
 
     List<Section> list(Section section);
 

@@ -65,5 +65,5 @@ public interface CourseService {
      */
     Integer userTotal(Course course, Double openPrice, Double endPrice, Integer id);
 
-    void delete(Course course);
+    void delete(Integer course);
 }

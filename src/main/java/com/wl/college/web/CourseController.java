@@ -114,12 +114,11 @@ public class CourseController {
     /**
      * 删课程
      *
-     * @param course 课程信息
      * @return
      */
-    @DeleteMapping(produces = {"application/json;charset=UTF-8"})
-    public BaseResult delete(Course course) {
-        courseService.delete(course);
+    @DeleteMapping(value = "/{id}",produces = {"application/json;charset=UTF-8"})
+    public BaseResult delete(@PathVariable Integer id) {
+        courseService.delete(id);
         return new BaseResult(true,null);
     }
 

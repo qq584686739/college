@@ -58,8 +58,7 @@ public class SectionControllerTest {
 
     @Test
     public void delete() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/sections")
-                .param("id","1")
+        mockMvc.perform(MockMvcRequestBuilders.delete("/sections/1")
         ).andDo(print()).andExpect(status().isOk());
     }
 

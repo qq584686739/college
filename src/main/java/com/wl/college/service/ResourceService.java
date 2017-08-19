@@ -10,7 +10,7 @@ import java.util.List;
 public interface ResourceService {
     Resource create(Resource resource);
 
-    void delete(Resource resource);
+    void delete(Integer resource);
 
     Resource update(Resource resource);
 

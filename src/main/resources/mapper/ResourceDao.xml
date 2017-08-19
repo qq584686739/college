@@ -42,7 +42,7 @@
     </update>
     <delete id="delete">
         delete from resource
-        where id = #{resource.id}
+        where id = #{resource}
     </delete>
     <select id="findById" resultType="com.wl.college.entity.Resource">
         select

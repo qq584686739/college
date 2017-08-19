@@ -41,7 +41,7 @@ public class SectionServiceImpl implements SectionService{
     }
 
     @Override
-    public void delete(Section section) {
+    public void delete(Integer section) {
         Integer delete = sectionDao.delete(section);
         if(delete!=1){
             throw new BizException(BizExceptionEnum.DB_DELETE_RESULT_ERROR);

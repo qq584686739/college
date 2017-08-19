@@ -91,7 +91,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void delete(Course course) {
+    public void delete(Integer course) {
         Integer delete = courseDao.delete(course);
         if(delete!=1){
             throw new BizException(BizExceptionEnum.DB_DELETE_RESULT_ERROR);

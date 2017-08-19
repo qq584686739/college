@@ -32,7 +32,7 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    public void delete(Resource resource) {
+    public void delete(Integer resource) {
         Integer delete = resourceDao.delete(resource);
         if(delete!=1){
             throw new BizException(BizExceptionEnum.DB_DELETE_RESULT_ERROR);

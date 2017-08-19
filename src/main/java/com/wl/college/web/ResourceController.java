@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class ResourceController {
 
 
-    final ResourceService resourceService;
+    private final ResourceService resourceService;
 
     @Autowired
     public ResourceController(ResourceService resourceService) {
@@ -35,9 +35,9 @@ public class ResourceController {
         return new BaseResult<>(true, resourceService.update(resource));
     }
 
-    @DeleteMapping(produces = {"application/json;charset=UTF-8"})
-    public BaseResult delete(Resource resource) {
-        resourceService.delete(resource);
+    @DeleteMapping(value = "/{id}",produces = {"application/json;charset=UTF-8"})
+    public BaseResult delete(@PathVariable Integer id) {
+        resourceService.delete(id);
         return new BaseResult(true,null );
     }
     @GetMapping(produces = {"application/json;charset=UTF-8"})

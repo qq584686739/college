@@ -52,7 +52,7 @@
         and update_time = #{course.updateTime};
     </update>
     <delete id="delete">
-        DELETE FROM course where id=#{course.id}
+        DELETE FROM course where id=#{course}
     </delete>
     <select id="findById" resultType="com.wl.college.entity.Course">
         SELECT

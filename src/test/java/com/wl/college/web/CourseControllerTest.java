@@ -103,12 +103,11 @@ public class CourseControllerTest {
 
     @Test
     public void delete() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/courses")
+        mockMvc.perform(MockMvcRequestBuilders.delete("/courses/23")
 //                .param("open_price","0")
 //                .param("end_price","11111")
 //                .param("deptId","13")
 //                .param("icon","icon")
-                        .param("id","23")
 //                .param("details","details")
 //                .param("description","description")
 //                .param("number","11")

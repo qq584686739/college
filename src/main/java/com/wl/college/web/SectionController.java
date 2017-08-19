@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * Created by DIY on 2017/8/19.
  */
 @RestController
-@RequestMapping("/sections")
+@RequestMapping("/section")
 public class SectionController {
 
     private final SectionService sectionService;
@@ -44,12 +44,11 @@ public class SectionController {
 
     /**
      * 删除
-     * @param section
      * @return
      */
-    @DeleteMapping(produces = {"application/json;charset=UTF-8"})
-    public BaseResult delete(Section section) {
-        sectionService.delete(section);
+    @DeleteMapping(value = "/{id}",produces = {"application/json;charset=UTF-8"})
+    public BaseResult delete(@PathVariable Integer id) {
+        sectionService.delete(id);
         return new BaseResult(true,null );
     }
 

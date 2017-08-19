@@ -15,7 +15,7 @@ public interface SectionDao {
 
     Integer update(@Param("section") Section section);
 
-    Integer delete(@Param("section") Section section);
+    Integer delete(@Param("section") Integer section);
 
     List<Section> list(@Param("section") Section section);
 

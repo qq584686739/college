@@ -13,7 +13,7 @@ public interface ResourceDao {
 
     Resource findById(@Param("id") Integer id);
 
-    Integer delete(@Param("resource") Resource resource);
+    Integer delete(@Param("resource") Integer resource);
 
     Integer update(@Param("resource")Resource resource);
 
