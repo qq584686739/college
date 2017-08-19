@@ -18,6 +18,7 @@ public class Course {
     private Integer number;      //产品数量
     private Date updateTime;    //更新时间
     private Date createTime;    //创建时间
+    private Integer pointId; //指向id 为null就是父课 ，其他都是下方的课
 
     public Course() {
     }
@@ -116,6 +117,14 @@ public class Course {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Integer getPointId() {
+        return pointId;
+    }
+
+    public void setPointId(Integer pointId) {
+        this.pointId = pointId;
     }
 
     @Override

@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -55,6 +56,7 @@ public class CourseControllerTest {
                 .param("details","details")
                 .param("description","description")
                 .param("number","11")
+                .param("pointId","20")
         ).andDo(print()).andExpect(status().isOk());;
     }
 
@@ -91,6 +93,22 @@ public class CourseControllerTest {
 //                .param("deptId","13")
 //                .param("icon","icon")
                 .param("pids","20")
+//                .param("details","details")
+//                .param("description","description")
+//                .param("number","11")
+//                .param("id","19")
+                 .param("pointId","20")
+        ).andDo(print()).andExpect(status().isOk());
+    }
+
+    @Test
+    public void delete() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/courses")
+//                .param("open_price","0")
+//                .param("end_price","11111")
+//                .param("deptId","13")
+//                .param("icon","icon")
+                        .param("id","23")
 //                .param("details","details")
 //                .param("description","description")
 //                .param("number","11")

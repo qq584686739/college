@@ -64,4 +64,6 @@ public interface CourseService {
      * @return
      */
     Integer userTotal(Course course, Double openPrice, Double endPrice, Integer id);
+
+    void delete(Course course);
 }

@@ -89,4 +89,12 @@ public class CourseServiceImpl implements CourseService {
         course.setDeptId(user.getDeptId());
         return courseDao.total(course,openPrice,endPrice);
     }
+
+    @Override
+    public void delete(Course course) {
+        Integer delete = courseDao.delete(course);
+        if(delete!=1){
+            throw new BizException(BizExceptionEnum.DB_DELETE_RESULT_ERROR);
+        }
+    }
 }

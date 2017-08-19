@@ -7,6 +7,7 @@ public enum BizExceptionEnum {
     //数据库操作异常
     DB_INSERT_RESULT_ERROR(99990001, "db insert error"),
     DB_UPDATE_RESULT_ERROR(99990002, "db update error"),
+    DB_DELETE_RESULT_ERROR(99990002, "db delete error"),
     DB_SELECTONE_IS_NULL(99990003, "db select return null"),
 
     // 用户相关异常

@@ -52,4 +52,6 @@ public interface CourseDao {
      * @return
      */
     Integer total(@Param("course") Course course, @Param("openPrice") Double openPrice, @Param("endPrice") Double endPrice);
+
+    Integer delete(@Param("course") Course course);
 }

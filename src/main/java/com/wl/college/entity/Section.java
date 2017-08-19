@@ -6,7 +6,7 @@ package com.wl.college.entity;
 public class Section {
     private Integer id;
     private String name;//姓名
-    private Integer course_id;//课程号
+    private Integer courseId;//课程号
     private String description;//描述
 
     public Section() {
@@ -28,12 +28,12 @@ public class Section {
         this.name = name;
     }
 
-    public Integer getCourse_id() {
-        return course_id;
+    public Integer getCourseId() {
+        return courseId;
     }
 
-    public void setCourse_id(Integer course_id) {
-        this.course_id = course_id;
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
     }
 
     public String getDescription() {

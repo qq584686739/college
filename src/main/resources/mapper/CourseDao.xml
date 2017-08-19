@@ -2,16 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wl.college.dao.CourseDao">
     <sql id="Base_Column_List">
-        id, name, dept_id, price, icon, pid, details, description, pids, number, update_time, create_time
+        id, name, dept_id, price, icon, pid, details, description, pids, number, update_time, create_time,point_id
     </sql>
     <insert id="insert" useGeneratedKeys="true" keyProperty="course.id">
         INSERT INTO course (id, name, dept_id,
                             price, icon, pid, details,
-                            description, pids, number
+                            description, pids, number,point_id
         )
         VALUES (#{course.id}, #{course.name}, #{course.deptId}, #{course.price}, #{course.icon}, #{course.pid},
                 #{course.details},
-                #{course.description}, #{course.pids}, #{course.number}
+                #{course.description}, #{course.pids}, #{course.number}, #{course.pointId}
         )
     </insert>
     <update id="update">
@@ -19,6 +19,9 @@
         <set>
             <if test="course.name != null">
                 `name` = #{course.name},
+            </if>
+            <if test="course.pointId != null">
+                `point_id` = #{course.pointId},
             </if>
             <if test="course.deptId != null">
                 dept_id = #{course.deptId},
@@ -48,6 +51,9 @@
         where id=#{course.id}
         and update_time = #{course.updateTime};
     </update>
+    <delete id="delete">
+        DELETE FROM course where id=#{course.id}
+    </delete>
     <select id="findById" resultType="com.wl.college.entity.Course">
         SELECT
         <include refid="Base_Column_List"/>
@@ -86,6 +92,9 @@
             <if test="openPrice != null">
                 and price &gt;= #{openPrice}
             </if>
+            <if test="course.pointId != null">
+                and `point_id` = #{course.pointId}
+            </if>
         </where>
         ORDER BY ${sort} ${order}
         LIMIT #{offset}, #{limit};;
@@ -94,6 +103,9 @@
         select count(*)
         from course
         <where>
+            <if test="course.pointId != null">
+                and `point_id` = #{course.pointId}
+            </if>
             <if test="course.name != null">
                 and name = #{course.name}
             </if>
@@ -121,7 +133,6 @@
             <if test="openPrice != null">
                 and price &gt;= #{openPrice}
             </if>
-        </where>
-        ;
+        </where>;
     </select>
 </mapper>
