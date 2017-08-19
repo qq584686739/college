@@ -143,10 +143,14 @@ public class UserController {
     }
 
 
-
+    /**
+     * 修改其他user的个人信息
+     * @param user
+     * @return
+     */
     @RequiresUser
     @RequestMapping(value = "/updateOther", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
-    // TODO: 2017/8/18 有更改别人个人信息的权限
+    // TODO: 2017/8/18 有修改其他user信息的权限
     public BaseResult updateOther(@RequestParam User user) {
         user.setId((Integer) SecurityUtils.getSubject().getPrincipal());
         userService.updateUser(user);                   //更新user
