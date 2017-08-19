@@ -3,6 +3,7 @@ package com.wl.college.service.impl;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import com.wl.college.dao.DeptDao;
 import com.wl.college.dao.UserDao;
+import com.wl.college.entity.Course;
 import com.wl.college.entity.Dept;
 import com.wl.college.entity.User;
 import com.wl.college.enums.ResultEnum;
@@ -48,6 +49,15 @@ public class DeptServiceImpl implements DeptService{
 //        userDao.createUserRole(user.getId(),roleList);
         dept.setManagerId(dept.getManager().getId());
         dept.setState("1");
+        Integer pid = dept.getPid();
+        if (pid != null) {
+            Dept byId = deptDao.findById(pid);
+            String pids = byId.getPids() ;
+            if(pids==null) {
+                pids="";
+            }
+            dept.setPids(pids+"["+ pid+ "],");
+        }
         System.out.println(dept);
         //创建平台
         deptDao.create(dept);

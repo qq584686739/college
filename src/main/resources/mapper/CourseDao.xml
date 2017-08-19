@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wl.college.dao.CourseDao">
     <sql id="Base_Column_List">
-        id, name, dept_id, price, icon, pid, details, description, pids, number,update_time,create_time
+        id, name, dept_id, price, icon, pid, details, description, pids, number, update_time, create_time
     </sql>
     <insert id="insert" useGeneratedKeys="true" keyProperty="course.id">
         INSERT INTO course (id, name, dept_id,
@@ -39,16 +39,89 @@
                 number = #{course.number},
             </if>
             <if test="course.details != null">
-            details = #{course.details},
+                details = #{course.details},
+            </if>
+            <if test="course.icon != null">
+                icon = #{course.icon},
             </if>
         </set>
         where id=#{course.id}
-        and  update_time = #{course.updateTime};
+        and update_time = #{course.updateTime};
     </update>
     <select id="findById" resultType="com.wl.college.entity.Course">
         SELECT
         <include refid="Base_Column_List"/>
         FROM course
         where id=#{id}
+    </select>
+    <select id="list" resultType="com.wl.college.entity.Course">
+        select
+        <include refid="Base_Column_List"/>
+        from course
+        <where>
+            <if test="course.name != null">
+                and name = #{course.name}
+            </if>
+            <if test="course.id != null">
+                and `id` = #{course.id}
+            </if>
+            <if test="course.deptId != null">
+                and dept_id = #{course.deptId}
+            </if>
+            <if test="course.price != null">
+                and price = #{course.price}
+            </if>
+            <if test="course.pid != null">
+                and pid = #{course.pid}
+            </if>
+            <if test="course.pids != null">
+                and pids LIKE CONCAT('%', '[${course.pids}]','%' )
+            </if>
+            <if test="course.number != null">
+                and number = #{course.number}
+            </if>
+            <if test="endPrice != null">
+                and price &lt;= #{endPrice}
+            </if>
+            <if test="openPrice != null">
+                and price &gt;= #{openPrice}
+            </if>
+        </where>
+        ORDER BY ${sort} ${order}
+        LIMIT #{offset}, #{limit};;
+    </select>
+    <select id="total" resultType="java.lang.Integer">
+        select count(*)
+        from course
+        <where>
+            <if test="course.name != null">
+                and name = #{course.name}
+            </if>
+            <if test="course.id != null">
+                and `id` = #{course.id}
+            </if>
+            <if test="course.deptId != null">
+                and dept_id = #{course.deptId}
+            </if>
+            <if test="course.price != null">
+                and price = #{course.price}
+            </if>
+            <if test="course.pid != null">
+                and pid = #{course.pid}
+            </if>
+            <if test="course.pids != null">
+                and pids LIKE CONCAT('%', '[${course.pids}]','%' )
+            </if>
+            <if test="course.number != null">
+                and number = #{course.number}
+            </if>
+            <if test="endPrice != null">
+                and price &lt;= #{endPrice}
+            </if>
+            <if test="openPrice != null">
+                and price &gt;= #{openPrice}
+            </if>
+        </where>
+        ;
     </select>
 </mapper>

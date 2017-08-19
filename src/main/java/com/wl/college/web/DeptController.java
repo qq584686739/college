@@ -62,7 +62,7 @@ public class DeptController {
      * @return
      */
     @GetMapping(produces = {"application/json;charset=UTF-8"})
-    public BootStrapTableResult<Dept> list(@RequestParam(value = "dept", required = false) Dept dept,
+    public BootStrapTableResult<Dept> list(Dept dept,
                                            @RequestParam(value = "offset",required = false, defaultValue = "0")Integer offset,
                                            @RequestParam(value = "limit", required = false, defaultValue = "100")Integer limit,
                                            @RequestParam(value = "sort", required = false, defaultValue = "id")String sort,
