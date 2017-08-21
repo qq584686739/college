@@ -1,12 +1,13 @@
 package com.wl.college.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 权限
  * Created by yugoh on 2017/5/18.
  */
-public class Permission {
+public class Permission implements Serializable {
     private Integer id;    //id
     private String permission;    //名
     private String description;    //描述

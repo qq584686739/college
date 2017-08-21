@@ -1,11 +1,12 @@
 package com.wl.college.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by DIY on 2017/8/16.
  */
-public class Comment {
+public class Comment implements Serializable{
     private Integer id;
     private Integer userId;                 //用户id
     private Integer resourceId;             //资源id

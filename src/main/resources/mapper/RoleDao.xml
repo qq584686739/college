@@ -58,4 +58,20 @@
         WHERE id = #{id}
     </select>
 
+    <!--删除role-->
+    <delete id="deleteRole">
+        DELETE FROM role
+        WHERE id = #{id}
+    </delete>
+
+    <!--根据role的id获得这个id下的所有permissions-->
+    <select id="getPermissionByRoleId" resultType="com.wl.college.entity.Permission">
+        SELECT
+            p.id, p.permission, p.description, p.pid, p.pids, p.create_time, p.update_time
+        FROM permission AS p
+        JOIN role_permission AS rp
+            ON rp.permission_id = p.id
+        WHERE rp.role_id = #{id}
+    </select>
+
 </mapper>

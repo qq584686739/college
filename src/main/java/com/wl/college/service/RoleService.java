@@ -1,6 +1,7 @@
 package com.wl.college.service;
 
 
+import com.wl.college.entity.Permission;
 import com.wl.college.entity.Role;
 
 import java.util.List;
@@ -37,4 +38,16 @@ public interface RoleService {
      * @return
      */
     Role getOne(Integer id);
+
+    /**
+     * 删除role
+     * @param id
+     */
+    void deleteRole(Integer id);
+
+    /**
+     * 根据role的id获得这个id下的所有permissions
+     * @param id
+     */
+    List<Permission> getPermissionByRoleId(Integer id);
 }

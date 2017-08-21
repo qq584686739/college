@@ -21,7 +21,6 @@ public class PermissionController {
 
     private static final Logger log = LoggerFactory.getLogger(RoleController.class);
 
-
     private final PermissionService permissionService;
 
     @Autowired
@@ -47,9 +46,20 @@ public class PermissionController {
      * @return BaseResult<Object>
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
-    @RequiresPermissions(OperationType.PERMISSION_CREATE)
     public BaseResult<Object> create(@RequestParam Permission permission) {
         log.info("invoke----------/permission/create.POST");
+        permissionService.createPermission(permission);
+        return new BaseResult<>(true, null);
+    }
+
+    /**
+     * 删除一个permission
+     * @param permission
+     * @return BaseResult<Object>
+     */
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE, produces = {"application/json;charset=UTF-8"})
+    public BaseResult<Object> delete(@RequestParam Permission permission) {
+        log.info("invoke----------/permission/delete/{id}.DELETE");
         permissionService.createPermission(permission);
         return new BaseResult<>(true, null);
     }

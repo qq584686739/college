@@ -1,11 +1,12 @@
 package com.wl.college.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by DIY on 2017/8/16.
  */
-public class Dept {
+public class Dept implements Serializable {
     private Integer id;         //自增主键id
     private String name;        //平台名字
     private Integer managerId;  //负责人id

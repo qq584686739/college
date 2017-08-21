@@ -1,11 +1,12 @@
 package com.wl.college.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by DIY on 2017/8/16.
  */
-public class Course {
+public class Course implements Serializable {
     private Integer id;
     private String name;            //课程名
     private Double price;        //价钱

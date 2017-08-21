@@ -1,6 +1,7 @@
 package com.wl.college.dao;
 
 
+import com.wl.college.entity.Permission;
 import com.wl.college.entity.Role;
 import org.apache.ibatis.annotations.Param;
 
@@ -48,4 +49,17 @@ public interface RoleDao {
      * @return
      */
     Role getOne(@Param("id")Integer id);
+
+    /**
+     * 删除role
+     * @param id
+     */
+    void deleteRole(@Param("id")Integer id);
+
+    /**
+     * 根据role的id获得这个id下的所有permissions
+     * @param id
+     * @return
+     */
+    List<Permission> getPermissionByRoleId(@Param("id") Integer id);
 }

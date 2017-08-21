@@ -1,12 +1,13 @@
 package com.wl.college.entity;
 
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by DIY on 2017/8/16.
  */
-public class DeptTicket {
+public class DeptTicket implements Serializable {
     private Integer id;         //自增主键id
     private String name;        //名称
     private String type;         //类型

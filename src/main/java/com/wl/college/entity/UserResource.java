@@ -1,11 +1,12 @@
 package com.wl.college.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by DIY on 2017/8/17.
  */
-public class UserResource {
+public class UserResource implements Serializable {
     private Integer id;                     //自增主键id
     private Integer userId;                 //用户id
     private Integer resourceId;             //资源id

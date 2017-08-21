@@ -1,12 +1,13 @@
 package com.wl.college.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 用户表
  * Created by yugoh on 2017/5/19.
  */
-public class User {
+public class User implements Serializable {
     private Integer id;
     private String name;//姓名
     private String referralCode;//推荐码

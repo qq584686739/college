@@ -81,6 +81,7 @@ public class UserController {
      */
     @RequiresUser
     @GetMapping(produces = {"application/json;charset=UTF-8"})
+    // TODO: 2017/8/21 必须有查看其它user的权限 
     public BootStrapTableResult list(
             @RequestParam(value = "user", required = false) User user,
             @RequestParam(value = "offset", required = false, defaultValue = "0") Integer offset,
@@ -109,7 +110,7 @@ public class UserController {
     }
 
     /**
-     * 根据id查看别人的roles
+     * 根据唯一标识（id、email、phone、idCard）查看别人的roles
      *
      * @param id
      * @return BaseResult
@@ -117,9 +118,12 @@ public class UserController {
     @RequiresUser
     @GetMapping(value = "/otherRoles", produces = {"application/json;charset=UTF-8"})
     // TODO: 2017/8/18 需要有看别人角色的权限
-    public BaseResult otherRoles(@RequestParam Integer id) {
+    public BaseResult otherRoles(Integer id,
+                                 String email,
+                                 String phone,
+                                 String idCard) {
         log.info("invoke----------/user/otherRoles.GET");
-        List<Role> list = userService.hasRoles(id, null, null, null);
+        List<Role> list = userService.hasRoles(id, email, phone, idCard);
         return new BaseResult<>(true, list);
     }
 
@@ -132,6 +136,7 @@ public class UserController {
     @RequiresUser
     @RequestMapping(value = "/update", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
     public BaseResult update(@RequestParam User user) {
+        log.info("invoke----------/user/update.PUT");
         user.setId((Integer) SecurityUtils.getSubject().getPrincipal());
         userService.updateUser(user);                   //更新user
         return new BaseResult<>(true, user);
@@ -143,13 +148,14 @@ public class UserController {
      *
      * @param id
      * @param user
-     * @return
+     * @return BaseResult
      */
     @RequiresUser
     @RequestMapping(value = "/updateOther", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
     // TODO: 2017/8/18 有修改其他user信息的权限
     public BaseResult updateOther(@RequestParam Integer id,
                                   @RequestParam User user) {
+        log.info("invoke----------/user/updateOther.PUT");
         user.setId(id);
         userService.updateUser(user);                   //更新user
         return new BaseResult<>(true, user);
@@ -157,16 +163,50 @@ public class UserController {
 
     /**
      * 客户注册
+     *
      * @param user
      * @param securityCode
-     * @return
+     * @return BaseResult
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
     public BaseResult register(@RequestParam User user,
                                @RequestParam String securityCode) {
+        log.info("invoke----------/user/register.POST");
         // TODO: 2017/8/21  securityCode验证
         userService.register(user);
         return new BaseResult<>(true, user);
+    }
+
+    /**
+     * user查看自己的个人信息
+     *
+     * @return BaseResult
+     */
+    @RequestMapping(value = "/getInfo", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+    public BaseResult getInfo() {
+        log.info("invoke----------/user/getInfo.GET");
+        return new BaseResult<>(true, userService.getUserByTag((Integer) SecurityUtils.getSubject().getPrincipal(),
+                null, null, null));
+    }
+
+    /**
+     * 查看其它user的个人信息
+     *
+     * @param id
+     * @param email
+     * @param phone
+     * @param idCard
+     * @return BaseResult
+     */
+    @RequestMapping(value = "/getOtherInfo", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+    // TODO: 2017/8/21 需要有查看其它user的权限
+    public BaseResult getOtherInfo(Integer id,
+                                   String email,
+                                   String phone,
+                                   String idCard) {
+        log.info("invoke----------/user/getInfo.GET");
+        return new BaseResult<>(true, userService.getUserByTag(id,
+                email, phone, idCard));
     }
 
 

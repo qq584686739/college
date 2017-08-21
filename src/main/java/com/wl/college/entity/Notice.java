@@ -1,11 +1,13 @@
 package com.wl.college.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
+ *
  * Created by DIY on 2017/8/16.
  */
-public class Notice {
+public class Notice implements Serializable {
     private Integer id;             //自增主键id
     private String title;           //通知主题
     private String content;         //通知主要内容

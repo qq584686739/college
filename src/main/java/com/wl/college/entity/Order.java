@@ -1,11 +1,12 @@
 package com.wl.college.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by DIY on 2017/8/16.
  */
-public class Order {
+public class Order implements Serializable {
     private Integer id;         //主键id
     private String type;        //类型
     private Integer resourceId; //资源、课程类型
