@@ -19,6 +19,8 @@ public class RetryLimitHashedCredentialsMatcher extends SimpleCredentialsMatcher
 
     private final Cache<String, AtomicInteger> passwordRetryCache;
 
+
+
     @Autowired
     public RetryLimitHashedCredentialsMatcher(CacheManager cacheManager) {
         passwordRetryCache = cacheManager.getCache("passwordRetryCache");
@@ -46,12 +48,7 @@ public class RetryLimitHashedCredentialsMatcher extends SimpleCredentialsMatcher
 //            passwordRetryCache.remove(username);
 //        }
 ////        return matches;
-
-        boolean isTrue = super.doCredentialsMatch(token, info);
-
-        System.out.println("密码是否正确：" + isTrue);
-
-        return isTrue;
+        return super.doCredentialsMatch(token, info);
 //        Object tokenCredentials = getCredentials(token);
 //        Object accountCredentials = getCredentials(info);
 //        return equals(tokenCredentials, accountCredentials);

@@ -71,7 +71,13 @@ public interface UserDao {
      * @param user
      * @return Integer
      */
-    Integer findCount(User user);
+    Integer findCount(@Param("user") User user);
 
 
+    /**
+     * 客户注册
+     * @param user
+     * @return
+     */
+    Integer register(@Param("user") User user);
 }

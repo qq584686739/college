@@ -56,4 +56,11 @@ public interface UserService {
      * @param user
      */
     void updateUser(User user);
+
+    /**
+     * 客户注册
+     *
+     * @param user
+     */
+    void register(User user);
 }

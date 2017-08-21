@@ -4,6 +4,7 @@ import com.wl.college.dao.UserDao;
 import com.wl.college.entity.Role;
 import com.wl.college.entity.User;
 import com.wl.college.service.UserService;
+import com.wl.college.utils.PasswordHelperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -81,5 +82,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(User user) {
         userDao.update(user, user.getId());
+    }
+
+    /**
+     * 客户注册
+     * @param user
+     */
+    @Override
+    public void register(User user) {
+        //设置密码和salt
+        PasswordHelperUtil.encryptPassword(user);
+        userDao.register(user);
     }
 }

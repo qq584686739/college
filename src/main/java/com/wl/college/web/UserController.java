@@ -81,7 +81,6 @@ public class UserController {
      */
     @RequiresUser
     @GetMapping(produces = {"application/json;charset=UTF-8"})
-//    @RequiresPermissions(OperationType.USER_VIEW)
     public BootStrapTableResult list(
             @RequestParam(value = "user", required = false) User user,
             @RequestParam(value = "offset", required = false, defaultValue = "0") Integer offset,
@@ -102,8 +101,6 @@ public class UserController {
      */
     @RequiresUser
     @GetMapping(value = "/myselfRoles", produces = {"application/json;charset=UTF-8"})
-//    @RequiresPermissions(OperationType.USER_VIEW)
-    // TODO: 2017/8/18 需要登录注解
     public BaseResult mySelfRoles() {
         log.info("invoke----------/user/mySelfRoles.GET");
         Integer id = (Integer) SecurityUtils.getSubject().getPrincipal();
@@ -112,14 +109,13 @@ public class UserController {
     }
 
     /**
-     * 根据id查看别人的角色
+     * 根据id查看别人的roles
      *
      * @param id
      * @return BaseResult
      */
     @RequiresUser
     @GetMapping(value = "/otherRoles", produces = {"application/json;charset=UTF-8"})
-    //    @RequiresPermissions(OperationType.USER_VIEW)
     // TODO: 2017/8/18 需要有看别人角色的权限
     public BaseResult otherRoles(@RequestParam Integer id) {
         log.info("invoke----------/user/otherRoles.GET");
@@ -135,7 +131,6 @@ public class UserController {
      */
     @RequiresUser
     @RequestMapping(value = "/update", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
-//    @RequiresPermissions(OperationType.USER_UPDATE)
     public BaseResult update(@RequestParam User user) {
         user.setId((Integer) SecurityUtils.getSubject().getPrincipal());
         userService.updateUser(user);                   //更新user
@@ -145,19 +140,34 @@ public class UserController {
 
     /**
      * 修改其他user的个人信息
+     *
+     * @param id
      * @param user
      * @return
      */
     @RequiresUser
     @RequestMapping(value = "/updateOther", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
     // TODO: 2017/8/18 有修改其他user信息的权限
-    public BaseResult updateOther(@RequestParam User user) {
-        user.setId((Integer) SecurityUtils.getSubject().getPrincipal());
+    public BaseResult updateOther(@RequestParam Integer id,
+                                  @RequestParam User user) {
+        user.setId(id);
         userService.updateUser(user);                   //更新user
-        // TODO: 2017/8/18 管理员修改个人信息要记录
         return new BaseResult<>(true, user);
     }
 
+    /**
+     * 客户注册
+     * @param user
+     * @param securityCode
+     * @return
+     */
+    @RequestMapping(value = "/register", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
+    public BaseResult register(@RequestParam User user,
+                               @RequestParam String securityCode) {
+        // TODO: 2017/8/21  securityCode验证
+        userService.register(user);
+        return new BaseResult<>(true, user);
+    }
 
 
     /**
