@@ -11,6 +11,7 @@ import com.wl.college.exception.BizException;
 import com.wl.college.exception.BizExceptionEnum;
 import com.wl.college.service.DeptService;
 import com.wl.college.utils.IdCardUtil;
+import com.wl.college.utils.PasswordHelperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -81,6 +82,8 @@ public class DeptServiceImpl implements DeptService{
         String pseeword = (int) ((Math.random() * 9 + 1) * 100000) + "";
         manager.setPassword(pseeword);
         IdCardUtil.getBirthdateAndGender(manager);
+        PasswordHelperUtil.encryptPassword(manager);
+        System.out.println(manager);
         //更新
         Integer userUpdate = userDao.update(manager, result.getManagerId());
         if(userUpdate!=1){

@@ -66,8 +66,7 @@
     <insert id="createUser" useGeneratedKeys="true" keyProperty="user.id">
         INSERT INTO user (name, password, mail, phone, full_name, country, city, address, pid, pids, dept_id)
         VALUES (#{user.name}, #{user.password}, #{user.mail}, #{user.phone}, #{user.fullName}, #{user.country},
-                              #{user.city},
-                              #{user.address}, #{user.pid}, #{user.pids}, #{user.deptId})
+                              #{user.city},#{user.address}, #{user.pid}, #{user.pids}, #{user.deptId})
     </insert>
     <update id="updateDept">
         UPDATE user
@@ -136,6 +135,12 @@
             </if>
             <if test="user.lastSignIn != null">
                 last_sign_in = #{user.lastSignIn},
+            </if>
+            <if test="user.password != null">
+                password = #{user.password},
+            </if>
+            <if test="user.salt != null">
+                salt = #{user.salt},
             </if>
         </set>
         where id=#{userId}
