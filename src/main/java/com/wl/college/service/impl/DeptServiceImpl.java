@@ -81,9 +81,11 @@ public class DeptServiceImpl implements DeptService{
         User manager = dept.getManager();
         //设置密码和生日性别
         String pseeword = (int) ((Math.random() * 9 + 1) * 100000) + "";
-        manager.setPassword(pseeword);
         IdCardUtil.getBirthdateAndGender(manager);
-        PasswordHelperUtil.encryptPassword(manager);
+        String salt = PasswordHelperUtil.getSalt();
+        manager.setSalt(salt);
+        String encryptPassword = PasswordHelperUtil.getEncryptPassword(salt, pseeword);
+        manager.setPassword(encryptPassword);
         System.out.println(manager);
         //更新
         Integer userUpdate = userDao.update(manager, result.getManagerId());
