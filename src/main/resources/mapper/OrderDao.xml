@@ -2,12 +2,47 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wl.college.dao.OrderDao">
 
-    <sql id="Base_Column_List" >
+    <sql id="Base_Column_List">
         id, type, resource_id, state, create_time, user_id, credits, amount, update_time
     </sql>
 
-    <insert id="create">
-        insert into order (type, resource_id,state, user_id,credits, amount)
-        values (#{id}, #{type}, #{resourceId},#{state}, #{userId},#{credits}, #{amount})
+    <insert id="create" useGeneratedKeys="true" keyProperty="order.id">
+        INSERT INTO order (type, resource_id, state, user_id, credits, amount)
+        VALUES (#{order.id}, #{order.type}, #{order.resourceId}, #{order.state}, #{order.userId}, #{order.credits},
+                #{order.amount})
     </insert>
+    <update id="update">
+        update order
+        <set>
+            <if test="order.type != null">
+                type = #{order.type},
+            </if>
+            <if test="order.resourceId != null">
+                resource_id = #{order.resourceId},
+            </if>
+            <if test="order.state != null">
+                state = #{order.state},
+            </if>
+            <if test="order.userId != null">
+                user_id = #{order.userId},
+            </if>
+            <if test="order.credits != null">
+                credits = #{order.credits},
+            </if>
+            <if test="order.amount != null">
+                amount = #{order.amount},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <delete id="delete">
+        DELETE FROM order
+        WHERE id = #{id}
+    </delete>
+    <select id="findById" resultType="com.wl.college.entity.Order">
+        select
+        <include refid="Base_Column_List"/>
+        from order
+        where id = #{id}
+    </select>
 </mapper>

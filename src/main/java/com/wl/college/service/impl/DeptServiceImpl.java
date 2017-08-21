@@ -47,6 +47,7 @@ public class DeptServiceImpl implements DeptService{
         //加角色
         roleList.add(1);
         //添加用户权限
+        //TODO
 //        userDao.createUserRole(user.getId(),roleList);
         dept.setManagerId(dept.getManager().getId());
         dept.setState("1");
