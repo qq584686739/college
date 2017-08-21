@@ -12,6 +12,15 @@
         VALUES (#{comment.userId}, #{comment.resourceId}, #{comment.content}, #{comment.pid}, #{comment.deptId},
                 #{comment.state}, #{comment.createTime})
     </insert>
+    <update id="update">
+        update comment
+        <set >
+            <if test="comment.state != null" >
+                state = #{comment.state},
+            </if>
+        </set>
+        where id = #{comment.id}
+    </update>
     <delete id="delete">
         DELETE FROM comment
         WHERE id = #{id}

@@ -16,6 +16,7 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -45,7 +46,17 @@ public class CommentControllerTest {
 //                .param("userId","27")
                 .param("resourceId","2")
                 .param("content","13")
-//                .param("pid","icon")
+//                .param("deptId","13")
+        ).andDo(print()).andExpect(status().isOk());
+    }
+
+    @Test
+    public void update() throws Exception {
+        //TODO 需要登录
+        mockMvc.perform(put("/comment")
+//                .param("userId","27")
+                .param("id","2")
+                .param("state","0")
 //                .param("deptId","13")
         ).andDo(print()).andExpect(status().isOk());
     }

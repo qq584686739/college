@@ -18,4 +18,6 @@ public interface CommentDao {
     Integer total(@Param("comment") Comment comment);
 
     Integer delete(@Param("id") Integer id);
+
+    Integer update(@Param("comment") Comment comment);
 }
