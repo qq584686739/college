@@ -80,4 +80,9 @@ public interface UserDao {
      * @return
      */
     Integer register(@Param("user") User user);
+
+    /**
+     * 修改密码
+     */
+    void changePwd(@Param("user") User user);
 }

@@ -63,4 +63,12 @@ public interface UserService {
      * @param user
      */
     void register(User user);
+
+    /**
+     * 修改密码
+     * @param oldPassword
+     * @param newPassword
+     * @return
+     */
+    Integer changePwd(String oldPassword, String newPassword);
 }

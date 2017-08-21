@@ -10,10 +10,11 @@ public class UserCourse implements Serializable {
     private Integer userId;//用户id
     private Integer courseId;//课程号
     private Integer schedule;//进度
-    private Integer isTest;//是否可用考试
+    private Integer test;//是否可用考试
 
     public UserCourse() {
     }
+
 
     public Integer getId() {
         return id;
@@ -47,11 +48,11 @@ public class UserCourse implements Serializable {
         this.schedule = schedule;
     }
 
-    public Integer getIsTest() {
-        return isTest;
+    public Integer getTest() {
+        return test;
     }
 
-    public void setIsTest(Integer isTest) {
-        this.isTest = isTest;
+    public void setTest(Integer test) {
+        this.test = test;
     }
 }
