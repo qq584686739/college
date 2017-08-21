@@ -14,8 +14,8 @@ public class Order implements Serializable {
     private Date updateTime;    //更新时间
     private Date createTime;    //创建时间
     private Integer userId;     //用户id
-    private Integer credits;    //所需积分
-    private Integer amount;     //钱
+    private Double credits;    //所需积分
+    private Double amount;     //钱
 
     public Order() {
     }
@@ -76,19 +76,34 @@ public class Order implements Serializable {
         this.userId = userId;
     }
 
-    public Integer getCredits() {
+    public Double getCredits() {
         return credits;
     }
 
-    public void setCredits(Integer credits) {
+    public void setCredits(Double credits) {
         this.credits = credits;
     }
 
-    public Integer getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", resourceId=" + resourceId +
+                ", state='" + state + '\'' +
+                ", updateTime=" + updateTime +
+                ", createTime=" + createTime +
+                ", userId=" + userId +
+                ", credits=" + credits +
+                ", amount=" + amount +
+                '}';
     }
 }

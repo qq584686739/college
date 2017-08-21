@@ -7,12 +7,11 @@
     </sql>
 
     <insert id="create" useGeneratedKeys="true" keyProperty="order.id">
-        INSERT INTO order (type, resource_id, state, user_id, credits, amount)
-        VALUES (#{order.id}, #{order.type}, #{order.resourceId}, #{order.state}, #{order.userId}, #{order.credits},
-                #{order.amount})
+        INSERT INTO `order` (type, resource_id, state, user_id, credits, amount)
+        VALUES (#{order.type}, #{order.resourceId}, #{order.state}, #{order.userId}, #{order.credits},#{order.amount})
     </insert>
     <update id="update">
-        update order
+        update `order`
         <set>
             <if test="order.type != null">
                 type = #{order.type},
@@ -36,13 +35,49 @@
         where id = #{id}
     </update>
     <delete id="delete">
-        DELETE FROM order
+        DELETE FROM `order`
         WHERE id = #{id}
     </delete>
     <select id="findById" resultType="com.wl.college.entity.Order">
         select
         <include refid="Base_Column_List"/>
-        from order
+        from `order`
         where id = #{id}
+    </select>
+    <select id="total" resultType="java.lang.Integer">
+
+    </select>
+    <select id="list" resultType="com.wl.college.entity.Order">
+        select
+        <include refid="Base_Column_List"/>
+        from `order`
+        <if test="deptId != null">
+            , user
+        </if>
+       <where>
+           <if test="deptId != null">
+               and user.dept_id =#{deptId} and user.id=`order`.user_id
+           </if>
+           <if test="order.type != null">
+               and `order`.type = #{order.type}
+           </if>
+           <if test="order.resourceId != null">
+               and `order`.resource_id = #{order.resourceId}
+           </if>
+           <if test="order.state != null">
+               and `order`.state = #{order.state}
+           </if>
+           <if test="order.userId != null">
+               and `order`.user_id = #{order.userId}
+           </if>
+           <if test="order.credits != null">
+               and `order`.credits = #{order.credits}
+           </if>
+           <if test="order.amount != null">
+               and `order`.amount = #{order.amount}
+           </if>
+       </where>
+        ORDER BY ${sort} ${rule}
+        LIMIT #{offset}, #{limit};
     </select>
 </mapper>

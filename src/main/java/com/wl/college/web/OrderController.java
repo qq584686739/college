@@ -2,10 +2,7 @@ package com.wl.college.web;
 
 import com.wl.college.dto.BaseResult;
 import com.wl.college.dto.BootStrapTableResult;
-import com.wl.college.entity.Comment;
-import com.wl.college.entity.Course;
 import com.wl.college.entity.Order;
-import com.wl.college.entity.User;
 import com.wl.college.service.OrderService;
 import com.wl.college.service.UserService;
 import org.apache.shiro.SecurityUtils;
@@ -16,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
  * Created by DIY on 2017/8/21.
  */
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/orders")
 public class OrderController {
 
     private final OrderService orderService;
@@ -66,9 +63,46 @@ public class OrderController {
      * @return
      */
     @GetMapping(value = "/user",produces = {"application/json;charset=UTF-8"})
-    public BootStrapTableResult<Order> userList(Order order) {
+    public BootStrapTableResult<Order> userList(Order order,
+                                                @RequestParam(value = "offset",required = false, defaultValue = "0")Integer offset,
+                                                @RequestParam(value = "limit", required = false, defaultValue = "100")Integer limit,
+                                                @RequestParam(value = "sort", required = false, defaultValue = "id")String sort,
+                                                @RequestParam(value = "order", required = false, defaultValue = "ASC")String rule) {
         order.setUserId((Integer) SecurityUtils.getSubject().getPrincipal());
-        return new BootStrapTableResult<>(orderService.total(order), orderService.list(order));
+        return new BootStrapTableResult<>(orderService.total(order, null), orderService.list(order, null, offset, limit, sort, rule));
+    }
+
+    /**
+     * 平台查订单
+     * @param order
+     * @return
+     */
+    @GetMapping(value = "/dept",produces = {"application/json;charset=UTF-8"})
+    public BootStrapTableResult<Order> deptList(Order order,
+                                                @RequestParam(value = "offset",required = false, defaultValue = "0")Integer offset,
+                                                @RequestParam(value = "limit", required = false, defaultValue = "100")Integer limit,
+                                                @RequestParam(value = "sort", required = false, defaultValue = "id")String sort,
+                                                @RequestParam(value = "order", required = false, defaultValue = "ASC")String rule) {
+        Integer deptId = (Integer) SecurityUtils.getSubject().getPrincipal();
+        return new BootStrapTableResult<>(orderService.total(order,deptId), orderService.list(order,deptId,offset,limit,sort,rule));
+    }
+
+    /**
+     * 管理员查订单
+     * @param order
+     * @param offset
+     * @param limit
+     * @param sort
+     * @param rule
+     * @return
+     */
+    @GetMapping(produces = {"application/json;charset=UTF-8"})
+    public BootStrapTableResult<Order> list(Order order,Integer deptId,
+                                                @RequestParam(value = "offset",required = false, defaultValue = "0")Integer offset,
+                                                @RequestParam(value = "limit", required = false, defaultValue = "100")Integer limit,
+                                                @RequestParam(value = "sort", required = false, defaultValue = "id")String sort,
+                                                @RequestParam(value = "order", required = false, defaultValue = "ASC")String rule) {
+        return new BootStrapTableResult<>(orderService.total(order, deptId), orderService.list(order, deptId, offset, limit, sort, rule));
     }
 
 

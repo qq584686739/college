@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="college@tdsql-c9iuylzh.bj.cdb.myqcloud.com" uuid="f1d78364-9eb0-49c0-8cb2-7ab06fbdbd24">
+    <data-source source="LOCAL" name="college@tdsql-c9iuylzh.bj.cdb.myqcloud.com" uuid="c161630c-f163-4932-aa64-cae7bcc8f7ad">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
