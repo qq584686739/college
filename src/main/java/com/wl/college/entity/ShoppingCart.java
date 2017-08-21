@@ -1,9 +1,11 @@
 package com.wl.college.entity;
 
+import java.io.Serializable;
+
 /**购物车
  * Created by DIY on 2017/8/17.
  */
-public class ShoppingCart {
+public class ShoppingCart implements Serializable {
     private Integer id;
     private Integer userId;//用户id
     private Integer resourceId;//资源id

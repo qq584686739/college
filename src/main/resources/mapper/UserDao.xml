@@ -38,7 +38,7 @@
     <!--查找user所拥有的角色-->
     <select id="hasRoles" resultType="com.wl.college.entity.Role">
         SELECT
-        r.id, r.role, r.description, r.available, r.create_time, r.update_time
+          r.id, r.role, r.description, r.available, r.create_time, r.update_time
         FROM role r
         JOIN user_role ur ON r.id=ur.role_id
         JOIN user u ON ur.user_id=u.id

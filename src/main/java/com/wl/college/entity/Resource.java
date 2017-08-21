@@ -1,9 +1,11 @@
 package com.wl.college.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by DIY on 2017/8/16.
  */
-public class Resource {
+public class Resource implements Serializable {
     private Integer id;             //自增主键id
     private String name;            //资源名称
     private String author;          //资源所属作者

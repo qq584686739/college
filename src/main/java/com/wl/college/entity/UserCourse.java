@@ -1,9 +1,11 @@
 package com.wl.college.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by DIY on 2017/8/17.
  */
-public class UserCourse {
+public class UserCourse implements Serializable {
     private Integer id;//自增主键
     private Integer userId;//用户id
     private Integer courseId;//课程号

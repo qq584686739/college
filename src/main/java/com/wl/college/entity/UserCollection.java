@@ -1,12 +1,13 @@
 package com.wl.college.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 用户收藏
  * Created by DIY on 2017/8/17.
  */
-public class UserCollection {
+public class UserCollection implements Serializable {
     private Integer id;// 主键
     private Integer userId; //用户id
     private Integer resourceId;//z资源id

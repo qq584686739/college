@@ -1,6 +1,7 @@
 package com.wl.college.service.impl;
 
 import com.wl.college.dao.RoleDao;
+import com.wl.college.entity.Permission;
 import com.wl.college.entity.Role;
 import com.wl.college.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,5 +60,23 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role getOne(Integer id) {
         return roleDao.getOne(id);
+    }
+
+    /**
+     * 删除role
+     * @param id
+     */
+    @Override
+    public void deleteRole(Integer id) {
+        roleDao.deleteRole(id);
+    }
+
+    /**
+     * 根据role的id获得这个id下的所有permissions
+     * @param id
+     */
+    @Override
+    public List<Permission> getPermissionByRoleId(Integer id) {
+        return roleDao.getPermissionByRoleId(id);
     }
 }

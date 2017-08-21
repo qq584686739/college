@@ -1,12 +1,13 @@
 package com.wl.college.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 角色
  * Created by yugoh on 2017/5/18.
  */
-public class Role {
+public class Role implements Serializable {
     private Integer id;                 //id
     private String role;                //角色标志
     private String description;    //角色描述

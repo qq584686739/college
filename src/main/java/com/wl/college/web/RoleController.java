@@ -3,13 +3,12 @@ package com.wl.college.web;
 import com.alibaba.fastjson.JSONArray;
 import com.wl.college.dto.BaseResult;
 import com.wl.college.entity.Role;
-import com.wl.college.enums.OperationType;
 import com.wl.college.service.RoleService;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,10 +27,10 @@ public class RoleController {
 
     /**
      * 查询所有的role
+     *
      * @return 返回所有的role
      */
     @RequestMapping(method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
-    @RequiresPermissions(OperationType.ROLE_VIEW)
     public BaseResult<Object> listAll() {
         log.info("invoke----------/role.GET");
         List<Role> roles;
@@ -41,14 +40,14 @@ public class RoleController {
 
     /**
      * 创建一个role并分配权限
-     * @param role role的信息
+     *
+     * @param role        role的信息
      * @param permissions role所对应的permissionIds
      * @return true：创建成功，false：创建失败
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
-    @RequiresPermissions(OperationType.ROLE_CREATE)
-    public BaseResult<Object> createRole(@RequestParam Role role,
-                                          @RequestParam(required = false) String permissions) {
+    public BaseResult createRole(@RequestParam Role role,
+                                 @RequestParam(required = false) String permissions) {
         log.info("invoke----------/role/create.POST");
         List<Integer> permissionsList = new ArrayList<>();
         JSONArray jsonlist = JSONArray.parseArray(permissions);
@@ -64,14 +63,16 @@ public class RoleController {
 
     /**
      * 修改一个role并重新分配权限
-     * @param role role的信息
+     * 如果不传permissions则默认只修改role的信息，不对该role重新授权
+     * 如果传permissions则对role重新授权
+     *
+     * @param role        role的信息
      * @param permissions role所对应的permissionIds
      * @return true：创建成功，false：创建失败
      */
     @RequestMapping(value = "/update", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
-    @RequiresPermissions(OperationType.ROLE_UPDATE)
-    public boolean updateRole(@RequestParam Role role,
-                                @RequestParam String permissions) {
+    public BaseResult updateRole(@RequestParam Role role,
+                                 @RequestParam(required = false) String permissions) {
         log.info("invoke----------/role/update.PUT");
         List<Integer> permissionsList = new ArrayList<>();
         JSONArray jsonlist = JSONArray.parseArray(permissions);
@@ -80,20 +81,46 @@ public class RoleController {
                 permissionsList.add(jsonlist.getInteger(i));
             }
         }
-        roleService.updateRole(role, permissionsList);      //创建角色同时分配权限
-        return true;
+        roleService.updateRole(role, permissionsList);      //更新角色同时分配权限
+        return new BaseResult(true, null);
     }
 
 
     /**
      * 根据id获得一个role
+     *
      * @param id
      * @return
      */
     @RequestMapping(value = "/getOne", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
-//    @RequiresPermissions(OperationType.ROLE_UPDATE)
     public BaseResult<Role> getOne(@RequestParam Integer id) {
         log.info("invoke----------/role/getOne.GET");
         return new BaseResult<>(true, roleService.getOne(id));      //根据id获得一个role并返回
     }
+
+    /**
+     * 删除role
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE, produces = {"application/json;charset=UTF-8"})
+    public BaseResult<Object> delete(@PathVariable("id") Integer id) {
+        log.info("invoke----------/role/delete/{id}.DELETE");
+        roleService.deleteRole(id);
+        return new BaseResult<>(true, null);
+    }
+
+    /**
+     * 根据role的id获得这个id下的所有permissions
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/getPermissions", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+    public BaseResult getPermissionByRoleId(Integer id) {
+        log.info("invoke----------/role/getPermissions.GET");
+        return new BaseResult<>(true, roleService.getPermissionByRoleId(id));      //根据id获得一个role并返回
+    }
+
 }

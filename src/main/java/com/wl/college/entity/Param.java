@@ -1,11 +1,12 @@
 package com.wl.college.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by DIY on 2017/8/16.
  */
-public class Param {
+public class Param implements Serializable {
     private Integer id;
     private String volume; //值
     private Integer deptId;//平台id
