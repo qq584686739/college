@@ -70,10 +70,10 @@ public class UserRealm extends AuthorizingRealm {
         User user;
         if(usernamePasswordUsertypeToken.getLoginFlag().equals("phone")){
             //手机号登录
-            user = userService.getUserByTag(null, null, loginName, null);
+            user = userService.getUserPwdByTag(null, null, loginName, null);
         }else{
             //邮箱登录
-            user = userService.getUserByTag(null, loginName, null, null);
+            user = userService.getUserPwdByTag(null, loginName, null, null);
         }
 
         if (user == null) {
