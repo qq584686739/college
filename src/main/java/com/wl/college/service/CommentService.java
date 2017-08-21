@@ -1,6 +1,7 @@
 package com.wl.college.service;
 
 import com.wl.college.entity.Comment;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -15,4 +16,6 @@ public interface CommentService {
     Integer total(Comment comment);
 
     void delete(Integer id);
+
+    Comment update(@Param("comment") Comment comment);
 }

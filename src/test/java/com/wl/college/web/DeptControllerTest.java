@@ -53,7 +53,7 @@ public class DeptControllerTest {
                 .param("manager.phone","123456")
                 .param("manager.fullName","sssss")
                 .param("bankCard","bankCard")
-                .param("pid","8")
+                .param("pid","15")
         ).andDo(print()).andExpect(status().isOk());;
     }
 
@@ -69,7 +69,7 @@ public class DeptControllerTest {
                 .param("manager.bankCard","manager.bankCard")
                 .param("manager.bankCardFront","manager.bankCardFront")
                 .param("manager.bankCardBack","manager.bankCardBack")
-                .param("id","10")
+                .param("id","17")
         ).andDo(print()).andExpect(status().isOk());
     }
 

@@ -15,11 +15,9 @@
         user.sign_in_day, user.last_sign_in
     </sql>
     <insert id="create" useGeneratedKeys="true" keyProperty="dept.id">
-        INSERT INTO dept (name, manager_id, country, city, town, address, area, state, expiration_time, bank_card, pid)
-        VALUES (#{dept.name},
-            #{dept.managerId}, #{dept.country}, #{dept.city}, #{dept.town}, #{dept.address}, #{dept.area},
-            #{dept.state},
-            #{dept.expirationTime}, #{dept.bankCard}, #{dept.pid});
+        INSERT INTO dept (name, manager_id, country, city, town, address, area, state, expiration_time, bank_card, pid,pids)
+        VALUES (#{dept.name},#{dept.managerId}, #{dept.country}, #{dept.city}, #{dept.town}, #{dept.address}, #{dept.area},
+            #{dept.state},#{dept.expirationTime}, #{dept.bankCard}, #{dept.pid}, #{dept.pids});
     </insert>
     <update id="update">
         update dept

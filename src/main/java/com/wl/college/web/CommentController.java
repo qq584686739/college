@@ -52,7 +52,19 @@ public class CommentController {
     //TODO 需要权限
     @PostMapping(value = "/admin",produces = {"application/json;charset=UTF-8"})
     public BaseResult<Comment> adminCreate(Comment comment) {
+        comment.setState("0");
         return new BaseResult<>(true, commentService.create(comment));
+    }
+
+    /**
+     * 审核评论
+     * @param comment
+     * @return
+     */
+    //TODO 需要权限
+    @PutMapping(produces = {"application/json;charset=UTF-8"})
+    public BaseResult<Comment> update(Comment comment) {
+        return new BaseResult<>(true, commentService.update(comment));
     }
       /**
      * 查看评论
@@ -88,7 +100,7 @@ public class CommentController {
     }
 
     /**
-     * 删课程
+     * 删评论
      *
      * @return
      */

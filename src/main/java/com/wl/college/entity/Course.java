@@ -20,8 +20,26 @@ public class Course implements Serializable {
     private Date updateTime;    //更新时间
     private Date createTime;    //创建时间
     private Integer pointId; //指向id 为null就是父课 ，其他都是下方的课
+    private String type; //类型 自己上传，平台上传
+    private Double credits; // 积分
 
     public Course() {
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Double getCredits() {
+        return credits;
+    }
+
+    public void setCredits(Double credits) {
+        this.credits = credits;
     }
 
     public Integer getId() {

@@ -49,4 +49,13 @@ public class CommentServiceImpl implements CommentService {
             throw new BizException(BizExceptionEnum.DB_DELETE_RESULT_ERROR);
         }
     }
+
+    @Override
+    public Comment update(Comment comment) {
+        Integer update =commentDao.update(comment);
+        if(update!=1){
+            throw new BizException(BizExceptionEnum.DB_UPDATE_RESULT_ERROR);
+        }
+        return commentDao.findById(comment.getId());
+    }
 }
