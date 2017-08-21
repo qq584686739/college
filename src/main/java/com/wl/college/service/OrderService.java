@@ -14,7 +14,7 @@ public interface OrderService {
 
     void delete(Integer id);
 
-    List<Order> list(Order order);
+    List<Order> list(Order order, Integer deptId, Integer offset, Integer limit, String sort, String rule);
 
-    Integer total(Order order);
+    Integer total(Order order, Integer deptId);
 }

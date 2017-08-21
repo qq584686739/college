@@ -3,6 +3,8 @@ package com.wl.college.dao;
 import com.wl.college.entity.Order;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * Created by DIY on 2017/8/21.
  */
@@ -34,4 +36,9 @@ public interface OrderDao {
      * @return
      */
     Integer delete(@Param("id") Integer id);
+
+    Integer total(@Param("order") Order order, @Param("deptId") Integer deptId);
+
+    List<Order> list(@Param("order") Order order, @Param("deptId") Integer deptId, @Param("offset") Integer offset,
+                     @Param("limit") Integer limit, @Param("sort") String sort, @Param("rule") String rule);
 }

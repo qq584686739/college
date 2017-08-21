@@ -21,6 +21,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order create(Order order) {
+        System.out.println(order);
         Integer insert = orderDao.create(order);
         if (insert != 1) {
             throw new BizException(BizExceptionEnum.DB_INSERT_RESULT_ERROR);
@@ -46,12 +47,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> list(Order order) {
-        return null;
+    public List<Order> list(Order order, Integer deptId, Integer offset, Integer limit, String sort, String rule) {
+        return orderDao.list(order,deptId,offset,limit,sort,rule);
     }
 
     @Override
-    public Integer total(Order order) {
-        return null;
+    public Integer total(Order order, Integer deptId) {
+        return orderDao.total(order,deptId);
     }
 }
