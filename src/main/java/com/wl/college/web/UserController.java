@@ -182,6 +182,7 @@ public class UserController {
      *
      * @return BaseResult
      */
+    @RequiresUser
     @RequestMapping(value = "/getInfo", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
     public BaseResult getInfo() {
         log.info("invoke----------/user/getInfo.GET");
@@ -198,6 +199,7 @@ public class UserController {
      * @param idCard
      * @return BaseResult
      */
+    @RequiresUser
     @RequestMapping(value = "/getOtherInfo", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
     // TODO: 2017/8/21 需要有查看其它user的权限
     public BaseResult getOtherInfo(Integer id,
@@ -208,6 +210,23 @@ public class UserController {
         return new BaseResult<>(true, userService.getUserByTag(id,
                 email, phone, idCard));
     }
+
+    /**
+     * user修改自己密码
+     * @param oldPassword
+     * @param newPassword
+     * @return
+     */
+    @RequiresUser
+    @RequestMapping(value = "/changePwd", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
+    // TODO: 2017/8/21 需要有查看其它user的权限
+    public BaseResult changePwd(@RequestParam String oldPassword,
+                                @RequestParam String newPassword) {
+        log.info("invoke----------/user/changePwd.PUT");
+        userService.changePwd(oldPassword, newPassword);
+        return new BaseResult<>(true, null);
+    }
+
 
 
     /**

@@ -4,7 +4,7 @@
 
     <!--user表基础sql片段-->
     <sql id="Base_Column_List">
-        id, name, referral_code, password, salt, mail, phone, full_name, country, city, address,
+        id, name, referral_code, mail, phone, full_name, country, city, address,
         id_card, id_card_front, id_card_back, id_card_with, pid, pids, state, create_time,
         update_time, bank_card, bank_card_front, bank_card_back, bank_card_state, id_card_state,
         birthdate, gender, dept_id, sign_in_day, last_sign_in
@@ -383,5 +383,15 @@
             </if>
         </trim>
     </insert>
+
+    <!--修改密码-->
+    <update id="changePwd">
+        UPDATE user
+        SET
+            salt = #{user.salt},
+            password = #{user.password}
+        WHERE
+            id = #{user.id}
+    </update>
 
 </mapper>

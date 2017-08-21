@@ -1,6 +1,5 @@
 package com.wl.college.utils;
 
-import com.wl.college.entity.User;
 import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -12,33 +11,41 @@ import org.apache.shiro.util.ByteSource;
  */
 public class PasswordHelperUtil {
 
-    private static String algorithmName = "md5";
-    private static Integer hashIterations = 2;                 //加密次数
+    /**
+     * 该正则必须符合以下条例：
+     * 1、不能是纯数字
+     * 2、不能是纯字母
+     * 3、不能是纯特殊符号
+     * 4、必须是字母或数字或指定特殊符号        !@#$%^&*
+     * 5、必须是字母开头
+     * 6、长度必须是8-16位（包括8，包括16）
+     */
+    public static String MATCHER = "^[A-Za-z](?![a-zA-Z]+$)[0-9A-Za-z!@#$%^&*]{7,15}$";
 
-    public static String getAlgorithmName() {
-        return algorithmName;
-    }
-
-    public static void setAlgorithmName(String algorithmName) {
-        PasswordHelperUtil.algorithmName = algorithmName;
-    }
-
-    public static Integer getHashIterations() {
-        return hashIterations;
-    }
-
-    public static void setHashIterations(Integer hashIterations) {
-        PasswordHelperUtil.hashIterations = hashIterations;
-    }
-
-    public static void encryptPassword(User user) {
+    /**
+     * 返回一个随机的salt
+     *
+     * @return
+     */
+    public static String getSalt() {
         RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
-        user.setSalt(randomNumberGenerator.nextBytes().toHex());
-        String newPassword = new SimpleHash(
+        return randomNumberGenerator.nextBytes().toHex();
+    }
+
+    /**
+     * 传入salt、明文密码  ==》  返回明文密码根据salt加密过后的密文
+     *
+     * @param salt
+     * @param password
+     * @return
+     */
+    public static String getEncryptPassword(String salt, String password) {
+        String algorithmName = "md5";
+        Integer hashIterations = 2;
+        return new SimpleHash(
                 algorithmName,
-                user.getPassword(),
-                ByteSource.Util.bytes(user.getSalt()),
+                password,
+                ByteSource.Util.bytes(salt),
                 hashIterations).toHex();
-        user.setPassword(newPassword);
     }
 }
