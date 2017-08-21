@@ -3,6 +3,7 @@ package com.wl.college.realm;
 import org.apache.shiro.authc.UsernamePasswordToken;
 
 /**
+ *
  * Created by DIY on 2017/6/12.
  */
 public class UsernamePasswordUsertypeToken extends UsernamePasswordToken {
@@ -18,11 +19,11 @@ public class UsernamePasswordUsertypeToken extends UsernamePasswordToken {
         }
     }
 
-    public String getLoginFlag() {
+    String getLoginFlag() {
         return loginFlag;
     }
 
-    public void setLoginFlag(String loginFlag) {
+    private void setLoginFlag(String loginFlag) {
         this.loginFlag = loginFlag;
     }
 }

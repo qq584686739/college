@@ -3,7 +3,6 @@ package com.wl.college.realm;
 import com.wl.college.entity.User;
 import com.wl.college.enums.Constants;
 import com.wl.college.service.UserService;
-import com.wl.college.shiro.RetryLimitHashedCredentialsMatcher;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -12,6 +11,7 @@ import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,8 +22,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserRealm extends AuthorizingRealm {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
 
     @Autowired
@@ -32,8 +31,10 @@ public class UserRealm extends AuthorizingRealm {
         super.setCredentialsMatcher(credentialsMatcher);
     }
 
-    public UserRealm() {
+    @Autowired
+    public UserRealm(UserService userService) {
         super.setCachingEnabled(Boolean.FALSE);
+        this.userService = userService;
     }
 
     @Override
@@ -86,14 +87,12 @@ public class UserRealm extends AuthorizingRealm {
             throw new RuntimeException("该客户账号已冻结，请联系管理员！");
         }
 
-        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-                user.getId(),       //用户名
-                user.getPassword(), //密码
-                getName()           //realm name
+        return new SimpleAuthenticationInfo(
+                user.getId(),                               //用户名
+                user.getPassword(),                         //密码
+                ByteSource.Util.bytes(user.getSalt()),      //salt
+                getName()                                   //realm name
         );
-
-        return authenticationInfo;
-
     }
 
     @Override
