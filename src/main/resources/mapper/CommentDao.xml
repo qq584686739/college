@@ -1,4 +1,83 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wl.college.dao.CommentDao">
+    <sql id="Base_Column_List">
+        id, user_id, resource_id, content, pid, dept_id, state, create_time
+    </sql>
+
+    <insert id="create" useGeneratedKeys="true" keyProperty="comment.id">
+        INSERT INTO comment (user_id, resource_id,
+                             content, pid, dept_id,
+                             state, create_time)
+        VALUES (#{comment.userId}, #{comment.resourceId}, #{comment.content}, #{comment.pid}, #{comment.deptId},
+                #{comment.state}, #{comment.createTime})
+    </insert>
+    <delete id="delete">
+        DELETE FROM comment
+        WHERE id = #{id}
+    </delete>
+
+    <select id="findById" resultType="com.wl.college.entity.Comment">
+        select
+        <include refid="Base_Column_List"/>
+        from comment
+        where id = #{id}
+    </select>
+
+    <select id="total" resultType="java.lang.Integer">
+        select count(*)
+        from comment
+        <where>
+            <if test="comment.userId != null">
+                and user_id = #{comment.userId}
+            </if>
+            <if test="comment.resourceId != null">
+                and resource_id = #{comment.resourceId}
+            </if>
+            <if test="comment.content != null">
+                and content = #{comment.content}
+            </if>
+            <if test="comment.pid != null">
+                and pid = #{comment.pid}
+            </if>
+            <if test="comment.deptId != null">
+                and dept_id = #{comment.deptId}
+            </if>
+            <if test="comment.state != null">
+                and state = #{comment.state}
+            </if>
+            <if test="comment.createTime != null">
+                and create_time = #{comment.createTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="list" resultType="com.wl.college.entity.Comment">
+        select
+        <include refid="Base_Column_List"/>
+        from comment
+        <where>
+            <if test="comment.userId != null">
+                and user_id = #{comment.userId}
+            </if>
+            <if test="comment.resourceId != null">
+                and resource_id = #{comment.resourceId}
+            </if>
+            <if test="comment.content != null">
+                and content = #{comment.content}
+            </if>
+            <if test="comment.pid != null">
+                and pid = #{comment.pid}
+            </if>
+            <if test="comment.deptId != null">
+                and dept_id = #{comment.deptId}
+            </if>
+            <if test="comment.state != null">
+                and state = #{comment.state}
+            </if>
+            <if test="comment.createTime != null">
+                and create_time = #{comment.createTime}
+            </if>
+        </where>
+    </select>
 </mapper>
