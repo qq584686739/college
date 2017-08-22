@@ -1,7 +1,6 @@
 package com.wl.college.web;
 
 import com.wl.college.dto.BootStrapTableResult;
-import com.wl.college.entity.Course;
 import com.wl.college.entity.UserCourse;
 import com.wl.college.service.UserCourseService;
 import org.apache.shiro.SecurityUtils;

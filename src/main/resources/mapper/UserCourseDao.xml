@@ -8,17 +8,44 @@
 
     <sql id="Base_Column_List" >
         user_course.id, user_course.user_id, user_course.course_id, user_course.schedule, user_course.is_test,
-        user.id, user.name
+        user.id, user.name,course.id, course.name, course.dept_id, course.price, course.icon, course.details, course.description
     </sql>
 
     <select id="total" resultType="java.lang.Integer">
-
+        select
+        count(*)
+        from user_course,user,course
+        where user_course.user_id=user.id and user_course.course_id=course.id
+        <if test="userCourse.userId != null" >
+            user_course.user_id = #{userCourse.userId},
+        </if>
+        <if test="userCourse.courseId != null" >
+            user_course.course_id = #{userCourse.courseId},
+        </if>
+        <if test="userCourse.isTest != null" >
+            user_course.is_test = #{userCourse.isTest},
+        </if>
+        <if test="userCourse.course.deptId != null" >
+            course.dept_id = #{userCourse.course.deptId},
+        </if>
     </select>
     <select id="list" resultType="com.wl.college.entity.UserCourse">
         select
         <include refid="Base_Column_List" />
         from user_course,user,course
         where user_course.user_id=user.id and user_course.course_id=course.id
+        <if test="userCourse.userId != null" >
+            user_course.user_id = #{userCourse.userId},
+        </if>
+        <if test="userCourse.courseId != null" >
+            user_course.course_id = #{userCourse.courseId},
+        </if>
+        <if test="userCourse.isTest != null" >
+            user_course.is_test = #{userCourse.isTest},
+        </if>
+        <if test="userCourse.course.deptId != null" >
+            course.dept_id = #{userCourse.course.deptId},
+        </if>
 
     </select>
 </mapper>
