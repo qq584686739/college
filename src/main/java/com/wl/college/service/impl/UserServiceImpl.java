@@ -54,16 +54,16 @@ public class UserServiceImpl implements UserService {
     /**
      * 根据条件获取一部分user
      *
-     * @param user
-     * @param offset
-     * @param limit
-     * @param sort_field
-     * @param sort_rule
-     * @return List<User>
+     * @param user   筛选条件user
+     * @param offset 起始数
+     * @param limit  需要数
+     * @param sort   排序的字段
+     * @param order  排序的规则
+     * @return
      */
     @Override
-    public List<User> listUser(User user, Integer offset, Integer limit, String sort_field, String sort_rule) {
-        return userDao.listUser(user, offset, limit, sort_field, sort_rule);
+    public List<User> listUser(User user, Integer offset, Integer limit, String sort, String order) {
+        return userDao.listUser(user, offset, limit, sort, order);
     }
 
     /**
@@ -162,6 +162,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 更新user_role
+     *
      * @param id
      * @param roleList
      */

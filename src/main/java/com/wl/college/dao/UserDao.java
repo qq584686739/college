@@ -54,19 +54,19 @@ public interface UserDao {
     /**
      * 根据条件获取一部分user
      *
-     * @param user
-     * @param offset
-     * @param limit
-     * @param sort_field
-     * @param sort_rule
+     * @param user   筛选条件user
+     * @param offset 起始数
+     * @param limit  需要数
+     * @param sort   排序的字段
+     * @param order  排序的规则
      * @return
      */
     List<User> listUser(
             @Param("user") User user,
             @Param("offset") Integer offset,
             @Param("limit") Integer limit,
-            @Param("sort_field") String sort_field,
-            @Param("sort_rule") String sort_rule);
+            @Param("sort") String sort,
+            @Param("order") String order);
 
     /**
      * 根据筛选条件查找筛选条件下的所有user
@@ -106,14 +106,16 @@ public interface UserDao {
 
     /**
      * 根据id删除user_role
+     *
      * @param id
      */
-    void deleteUserRole(@Param("id")Integer id);
+    void deleteUserRole(@Param("id") Integer id);
 
     /**
      * 创建user_role
+     *
      * @param id
      * @param roleList
      */
-    void createUserRole(@Param("id")Integer id, @Param("roleList")List<Integer> roleList);
+    void createUserRole(@Param("id") Integer id, @Param("roleList") List<Integer> roleList);
 }
