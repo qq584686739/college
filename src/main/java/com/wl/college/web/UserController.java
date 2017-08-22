@@ -3,14 +3,15 @@ package com.wl.college.web;
 import com.alibaba.fastjson.JSONArray;
 import com.wl.college.dto.BaseResult;
 import com.wl.college.dto.BootStrapTableResult;
+import com.wl.college.entity.Permission;
 import com.wl.college.entity.Role;
 import com.wl.college.entity.User;
 import com.wl.college.exception.BizExceptionEnum;
 import com.wl.college.exception.BizExceptionMessage;
 import com.wl.college.realm.UsernamePasswordUsertypeToken;
+import com.wl.college.service.PermissionService;
 import com.wl.college.service.UserService;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,18 +21,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.apache.shiro.web.filter.mgt.DefaultFilter.roles;
+
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
+    private final PermissionService permissionService;
 
     private static final Logger log = LoggerFactory.getLogger(RoleController.class);
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, PermissionService permissionService) {
         this.userService = userService;
+        this.permissionService = permissionService;
     }
 
     /**
@@ -54,19 +59,12 @@ public class UserController {
 
         boolean isLogin = subject.isAuthenticated();
         if (isLogin) {
-            //登录成功，返回角色
-            List<Role> roles;
-            if (loginFlag.equals("mail")) {
-                //邮箱登录
-                roles = userService.hasRoles(null, loginName, null, null);
-            } else {
-                //手机号登录
-                roles = userService.hasRoles(null, null, loginName, null);
-            }
-            return new BaseResult<>(true, roles);
+            //登录成功，返回权限、头像, 用户名, 我的推荐码, 金币数量
+            List<Permission> permissions = permissionService.hasPermissions((Integer) SecurityUtils.getSubject().getPrincipal());
+            return new BaseResult<>(true, permissions);
         } else {
             //登录失败
-            return new BaseResult<>(false, "登录失败（到时候以错误代码替代）");
+            return new BaseResult<>(false, "登录失败（到时候以错误代码替代）");     // TODO: 2017/8/22 错误代码
         }
     }
 
@@ -77,8 +75,8 @@ public class UserController {
      * @param user       筛选条件user
      * @param offset     起始数
      * @param limit      需要数
-     * @param sort_field 排序的字段
-     * @param sort_rule  排序的规则
+     * @param sort 排序的字段
+     * @param order  排序的规则
      * @return
      */
     @RequiresUser
@@ -88,11 +86,11 @@ public class UserController {
             @RequestParam(value = "user", required = false) User user,
             @RequestParam(value = "offset", required = false, defaultValue = "0") Integer offset,
             @RequestParam(value = "limit", required = false, defaultValue = "100") Integer limit,
-            @RequestParam(value = "sort", required = false, defaultValue = "id") String sort_field,
-            @RequestParam(value = "order", required = false, defaultValue = "ASC") String sort_rule) {
+            @RequestParam(value = "sort", required = false, defaultValue = "id") String sort,
+            @RequestParam(value = "order", required = false, defaultValue = "ASC") String order) {
         log.info("invoke----------/user.GET");
         Integer total = userService.findCount(user);
-        List<User> list = userService.listUser(user, offset, limit, sort_field, sort_rule);
+        List<User> list = userService.listUser(user, offset, limit, sort, order);
         return new BootStrapTableResult<>(total, list);
     }
 

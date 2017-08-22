@@ -211,7 +211,7 @@
         <if test="user.dept_id != null">
             AND dept_id = #{user.dept_id}
         </if>
-        ORDER BY ${sort_field} ${sort_rule}
+        ORDER BY ${sort} ${order}
         LIMIT #{offset}, #{limit}
     </select>
 

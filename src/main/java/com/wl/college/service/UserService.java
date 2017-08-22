@@ -33,14 +33,14 @@ public interface UserService {
     /**
      * 根据条件获取一部分user
      *
-     * @param user
-     * @param offset
-     * @param limit
-     * @param sort_field
-     * @param sort_rule
-     * @return List<User>
+     * @param user   筛选条件user
+     * @param offset 起始数
+     * @param limit  需要数
+     * @param sort   排序的字段
+     * @param order  排序的规则
+     * @return
      */
-    List<User> listUser(User user, Integer offset, Integer limit, String sort_field, String sort_rule);
+    List<User> listUser(User user, Integer offset, Integer limit, String sort, String order);
 
     /**
      * 根据筛选调教查找条件下的所有user
@@ -59,6 +59,7 @@ public interface UserService {
 
     /**
      * 客户注册
+     *
      * @param user
      * @return
      */
@@ -66,6 +67,7 @@ public interface UserService {
 
     /**
      * 修改密码
+     *
      * @param id
      * @param oldPassword
      * @param newPassword
@@ -75,6 +77,7 @@ public interface UserService {
 
     /**
      * 根据唯一标识得到user的密码
+     *
      * @param id
      * @param mail
      * @param phone
@@ -85,6 +88,7 @@ public interface UserService {
 
     /**
      * 更新user_role
+     *
      * @param id
      * @param roleList
      */
