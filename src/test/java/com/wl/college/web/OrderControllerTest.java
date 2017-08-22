@@ -9,11 +9,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.junit.Assert.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -52,14 +55,26 @@ public class OrderControllerTest {
 
     @Test
     public void update() throws Exception {
+        mockMvc.perform(put("/orders")
+//                .param("type","type")
+//                .param("resourceId","20")
+                .param("state","0")
+                .param("id","6")
+//                .param("credits","0")
+//                .param("amount","11.1")
+        ).andDo(print()).andExpect(status().isOk());
     }
 
     @Test
     public void delete() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/orders/6")
+        ).andDo(print()).andExpect(status().isOk());
     }
 
     @Test
     public void list() throws Exception {
+        mockMvc.perform(get("/orders")
+        ).andDo(print()).andExpect(status().isOk());
     }
 
 }
