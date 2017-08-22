@@ -9,6 +9,8 @@ import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 /**
  * Created by DIY on 2017/8/21.
  */
@@ -46,6 +48,7 @@ public class OrderController {
         return new BaseResult<>(true, orderService.update(order));
     }
 
+
     /**
      * 删订单
      *
@@ -63,11 +66,11 @@ public class OrderController {
      * @return
      */
     @GetMapping(value = "/user",produces = {"application/json;charset=UTF-8"})
-    public BootStrapTableResult<Order> userList(Order order,
-                                                @RequestParam(value = "offset",required = false, defaultValue = "0")Integer offset,
-                                                @RequestParam(value = "limit", required = false, defaultValue = "100")Integer limit,
-                                                @RequestParam(value = "sort", required = false, defaultValue = "id")String sort,
-                                                @RequestParam(value = "order", required = false, defaultValue = "ASC")String rule) {
+    public BootStrapTableResult<Map> userList(Order order,
+                                              @RequestParam(value = "offset",required = false, defaultValue = "0")Integer offset,
+                                              @RequestParam(value = "limit", required = false, defaultValue = "100")Integer limit,
+                                              @RequestParam(value = "sort", required = false, defaultValue = "order.id")String sort,
+                                              @RequestParam(value = "order", required = false, defaultValue = "ASC")String rule) {
         order.setUserId((Integer) SecurityUtils.getSubject().getPrincipal());
         return new BootStrapTableResult<>(orderService.total(order, null), orderService.list(order, null, offset, limit, sort, rule));
     }
@@ -78,10 +81,10 @@ public class OrderController {
      * @return
      */
     @GetMapping(value = "/dept",produces = {"application/json;charset=UTF-8"})
-    public BootStrapTableResult<Order> deptList(Order order,
+    public BootStrapTableResult<Map> deptList(Order order,
                                                 @RequestParam(value = "offset",required = false, defaultValue = "0")Integer offset,
                                                 @RequestParam(value = "limit", required = false, defaultValue = "100")Integer limit,
-                                                @RequestParam(value = "sort", required = false, defaultValue = "id")String sort,
+                                                @RequestParam(value = "sort", required = false, defaultValue = "order.id")String sort,
                                                 @RequestParam(value = "order", required = false, defaultValue = "ASC")String rule) {
         Integer deptId = (Integer) SecurityUtils.getSubject().getPrincipal();
         return new BootStrapTableResult<>(orderService.total(order,deptId), orderService.list(order,deptId,offset,limit,sort,rule));
@@ -97,10 +100,10 @@ public class OrderController {
      * @return
      */
     @GetMapping(produces = {"application/json;charset=UTF-8"})
-    public BootStrapTableResult<Order> list(Order order,Integer deptId,
+    public BootStrapTableResult<Map> list(Order order,Integer deptId,
                                                 @RequestParam(value = "offset",required = false, defaultValue = "0")Integer offset,
                                                 @RequestParam(value = "limit", required = false, defaultValue = "100")Integer limit,
-                                                @RequestParam(value = "sort", required = false, defaultValue = "id")String sort,
+                                                @RequestParam(value = "sort", required = false, defaultValue = "order.id")String sort,
                                                 @RequestParam(value = "order", required = false, defaultValue = "ASC")String rule) {
         return new BootStrapTableResult<>(orderService.total(order, deptId), orderService.list(order, deptId, offset, limit, sort, rule));
     }

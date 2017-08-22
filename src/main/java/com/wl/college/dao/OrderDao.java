@@ -4,6 +4,7 @@ import com.wl.college.entity.Order;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by DIY on 2017/8/21.
@@ -39,6 +40,6 @@ public interface OrderDao {
 
     Integer total(@Param("order") Order order, @Param("deptId") Integer deptId);
 
-    List<Order> list(@Param("order") Order order, @Param("deptId") Integer deptId, @Param("offset") Integer offset,
-                     @Param("limit") Integer limit, @Param("sort") String sort, @Param("rule") String rule);
+    List<Map> list(@Param("order") Order order, @Param("deptId") Integer deptId, @Param("offset") Integer offset,
+                   @Param("limit") Integer limit, @Param("sort") String sort, @Param("rule") String rule);
 }

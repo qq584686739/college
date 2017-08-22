@@ -3,7 +3,8 @@
 <mapper namespace="com.wl.college.dao.OrderDao">
 
     <sql id="Base_Column_List">
-        id, type, resource_id, state, create_time, user_id, credits, amount, update_time
+        `order`.id, `order`.type, `order`.resource_id, `order`.state, `order`.create_time, `order`.user_id, `order`.credits,
+        `order`.amount, `order`.update_time
     </sql>
 
     <insert id="create" useGeneratedKeys="true" keyProperty="order.id">
@@ -75,16 +76,19 @@
             </if>
         </where>
     </select>
-    <select id="list" resultType="com.wl.college.entity.Order">
+    <select id="list" resultType="java.util.Map">
         select
         <include refid="Base_Column_List"/>
+        <if test="deptId != null">
+        , user.dept_id
+         </if>
         from `order`
         <if test="deptId != null">
             , user
         </if>
        <where>
            <if test="deptId != null">
-               and user.dept_id =#{deptId} and user.id=`order`.user_id
+               and user.dept_id =#{deptId} and `user`.id=`order`.user_id
            </if>
            <if test="order.type != null">
                and `order`.type = #{order.type}
@@ -103,6 +107,9 @@
            </if>
            <if test="order.amount != null">
                and `order`.amount = #{order.amount}
+           </if>
+           <if test="order.id != null">
+               and `order`.id = #{order.id}
            </if>
        </where>
         ORDER BY ${sort} ${rule}
