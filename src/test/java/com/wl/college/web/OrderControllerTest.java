@@ -74,6 +74,7 @@ public class OrderControllerTest {
     @Test
     public void list() throws Exception {
         mockMvc.perform(get("/orders")
+                .param("deptId","13")
         ).andDo(print()).andExpect(status().isOk());
     }
 

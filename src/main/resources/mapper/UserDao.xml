@@ -143,6 +143,9 @@
             <if test="user.salt != null">
                 salt = #{user.salt},
             </if>
+            <if test="user.photo != null">
+                photo = #{user.photo},
+            </if>
         </set>
         where id=#{userId}
     </update>

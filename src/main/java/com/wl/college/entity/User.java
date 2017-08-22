@@ -39,6 +39,15 @@ public class User implements Serializable {
     private Integer deptId;//所属平台
     private Integer signInDay;//签到天数
     private Date lastSignIn;//最后签到时间
+    private String photo;
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 
     public Integer getId() {
         return id;
