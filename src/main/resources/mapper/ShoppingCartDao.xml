@@ -3,8 +3,20 @@
 <mapper namespace="com.wl.college.dao.ShoppingCartDao">
 
     <sql id="Base_Column_List">
-        id, user_id, resource_id, type, create_time
+        id, user_id, course_id, type, create_time
     </sql>
+
+    <resultMap id="BaseResultMap" type="com.wl.college.entity.ShoppingCart">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="course_id" property="courseId"/>
+        <result column="type" property="type"/>
+        <result column="create_time" property="createTime"/>
+        <association property="course" javaType="com.wl.college.entity.Course">
+            <result column="credits" property="credits" jdbcType="DOUBLE"/>
+            <result column="price" property="price" jdbcType="DOUBLE"/>
+        </association>
+    </resultMap>
 
 
     <!--查询购物车-->
@@ -26,7 +38,7 @@
 
     <!--增加购物车-->
     <insert id="add">
-        INSERT INTO shopping_cart(user_id, resource_id, type)
+        INSERT INTO shopping_cart (user_id, course_id, type)
         VALUES (#{shoppingCart.userId}, #{shoppingCart.resourceId}, #{shoppingCart.type})
     </insert>
 
@@ -36,13 +48,58 @@
         WHERE id = #{id}
     </delete>
 
+    <!--批量删除购物车-->
+    <delete id="deleteSome">
+        DELETE FROM shopping_cart
+        WHERE user_id = #{id}
+        AND id IN
+        <foreach collection="ids" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+
     <!--增加购物车之前检查是否存在-->
     <select id="isExist" resultType="com.wl.college.entity.ShoppingCart">
         SELECT
         <include refid="Base_Column_List"/>
         FROM shopping_cart
         WHERE user_id = #{shoppingCart.userId}
-        AND resource_id = #{shoppingCart.resourceId}
+        AND course_id = #{shoppingCart.resourceId}
         AND type #{shoppingCart.type}
+    </select>
+
+    <!--根据id得到一条购物车信息-->
+    <select id="findOne" resultMap="BaseResultMap">
+        SELECT
+            sc.id,
+            sc.user_id,
+            sc.course_id,
+            sc.type,
+            sc.create_time,
+            c.credits,
+            c.price
+        FROM shopping_cart AS sc
+            JOIN course AS c ON sc.course_id = c.id
+        WHERE sc.id = #{id}
+              AND sc.user_id = #{principal}
+    </select>
+
+    <!--批量查找-->
+    <select id="findSome" resultMap="BaseResultMap">
+        SELECT
+            sc.id,
+            sc.user_id,
+            sc.course_id,
+            sc.type,
+            sc.create_time,
+            c.credits,
+            c.price
+        FROM shopping_cart AS sc
+            JOIN course AS c ON sc.course_id = c.id
+        WHERE sc.user_id = #{principal}
+        AND sc.id IN
+        <foreach collection="ids" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
     </select>
 </mapper>

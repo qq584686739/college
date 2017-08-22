@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- *
  * Created by DIY on 2017/8/21.
  */
 public interface ShoppingCartDao {
@@ -39,6 +38,23 @@ public interface ShoppingCartDao {
     void add(@Param("shoppingCart") ShoppingCart shoppingCart);
 
     /**
+     * 增加购物车之前检查是否存在
+     *
+     * @param shoppingCart
+     * @return
+     */
+    ShoppingCart isExist(@Param("shoppingCart") ShoppingCart shoppingCart);
+
+    /**
+     * 根据id得到一条购物车信息
+     *
+     * @param principal
+     * @param id
+     * @return
+     */
+    ShoppingCart findOne(@Param("principal") Integer principal, @Param("id") Integer id);
+
+    /**
      * 删除购物车一条记录
      *
      * @param id
@@ -46,10 +62,18 @@ public interface ShoppingCartDao {
     void delete(@Param("id") Integer id);
 
     /**
-     * 增加购物车之前检查是否存在
+     * 批量删除购物车
      *
-     * @param shoppingCart
+     * @param id
+     * @param ids
+     */
+    void deleteSome(@Param("id") Integer id, @Param("ids") List<Integer> ids);
+
+    /**
+     * 批量查找
+     * @param principal
+     * @param ids
      * @return
      */
-    ShoppingCart isExist(@Param("shoppingCart") ShoppingCart shoppingCart);
+    List<ShoppingCart> findSome(@Param("principal")Integer principal, @Param("ids")List<Integer> ids);
 }

@@ -9,9 +9,11 @@ import java.util.Date;
 public class ShoppingCart implements Serializable {
     private Integer id;             //自增主键id
     private Integer userId;         //用户id
-    private Integer resourceId;     //资源id
+    private Integer courseId;     //资源id
     private String type;            //类型
-    private Date create_time;       //创建时间
+    private Date createTime;       //创建时间
+
+    private Course course;
 
     public Integer getId() {
         return id;
@@ -29,12 +31,12 @@ public class ShoppingCart implements Serializable {
         this.userId = userId;
     }
 
-    public Integer getResourceId() {
-        return resourceId;
+    public Integer getCourseId() {
+        return courseId;
     }
 
-    public void setResourceId(Integer resourceId) {
-        this.resourceId = resourceId;
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
     }
 
     public String getType() {
@@ -45,11 +47,19 @@ public class ShoppingCart implements Serializable {
         this.type = type;
     }
 
-    public Date getCreate_time() {
-        return create_time;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreate_time(Date create_time) {
-        this.create_time = create_time;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }

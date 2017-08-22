@@ -3,6 +3,7 @@ package com.wl.college.web;
 
 import com.wl.college.dto.BaseResult;
 import com.wl.college.dto.BootStrapTableResult;
+import com.wl.college.entity.Order;
 import com.wl.college.entity.ShoppingCart;
 import com.wl.college.service.ShoppingCartService;
 import org.apache.shiro.SecurityUtils;
@@ -31,6 +32,21 @@ public class ShoppingCartController {
         this.shoppingCartService = shoppingCartService;
     }
 
+
+    /**
+     * 根据id得到一条购物车信息
+     *
+     * @param id
+     * @return
+     */
+    @RequiresUser
+    @GetMapping(value = "/findOne", produces = {"application/json;charset=UTF-8"})
+    public BaseResult findOne(@RequestParam Integer id) {
+        log.info("invoke----------/shopping/car/findOne.GET");
+        return new BaseResult<>(true, shoppingCartService.findOne((Integer)SecurityUtils.getSubject().getPrincipal(), id));
+    }
+
+
     /**
      * （当前用户）查看自己的购物车
      *
@@ -40,8 +56,8 @@ public class ShoppingCartController {
      * @param order  排序规则
      * @return BootStrapTableResult
      */
-    @RequiresUser
-    @GetMapping(value = "list", produces = {"application/json;charset=UTF-8"})
+//    @RequiresUser
+    @GetMapping(value = "/list", produces = {"application/json;charset=UTF-8"})
     public BootStrapTableResult list(
             @RequestParam(value = "offset", required = false, defaultValue = "0") Integer offset,
             @RequestParam(value = "limit", required = false, defaultValue = "100") Integer limit,
@@ -54,6 +70,7 @@ public class ShoppingCartController {
         return new BootStrapTableResult<>(total, list);
     }
 
+
     /**
      * （管理员）查看user的购物车
      *
@@ -65,7 +82,7 @@ public class ShoppingCartController {
      * @return BootStrapTableResult
      */
     @RequiresUser
-    @GetMapping(value = "userList", produces = {"application/json;charset=UTF-8"})
+    @GetMapping(value = "/userList", produces = {"application/json;charset=UTF-8"})
     public BootStrapTableResult userList(
             @RequestParam(value = "id") Integer id,
             @RequestParam(value = "offset", required = false, defaultValue = "0") Integer offset,
@@ -86,7 +103,7 @@ public class ShoppingCartController {
      */
     @RequiresUser
     @PostMapping(value = "/add", produces = {"application/json;charset=UTF-8"})
-    public BaseResult add(ShoppingCart shoppingCart) {
+    public BaseResult add(@RequestParam ShoppingCart shoppingCart) {
         log.info("invoke----------/shopping/car/add.GET");
         Boolean shoppingCartIsExist = shoppingCartService.isExist(shoppingCart);
         if (shoppingCartIsExist) {
@@ -105,23 +122,53 @@ public class ShoppingCartController {
     @RequiresUser
     @DeleteMapping(value = "/delete/{id}", produces = {"application/json;charset=UTF-8"})
     public BaseResult delete(@PathVariable Integer id) {
-        log.info("invoke----------/shopping/car/add.GET");
+        log.info("invoke----------/shopping/car/delete{id}.DELETE");
         shoppingCartService.delete(id);
         return new BaseResult(true, null);
     }
 
+
     /**
      * 批量删除购物车
      *
-     * @param id
      * @return
      */
     @RequiresUser
     @PostMapping(value = "/deleteSome", produces = {"application/json;charset=UTF-8"})
-    public BaseResult deleteSome(@RequestParam Integer id) {
-        log.info("invoke----------/shopping/car/add.GET");
-        shoppingCartService.delete(id);
+    public BaseResult deleteSome(@RequestParam(required = false, value = "ids[]") List<Integer> ids) {
+        log.info("invoke----------/shopping/car/deleteSome.POST");
+        if (ids == null) {
+            return new BaseResult(false, "数据不能为空");         // TODO: 2017/8/22 错误代码
+        }
+        shoppingCartService.deleteSome((Integer) SecurityUtils.getSubject().getPrincipal(), ids);
         return new BaseResult(true, null);
     }
+
+    /**
+     * 购物车生成订单（1个）
+     *
+     * @return
+     */
+    @RequiresUser
+    @PostMapping(value = "/generate/order", produces = {"application/json;charset=UTF-8"})
+    public BaseResult generateOrder(@RequestParam Integer id) {
+        log.info("invoke----------/shopping/car/generate/order.POST");
+        Order order = shoppingCartService.generateOrder((Integer)SecurityUtils.getSubject().getPrincipal(), id);
+        return new BaseResult<>(true, order);
+    }
+
+    /**
+     * 批量生成订单（多个）
+     *
+     * @return
+     */
+    @RequiresUser
+    @PostMapping(value = "/generate/orders", produces = {"application/json;charset=UTF-8"})
+    public BaseResult generateOrders(@RequestParam(required = false, value = "ids[]") List<Integer> ids) {
+        log.info("invoke----------/shopping/car/generate/orders.POST");
+        List<Order> orders = shoppingCartService.generateOrders((Integer) SecurityUtils.getSubject().getPrincipal(), ids);
+        return new BaseResult(true, orders);
+    }
+
 
 }

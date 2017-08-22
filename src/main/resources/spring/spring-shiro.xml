@@ -132,6 +132,7 @@
                 <!--/bo/** = anon-->
                 <!-- 登录页允许访问 -->
 
+                /shopping/car/* = anon
                 /index.jsp = anon
 
                 /login = anon

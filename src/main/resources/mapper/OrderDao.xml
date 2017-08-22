@@ -3,14 +3,23 @@
 <mapper namespace="com.wl.college.dao.OrderDao">
 
     <sql id="Base_Column_List">
-        `order`.id, `order`.type, `order`.resource_id, `order`.state, `order`.create_time, `order`.user_id, `order`.credits,
+        `order`.id, `order`.type, `order`.course_id, `order`.state, `order`.create_time, `order`.user_id, `order`.credits,
         `order`.amount, `order`.update_time
     </sql>
 
     <insert id="create" useGeneratedKeys="true" keyProperty="order.id">
-        INSERT INTO `order` (type, resource_id, state, user_id, credits, amount)
-        VALUES (#{order.type}, #{order.resourceId}, #{order.state}, #{order.userId}, #{order.credits},#{order.amount})
+        INSERT INTO `order` (type, course_id, state, user_id, credits, amount)
+        VALUES (#{order.type}, #{order.resourceId}, #{order.state}, #{order.userId}, #{order.credits}, #{order.amount})
     </insert>
+
+    <!--批量创建订单-->
+    <insert id="createSome">
+        insert into order(type, course_id, user_id, credits, amount) VALUES
+        <foreach collection="orders" item="item" separator=",">
+            (#{item.type},#{item.courseId},#{item.userId},#{item.credits},#{item.amount})
+        </foreach>
+    </insert>
+
     <update id="update">
         update `order`
         <set>
@@ -80,38 +89,38 @@
         select
         <include refid="Base_Column_List"/>
         <if test="deptId != null">
-        , user.dept_id
-         </if>
+            , user.dept_id
+        </if>
         from `order`
         <if test="deptId != null">
             , user
         </if>
-       <where>
-           <if test="deptId != null">
-               and user.dept_id =#{deptId} and `user`.id=`order`.user_id
-           </if>
-           <if test="order.type != null">
-               and `order`.type = #{order.type}
-           </if>
-           <if test="order.resourceId != null">
-               and `order`.resource_id = #{order.resourceId}
-           </if>
-           <if test="order.state != null">
-               and `order`.state = #{order.state}
-           </if>
-           <if test="order.userId != null">
-               and `order`.user_id = #{order.userId}
-           </if>
-           <if test="order.credits != null">
-               and `order`.credits = #{order.credits}
-           </if>
-           <if test="order.amount != null">
-               and `order`.amount = #{order.amount}
-           </if>
-           <if test="order.id != null">
-               and `order`.id = #{order.id}
-           </if>
-       </where>
+        <where>
+            <if test="deptId != null">
+                and user.dept_id =#{deptId} and `user`.id=`order`.user_id
+            </if>
+            <if test="order.type != null">
+                and `order`.type = #{order.type}
+            </if>
+            <if test="order.resourceId != null">
+                and `order`.resource_id = #{order.resourceId}
+            </if>
+            <if test="order.state != null">
+                and `order`.state = #{order.state}
+            </if>
+            <if test="order.userId != null">
+                and `order`.user_id = #{order.userId}
+            </if>
+            <if test="order.credits != null">
+                and `order`.credits = #{order.credits}
+            </if>
+            <if test="order.amount != null">
+                and `order`.amount = #{order.amount}
+            </if>
+            <if test="order.id != null">
+                and `order`.id = #{order.id}
+            </if>
+        </where>
         ORDER BY ${sort} ${rule}
         LIMIT #{offset}, #{limit};
     </select>

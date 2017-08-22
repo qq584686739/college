@@ -4,12 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ *
  * Created by DIY on 2017/8/16.
  */
 public class Order implements Serializable {
     private Integer id;         //主键id
     private String type;        //类型
-    private Integer resourceId; //资源、课程类型
+    private Integer courseId; //资源、课程类型
     private String state;       //状态（0成功 1未支付 2取消订单）
     private Date updateTime;    //更新时间
     private Date createTime;    //创建时间
@@ -36,12 +37,12 @@ public class Order implements Serializable {
         this.type = type;
     }
 
-    public Integer getResourceId() {
-        return resourceId;
+    public Integer getCourseId() {
+        return courseId;
     }
 
-    public void setResourceId(Integer resourceId) {
-        this.resourceId = resourceId;
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
     }
 
     public String getState() {
@@ -97,7 +98,7 @@ public class Order implements Serializable {
         return "Order{" +
                 "id=" + id +
                 ", type='" + type + '\'' +
-                ", resourceId=" + resourceId +
+                ", resourceId=" + courseId +
                 ", state='" + state + '\'' +
                 ", updateTime=" + updateTime +
                 ", createTime=" + createTime +

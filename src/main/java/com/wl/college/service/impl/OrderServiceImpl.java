@@ -49,7 +49,7 @@ public class OrderServiceImpl implements OrderService {
             if (order.getState() != null && "0".equals(order.getState())) {
                 //添加课程
                 UserCourse userCourse = new UserCourse();
-                userCourse.setCourseId(old.getResourceId());
+                userCourse.setCourseId(old.getCourseId());
                 userCourse.setUserId(old.getUserId());
                 Integer insert = userCourseDao.add(userCourse);
                 if (insert != 1) {

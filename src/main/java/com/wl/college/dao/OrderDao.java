@@ -42,4 +42,12 @@ public interface OrderDao {
 
     List<Map> list(@Param("order") Order order, @Param("deptId") Integer deptId, @Param("offset") Integer offset,
                    @Param("limit") Integer limit, @Param("sort") String sort, @Param("rule") String rule);
+
+    /**
+     * 批量创建订单
+     * @param principal
+     * @param orders
+     * @return
+     */
+    Integer createSome(@Param("principal")Integer principal, @Param("orders")List<Order> orders);
 }
