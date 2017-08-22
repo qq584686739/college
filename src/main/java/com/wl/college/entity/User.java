@@ -40,6 +40,15 @@ public class User implements Serializable {
     private Integer signInDay;//签到天数
     private Date lastSignIn;//最后签到时间
     private String photo;
+    private String head;
+
+    public String getHead() {
+        return head;
+    }
+
+    public void setHead(String head) {
+        this.head = head;
+    }
 
     public String getPhoto() {
         return photo;

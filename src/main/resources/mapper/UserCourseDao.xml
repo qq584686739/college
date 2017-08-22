@@ -7,7 +7,8 @@
     </insert>
 
     <sql id="Base_Column_List" >
-        id, user_id, course_id, schedule, is_test
+        user_course.id, user_course.user_id, user_course.course_id, user_course.schedule, user_course.is_test,
+        user.id, user.name
     </sql>
 
     <select id="total" resultType="java.lang.Integer">
