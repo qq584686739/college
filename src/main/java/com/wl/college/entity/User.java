@@ -41,6 +41,15 @@ public class User implements Serializable {
     private Date lastSignIn;//最后签到时间
     private String photo;
     private String head;
+    private String branch;
+
+    public String getBranch() {
+        return branch;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
+    }
 
     public String getHead() {
         return head;
