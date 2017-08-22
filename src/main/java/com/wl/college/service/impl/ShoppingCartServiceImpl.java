@@ -28,11 +28,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     /**
      * 查询购物车
+     *
      * @param id
      * @param offset
      * @param limit
-     * @param sort  排序的字段
-     * @param order 升序或降序
+     * @param sort   排序的字段
+     * @param order  升序或降序
      * @return List<ShoppingCart>
      */
     @Override
@@ -42,6 +43,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     /**
      * 获得principal的购物车总数
+     *
      * @param principal
      * @return
      */
@@ -52,10 +54,35 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     /**
      * 增加购物车
+     *
      * @param shoppingCart
      */
     @Override
     public void add(ShoppingCart shoppingCart) {
         shoppingCartDao.add(shoppingCart);
+    }
+
+    /**
+     * 删除购物车一条记录
+     *
+     * @param id
+     */
+    @Override
+    public void delete(Integer id) {
+        shoppingCartDao.delete(id);
+    }
+
+    /**
+     * 增加购物车之前检查是否存在
+     * @param shoppingCart
+     * @return
+     */
+    @Override
+    public Boolean isExist(ShoppingCart shoppingCart) {
+        if(shoppingCartDao.isExist(shoppingCart) == null){
+            return false;
+        }else{
+            return true;
+        }
     }
 }

@@ -7,7 +7,7 @@
         id, name, referral_code, mail, phone, full_name, country, city, address,
         id_card, id_card_front, id_card_back, id_card_with, pid, pids, state, create_time,
         update_time, bank_card, bank_card_front, bank_card_back, bank_card_state, id_card_state,
-        birthdate, gender, dept_id, sign_in_day, last_sign_in
+        birthdate, gender, dept_id, sign_in_day, last_sign_in, photo, head
     </sql>
 
     <!--role sql片段-->
@@ -312,89 +312,102 @@
             <if test="user.lastSignIn != null">
                 last_sign_in,
             </if>
+            <if test="user.photo != null">
+                photo,
+            </if>
+            <if test="user.head != null">
+                head,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="user.name != null">
-                #{name,jdbcType=VARCHAR},
+                #{user.name,jdbcType=VARCHAR},
             </if>
             <if test="user.referralCode != null">
-                #{referralCode,jdbcType=VARCHAR},
+                #{user.referralCode,jdbcType=VARCHAR},
             </if>
             <if test="user.password != null">
-                #{password,jdbcType=VARCHAR},
+                #{user.password,jdbcType=VARCHAR},
             </if>
             <if test="user.salt != null">
-                #{salt,jdbcType=VARCHAR},
+                #{user.salt,jdbcType=VARCHAR},
             </if>
             <if test="user.mail != null">
-                #{mail,jdbcType=VARCHAR},
+                #{user.mail,jdbcType=VARCHAR},
             </if>
             <if test="user.phone != null">
-                #{phone,jdbcType=VARCHAR},
+                #{user.phone,jdbcType=VARCHAR},
             </if>
             <if test="user.fullName != null">
-                #{fullName,jdbcType=VARCHAR},
+                #{user.fullName,jdbcType=VARCHAR},
             </if>
             <if test="user.country != null">
-                #{country,jdbcType=VARCHAR},
+                #{user.country,jdbcType=VARCHAR},
             </if>
             <if test="user.city != null">
-                #{city,jdbcType=VARCHAR},
+                #{user.city,jdbcType=VARCHAR},
             </if>
             <if test="user.address != null">
-                #{address,jdbcType=VARCHAR},
+                #{user.address,jdbcType=VARCHAR},
             </if>
             <if test="user.idCard != null">
-                #{idCard,jdbcType=VARCHAR},
+                #{user.idCard,jdbcType=VARCHAR},
             </if>
             <if test="user.idCardFront != null">
-                #{idCardFront,jdbcType=VARCHAR},
+                #{user.idCardFront,jdbcType=VARCHAR},
             </if>
             <if test="user.idCardBack != null">
-                #{idCardBack,jdbcType=VARCHAR},
+                #{user.idCardBack,jdbcType=VARCHAR},
             </if>
             <if test="user.idCardWith != null">
-                #{idCardWith,jdbcType=VARCHAR},
+                #{user.idCardWith,jdbcType=VARCHAR},
             </if>
             <if test="user.pid != null">
-                #{pid,jdbcType=INTEGER},
+                #{user.pid,jdbcType=INTEGER},
             </if>
             <if test="user.pids != null">
-                #{pids,jdbcType=VARCHAR},
+                #{user.pids,jdbcType=VARCHAR},
             </if>
             <if test="user.state != null">
-                #{state,jdbcType=VARCHAR},
+                #{user.state,jdbcType=VARCHAR},
             </if>
             <if test="user.bankCard != null">
-                #{bankCard,jdbcType=VARCHAR},
+                #{user.bankCard,jdbcType=VARCHAR},
             </if>
             <if test="user.bankCardFront != null">
-                #{bankCardFront,jdbcType=VARCHAR},
+                #{user.bankCardFront,jdbcType=VARCHAR},
             </if>
             <if test="user.bankCardBack != null">
-                #{bankCardBack,jdbcType=VARCHAR},
+                #{user.bankCardBack,jdbcType=VARCHAR},
             </if>
             <if test="user.bankCardState != null">
-                #{bankCardState,jdbcType=VARCHAR},
+                #{user.bankCardState,jdbcType=VARCHAR},
             </if>
             <if test="user.idCardState != null">
-                #{idCardState,jdbcType=VARCHAR},
+                #{user.idCardState,jdbcType=VARCHAR},
             </if>
             <if test="user.birthdate != null">
-                #{birthdate,jdbcType=TIMESTAMP},
+                #{user.birthdate,jdbcType=TIMESTAMP},
             </if>
             <if test="user.gender != null">
-                #{gender,jdbcType=VARCHAR},
+                #{user.gender,jdbcType=VARCHAR},
             </if>
             <if test="user.deptId != null">
-                #{deptId,jdbcType=INTEGER},
+                #{user.deptId,jdbcType=INTEGER},
             </if>
             <if test="user.signInDay != null">
-                #{signInDay,jdbcType=INTEGER},
+                #{user.signInDay,jdbcType=INTEGER},
             </if>
             <if test="user.lastSignIn != null">
-                #{lastSignIn,jdbcType=DATE},
+                #{user.lastSignIn,jdbcType=DATE},
             </if>
+            <if test="user.photo != null">
+                #{user.photo,jdbcType=DATE},
+            </if>
+            <if test="user.head != null">
+                #{user.head,jdbcType=DATE},
+            </if>
+
         </trim>
     </insert>
 

@@ -32,4 +32,17 @@ public interface ShoppingCartService {
      * @param shoppingCart
      */
     void add(ShoppingCart shoppingCart);
+
+    /**
+     * 删除购物车一条记录
+     * @param id
+     */
+    void delete(Integer id);
+
+    /**
+     * 增加购物车之前检查是否存在
+     * @param shoppingCart
+     * @return Boolean 存在返回true，否则返回false
+     */
+    Boolean isExist(ShoppingCart shoppingCart);
 }

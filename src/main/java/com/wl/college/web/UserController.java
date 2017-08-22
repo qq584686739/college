@@ -19,10 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import static org.apache.shiro.web.filter.mgt.DefaultFilter.roles;
-
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -48,10 +47,13 @@ public class UserController {
      * @return BaseResult<Object>
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
-    public BaseResult<Object> login(@RequestParam String loginName, @RequestParam String password, @RequestParam boolean rememberMe) {
+    public BaseResult<Object> login(@RequestParam String loginName,
+                                    @RequestParam String password,
+                                    @RequestParam boolean rememberMe) {
         log.info("invoke----------/user/login.POST");
         org.apache.shiro.subject.Subject subject = SecurityUtils.getSubject();
-        String loginFlag = loginName == null ? "" : loginName.contains("@") ? "mail" : "phone";       //判断loginName是否有@，有@则是邮箱登录，没有则是手机号登录
+        //判断loginName是否有@，有@则是邮箱登录，没有则是手机号登录
+        String loginFlag = loginName == null ? "" : loginName.contains("@") ? "mail" : "phone";
         UsernamePasswordUsertypeToken token = new UsernamePasswordUsertypeToken(loginName, password, loginFlag);
         token.setRememberMe(rememberMe);      //设置记住我
 
@@ -60,8 +62,18 @@ public class UserController {
         boolean isLogin = subject.isAuthenticated();
         if (isLogin) {
             //登录成功，返回权限、头像, 用户名, 我的推荐码, 金币数量
+            User user = userService.getUserByTag((Integer) SecurityUtils.getSubject().getPrincipal(), null, null, null);
             List<Permission> permissions = permissionService.hasPermissions((Integer) SecurityUtils.getSubject().getPrincipal());
-            return new BaseResult<>(true, permissions);
+
+            Map<String, Object> result = new HashMap<>();
+            result.put("permissions", permissions);
+            result.put("head", user.getHead());
+            result.put("name", user.getName());
+            result.put("referralCode", user.getReferralCode());
+
+            // TODO: 2017/8/22  还要返回金币数量
+
+            return new BaseResult<>(true, result);
         } else {
             //登录失败
             return new BaseResult<>(false, "登录失败（到时候以错误代码替代）");     // TODO: 2017/8/22 错误代码
@@ -72,10 +84,10 @@ public class UserController {
     /**
      * 根据条件获取一部分user
      *
-     * @param user       筛选条件user
-     * @param offset     起始数
-     * @param limit      需要数
-     * @param sort 排序的字段
+     * @param user   筛选条件user
+     * @param offset 起始数
+     * @param limit  需要数
+     * @param sort   排序的字段
      * @param order  排序的规则
      * @return
      */
@@ -277,6 +289,7 @@ public class UserController {
 
     /**
      * 更新user_role
+     *
      * @param id
      * @param roles
      * @return

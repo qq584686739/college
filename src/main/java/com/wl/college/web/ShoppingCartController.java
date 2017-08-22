@@ -80,27 +80,47 @@ public class ShoppingCartController {
 
     /**
      * 增加购物车
+     *
      * @param shoppingCart
      * @return BaseResult
      */
     @RequiresUser
     @PostMapping(value = "/add", produces = {"application/json;charset=UTF-8"})
-    public BaseResult add(ShoppingCart shoppingCart){
+    public BaseResult add(ShoppingCart shoppingCart) {
         log.info("invoke----------/shopping/car/add.GET");
+        Boolean shoppingCartIsExist = shoppingCartService.isExist(shoppingCart);
+        if (shoppingCartIsExist) {
+            return new BaseResult<>(false, "已经存在，不能添加！");     // TODO: 2017/8/22 错误代码
+        }
         shoppingCartService.add(shoppingCart);
-        return new BaseResult(true, null);
+        return new BaseResult<>(true, null);
     }
 
     /**
      * 删除购物车一条记录
-     * @param shoppingCart
-     * @return BaseResult
+     *
+     * @param id
+     * @return
      */
     @RequiresUser
-    @GetMapping(value = "/delete", produces = {"application/json;charset=UTF-8"})
-    public BaseResult delete(ShoppingCart shoppingCart){
+    @DeleteMapping(value = "/delete/{id}", produces = {"application/json;charset=UTF-8"})
+    public BaseResult delete(@PathVariable Integer id) {
         log.info("invoke----------/shopping/car/add.GET");
-        shoppingCartService.add(shoppingCart);
+        shoppingCartService.delete(id);
+        return new BaseResult(true, null);
+    }
+
+    /**
+     * 批量删除购物车
+     *
+     * @param id
+     * @return
+     */
+    @RequiresUser
+    @PostMapping(value = "/deleteSome", produces = {"application/json;charset=UTF-8"})
+    public BaseResult deleteSome(@RequestParam Integer id) {
+        log.info("invoke----------/shopping/car/add.GET");
+        shoppingCartService.delete(id);
         return new BaseResult(true, null);
     }
 
