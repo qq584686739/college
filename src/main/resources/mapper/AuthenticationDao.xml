@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wl.college.dao.AuthenticationDao">
+    <sql id="Base_Column_List">
+        id, full_name, city,town, address,id_card, id_card_front, id_card_back, id_card_with,state, create_time,
+        update_time, bank_card, bank_card_front, bank_card_back,photo,branch,user_id
+    </sql>
+    <insert id="create" useGeneratedKeys="true" keyProperty="authentication.id">
+        INSERT INTO authentication ( full_name, city,town, address,id_card, id_card_front, id_card_back, id_card_with,state,
+                                     bank_card, bank_card_front, bank_card_back,photo,branch,user_id)
+        VALUES (#{authentication.fullName}, #{authentication.city}, #{authentication.town}, #{authentication.address},
+                #{authentication.idCard}, #{user.idCardFront},#{authentication.idCardBack},
+                #{authentication.idCardWith}, #{user.state}, #{authentication.bankCard},
+                #{authentication.bankCardFront}, #{authentication.bankCardBack}, #{authentication.photo},#{authentication.userId},
+                #{authentication.branch})
+    </insert>
+    <update id="update">
+        UPDATE authentication
+        <set>
+            <if test="authentication.state != null">
+                `state` = #{authentication.state},
+            </if>
+        </set>
+        WHERE id = #{authentication.id}
+    </update>
+    <select id="findById" resultType="com.wl.college.entity.Authentication">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM authentication
+        where id=#{id}
+    </select>
+    <select id="total" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM authentication
+        <if test="authentication.user.deptId != null">
+            ,user
+        </if>
+        <where>
+            <if test="authentication.state != null">
+                and `state` = #{authentication.state}
+            </if>
+            <if test="authentication.fullName != null">
+                and `full_name` = #{authentication.fullName}
+            </if>
+            <if test="authentication.id != null">
+                and `id` = #{authentication.id}
+            </if>
+            <if test="authentication.city != null">
+                and `city` = #{authentication.city}
+            </if>
+            <if test="authentication.town != null">
+                and `town` = #{authentication.town}
+            </if>
+            <if test="authentication.idCard != null">
+                and `id_card` = #{authentication.idCard}
+            </if>
+            <if test="authentication.userId != null">
+                and `user_id` = #{authentication.userId}
+            </if>
+            <if test="authentication.user.deptId != null">
+                and `dept_id` = #{authentication.user.deptId} and user.id=authentication.user_id
+            </if>
+        </where>
+    </select>
+    <select id="list" resultType="com.wl.college.entity.Authentication">
+        SELECT <include refid="Base_Column_List"/>
+        FROM authentication
+        <if test="authentication.user.deptId != null">
+        ,user
+      </if>
+        <where>
+            <if test="authentication.state != null">
+                and `state` = #{authentication.state}
+            </if>
+            <if test="authentication.fullName != null">
+                and `full_name` = #{authentication.fullName}
+            </if>
+            <if test="authentication.id != null">
+                and `id` = #{authentication.id}
+            </if>
+            <if test="authentication.city != null">
+                and `city` = #{authentication.city}
+            </if>
+            <if test="authentication.town != null">
+                and `town` = #{authentication.town}
+            </if>
+            <if test="authentication.idCard != null">
+                and `id_card` = #{authentication.idCard}
+            </if>
+            <if test="authentication.userId != null">
+                and `user_id` = #{authentication.userId}
+            </if>
+            <if test="authentication.user.deptId != null">
+                and `dept_id` = #{authentication.user.deptId} and user.id=authentication.user_id
+            </if>
+        </where>
+        ORDER BY ${sort} ${order}
+        LIMIT #{offset}, #{limit};;
+    </select>
+</mapper>

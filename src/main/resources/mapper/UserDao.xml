@@ -7,14 +7,12 @@
         id, name, referral_code, mail, phone, full_name, country, city, address,
         id_card, id_card_front, id_card_back, id_card_with, pid, pids, state, create_time,
         update_time, bank_card, bank_card_front, bank_card_back, bank_card_state, id_card_state,
-        birthdate, gender, dept_id, sign_in_day, last_sign_in, photo, head
+        birthdate, gender, dept_id, sign_in_day, last_sign_in, photo, head,branch
     </sql>
-
     <!--role sql片段-->
     <sql id="Role_List">
         id, role, description, available, create_time, update_time
     </sql>
-
 
     <!--根据唯一标记获取客户-->
     <select id="getUserByTag" resultType="com.wl.college.entity.User">
@@ -148,6 +146,9 @@
             </if>
             <if test="user.head != null">
                 head = #{user.head},
+            </if>
+            <if test="user.branch != null">
+                branch = #{user.branch},
             </if>
         </set>
         where id=#{userId}
