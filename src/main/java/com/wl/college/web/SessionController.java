@@ -61,7 +61,7 @@ public class SessionController {
 //                        Account account = accountService.getAccountByTag((Integer)principalCollection.getPrimaryPrincipal(),
 //                                null, null);
 //                        if(account != null){
-//                            map.put("email", account.getEmail());
+//                            map.put("mail", account.getEmail());
 //                            map.put("isBan", account.getState());
 //                        }
 //                    }

@@ -24,23 +24,26 @@ public interface UserDao {
      * 根据唯一标记获取客户
      *
      * @param id
-     * @param email
+     * @param mail
      * @param phone
      * @param idCard
      * @return
      */
-    User getUserByTag(@Param("id") Integer id, @Param("email") String email, @Param("phone") String phone, @Param("idCard") String idCard);
+    User getUserByTag(@Param("id") Integer id,
+                      @Param("mail") String mail,
+                      @Param("phone") String phone,
+                      @Param("idCard") String idCard);
 
     /**
      * 根据唯一标记获得用户的角色
      *
      * @param id
-     * @param email
+     * @param mail
      * @param phone
      * @param idCard
      * @return
      */
-    List<Role> hasRoles(@Param("id") Integer id, @Param("email") String email, @Param("phone") String phone, @Param("idCard") String idCard);
+    List<Role> hasRoles(@Param("id") Integer id, @Param("mail") String mail, @Param("phone") String phone, @Param("idCard") String idCard);
 
     Integer update(@Param("user") User manager, @Param("userId") Integer managerId);
 
@@ -76,6 +79,7 @@ public interface UserDao {
 
     /**
      * 客户注册
+     *
      * @param user
      * @return
      */
@@ -85,4 +89,31 @@ public interface UserDao {
      * 修改密码
      */
     void changePwd(@Param("user") User user);
+
+    /**
+     * 根据唯一标识得到user的密码
+     *
+     * @param id
+     * @param mail
+     * @param phone
+     * @param idCard
+     * @return
+     */
+    User getUserPwdByTag(@Param("id") Integer id,
+                         @Param("mail") String mail,
+                         @Param("phone") String phone,
+                         @Param("idCard") String idCard);
+
+    /**
+     * 根据id删除user_role
+     * @param id
+     */
+    void deleteUserRole(@Param("id")Integer id);
+
+    /**
+     * 创建user_role
+     * @param id
+     * @param roleList
+     */
+    void createUserRole(@Param("id")Integer id, @Param("roleList")List<Integer> roleList);
 }

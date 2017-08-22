@@ -11,23 +11,23 @@ public interface UserService {
      * 根据唯一标记获取客户
      *
      * @param id
-     * @param email
+     * @param mail
      * @param phone
      * @param idCard
      * @return User
      */
-    User getUserByTag(Integer id, String email, String phone, String idCard);
+    User getUserByTag(Integer id, String mail, String phone, String idCard);
 
     /**
      * 根据唯一标记获得用户的角色
      *
      * @param id
-     * @param email
+     * @param mail
      * @param phone
      * @param idCard
      * @return List<Role>
      */
-    List<Role> hasRoles(Integer id, String email, String phone, String idCard);
+    List<Role> hasRoles(Integer id, String mail, String phone, String idCard);
 
 
     /**
@@ -59,16 +59,34 @@ public interface UserService {
 
     /**
      * 客户注册
-     *
      * @param user
+     * @return
      */
-    void register(User user);
+    Integer register(User user);
 
     /**
      * 修改密码
+     * @param id
      * @param oldPassword
      * @param newPassword
      * @return
      */
-    Integer changePwd(String oldPassword, String newPassword);
+    Integer changePwd(Integer id, String oldPassword, String newPassword);
+
+    /**
+     * 根据唯一标识得到user的密码
+     * @param id
+     * @param mail
+     * @param phone
+     * @param idCard
+     * @return
+     */
+    User getUserPwdByTag(Integer id, String mail, String phone, String idCard);
+
+    /**
+     * 更新user_role
+     * @param id
+     * @param roleList
+     */
+    void updateUserRole(Integer id, List<Integer> roleList);
 }

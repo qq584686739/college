@@ -1,5 +1,6 @@
 package com.wl.college.web;
 
+import com.alibaba.fastjson.JSONArray;
 import com.wl.college.dto.BaseResult;
 import com.wl.college.dto.BootStrapTableResult;
 import com.wl.college.entity.Role;
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -35,7 +37,7 @@ public class UserController {
     /**
      * 统一登录
      *
-     * @param loginName  登录名（phone or email）
+     * @param loginName  登录名（phone or mail）
      * @param password   密码
      * @param rememberMe 记住我
      * @return BaseResult<Object>
@@ -44,7 +46,7 @@ public class UserController {
     public BaseResult<Object> login(@RequestParam String loginName, @RequestParam String password, @RequestParam boolean rememberMe) {
         log.info("invoke----------/user/login.POST");
         org.apache.shiro.subject.Subject subject = SecurityUtils.getSubject();
-        String loginFlag = loginName == null ? "" : loginName.contains("@") ? "email" : "phone";       //判断loginName是否有@，有@则是邮箱登录，没有则是手机号登录
+        String loginFlag = loginName == null ? "" : loginName.contains("@") ? "mail" : "phone";       //判断loginName是否有@，有@则是邮箱登录，没有则是手机号登录
         UsernamePasswordUsertypeToken token = new UsernamePasswordUsertypeToken(loginName, password, loginFlag);
         token.setRememberMe(rememberMe);      //设置记住我
 
@@ -54,7 +56,7 @@ public class UserController {
         if (isLogin) {
             //登录成功，返回角色
             List<Role> roles;
-            if (loginFlag.equals("email")) {
+            if (loginFlag.equals("mail")) {
                 //邮箱登录
                 roles = userService.hasRoles(null, loginName, null, null);
             } else {
@@ -110,7 +112,7 @@ public class UserController {
     }
 
     /**
-     * 根据唯一标识（id、email、phone、idCard）查看别人的roles
+     * 根据唯一标识（id、mail、phone、idCard）查看别人的roles
      *
      * @param id
      * @return BaseResult
@@ -119,11 +121,11 @@ public class UserController {
     @GetMapping(value = "/otherRoles", produces = {"application/json;charset=UTF-8"})
     // TODO: 2017/8/18 需要有看别人角色的权限
     public BaseResult otherRoles(Integer id,
-                                 String email,
+                                 String mail,
                                  String phone,
                                  String idCard) {
         log.info("invoke----------/user/otherRoles.GET");
-        List<Role> list = userService.hasRoles(id, email, phone, idCard);
+        List<Role> list = userService.hasRoles(id, mail, phone, idCard);
         return new BaseResult<>(true, list);
     }
 
@@ -173,8 +175,14 @@ public class UserController {
                                @RequestParam String securityCode) {
         log.info("invoke----------/user/register.POST");
         // TODO: 2017/8/21  securityCode验证
-        userService.register(user);
-        return new BaseResult<>(true, user);
+        Integer result = userService.register(user);
+        switch (result) {
+            case 0:
+                return new BaseResult<>(true, user);
+            case 1:
+                return new BaseResult<>(false, "新密码正则错误");
+        }
+        return new BaseResult<>(false, "服务器忙");
     }
 
     /**
@@ -194,7 +202,7 @@ public class UserController {
      * 查看其它user的个人信息
      *
      * @param id
-     * @param email
+     * @param mail
      * @param phone
      * @param idCard
      * @return BaseResult
@@ -203,30 +211,91 @@ public class UserController {
     @RequestMapping(value = "/getOtherInfo", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
     // TODO: 2017/8/21 需要有查看其它user的权限
     public BaseResult getOtherInfo(Integer id,
-                                   String email,
+                                   String mail,
                                    String phone,
                                    String idCard) {
         log.info("invoke----------/user/getInfo.GET");
-        return new BaseResult<>(true, userService.getUserByTag(id,
-                email, phone, idCard));
+        return new BaseResult<>(true, userService.getUserByTag(id, mail, phone, idCard));
     }
 
     /**
      * user修改自己密码
+     *
      * @param oldPassword
      * @param newPassword
      * @return
      */
     @RequiresUser
-    @RequestMapping(value = "/changePwd", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
-    // TODO: 2017/8/21 需要有查看其它user的权限
+    @RequestMapping(value = "/changePwd", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
     public BaseResult changePwd(@RequestParam String oldPassword,
                                 @RequestParam String newPassword) {
         log.info("invoke----------/user/changePwd.PUT");
-        userService.changePwd(oldPassword, newPassword);
-        return new BaseResult<>(true, null);
+        Integer result = userService.changePwd(
+                (Integer) SecurityUtils.getSubject().getPrincipal(), oldPassword, newPassword);
+        switch (result) {
+            case 0:
+                return new BaseResult<>(true, null);
+            case 1:
+                return new BaseResult<>(false, "新密码正则错误");       // TODO: 2017/8/21 待把错误信息写到ResultEnum
+            case 2:
+                return new BaseResult<>(false, "旧密码错误");
+            case 3:
+                return new BaseResult<>(false, "错误的id找不到指定的user（这个一般不会出现）");
+            default:
+        }
+        return new BaseResult<>(false, "服务器忙");
     }
 
+
+    /**
+     * user修改其他user的密码
+     *
+     * @param id
+     * @param oldPassword
+     * @param newPassword
+     * @return
+     */
+    @RequiresUser
+    @RequestMapping(value = "/changeUserPwd", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
+    // TODO: 2017/8/21 需要有修改其他user的权限
+    public BaseResult changeUserPwd(@RequestParam Integer id,
+                                    @RequestParam String oldPassword,
+                                    @RequestParam String newPassword) {
+        log.info("invoke----------/user/changeUserPwd.POST");
+        Integer result = userService.changePwd(id, oldPassword, newPassword);
+        switch (result) {
+            case 0:
+                return new BaseResult<>(true, null);
+            case 1:
+                return new BaseResult<>(false, "新密码正则错误");       // TODO: 2017/8/21 待把错误信息写到ResultEnum
+            case 2:
+                return new BaseResult<>(false, "旧密码错误");
+            case 3:
+                return new BaseResult<>(false, "错误的id找不到指定的user");
+            default:
+        }
+        return new BaseResult<>(false, "系统错误");
+    }
+
+    /**
+     * 更新user_role
+     * @param id
+     * @param roles
+     * @return
+     */
+    @RequestMapping(value = "/update/role/permission", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
+    public BaseResult updateUserRole(@RequestParam Integer id,
+                                     @RequestParam String roles) {
+        List<Integer> roleList = new ArrayList<>();
+        JSONArray jsonlist = JSONArray.parseArray(roles);
+        if (jsonlist != null) {
+            for (int i = 0; i < jsonlist.size(); i++) {
+                roleList.add(jsonlist.getInteger(i));
+            }
+        }
+        userService.updateUserRole(id, roleList);
+        return new BaseResult<>(true, null);
+    }
 
 
     /**

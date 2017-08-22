@@ -27,28 +27,28 @@ public class UserServiceImpl implements UserService {
      * 根据唯一标记获取客户
      *
      * @param id
-     * @param email
+     * @param mail
      * @param phone
      * @param idCard
      * @return User
      */
     @Override
-    public User getUserByTag(Integer id, String email, String phone, String idCard) {
-        return userDao.getUserByTag(id, email, phone, idCard);
+    public User getUserByTag(Integer id, String mail, String phone, String idCard) {
+        return userDao.getUserByTag(id, mail, phone, idCard);
     }
 
     /**
      * 根据唯一标记获得用户的角色
      *
      * @param id
-     * @param email
+     * @param mail
      * @param phone
      * @param idCard
      * @return List<Role>
      */
     @Override
-    public List<Role> hasRoles(Integer id, String email, String phone, String idCard) {
-        return userDao.hasRoles(id, email, phone, idCard);
+    public List<Role> hasRoles(Integer id, String mail, String phone, String idCard) {
+        return userDao.hasRoles(id, mail, phone, idCard);
     }
 
     /**
@@ -89,47 +89,85 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 客户注册
+     *
      * @param user
      */
     @Override
-    public void register(User user) {
+    public Integer register(User user) {
+
+        if (user.getPassword() == null || !user.getPassword().matches(PasswordHelperUtil.MATCHER)) {
+            //新密码不等于空且必须符合规定的正则表达式
+            return 1;
+        }
+
         //设置密码和salt
         String salt = PasswordHelperUtil.getSalt();
         user.setSalt(salt);
         user.setPassword(PasswordHelperUtil.getEncryptPassword(salt, user.getPassword()));
         userDao.register(user);
+        return 0;
     }
 
     /**
      * 修改密码
-     * return 0: 修改成功
-     * return 1:
-     * return 2:
+     *
+     * @param id
      * @param oldPassword
      * @param newPassword
-     * @return
-     *          1：不符合正则规定
-     *          2：oldPassword错误
-     *
+     * @return return 0:修改成功
+     * return 1:不符合正则规定
+     * return 2:oldPassword错误
+     * return 3:错误的id找不到指定的user
      */
     @Override
-    public Integer changePwd(String oldPassword, String newPassword) {
+    public Integer changePwd(Integer id, String oldPassword, String newPassword) {
 
-        if(newPassword == null || !newPassword.matches(PasswordHelperUtil.MATCHER)){
+        if (newPassword == null || !newPassword.matches(PasswordHelperUtil.MATCHER)) {
             //新密码不等于空且必须符合规定的正则表达式
             return 1;
         }
 
-        User user = userDao.getUserByTag((Integer) SecurityUtils.getSubject().getPrincipal(),
-                null,null, null);
-        if(!PasswordHelperUtil.getEncryptPassword(user.getSalt(), oldPassword).equals(user.getPassword())){
+        User user = userDao.getUserPwdByTag(id, null, null, null);
+        if (user == null) {
+            //错误的id找到不到相应的user
+            return 3;
+        }
+
+        if (!PasswordHelperUtil.getEncryptPassword(user.getSalt(), oldPassword).equals(user.getPassword())) {
+            //oldpassword与数据库密码不符，不允许修改
             return 2;
         }
-        String newSalt = PasswordHelperUtil.getSalt();
-        newPassword = PasswordHelperUtil.getEncryptPassword(newSalt, newPassword);
-        user.setSalt(newSalt);
-        user.setPassword(newPassword);
-        userDao.changePwd(user);
+
+        String newSalt = PasswordHelperUtil.getSalt();                                  //得到一个新的salt
+        newPassword = PasswordHelperUtil.getEncryptPassword(newSalt, newPassword);      //得到一个新的password
+        user.setSalt(newSalt);                                                          //设置salt
+        user.setPassword(newPassword);                                                  //设置password
+        userDao.changePwd(user);                                                        //修改密码
         return 0;
+    }
+
+    /**
+     * 根据唯一标识得到user的密码
+     *
+     * @param id
+     * @param mail
+     * @param phone
+     * @param idCard
+     * @return User
+     */
+    @Override
+    public User getUserPwdByTag(Integer id, String mail, String phone, String idCard) {
+        return userDao.getUserPwdByTag(id, mail, phone, idCard);
+    }
+
+    /**
+     * 更新user_role
+     * @param id
+     * @param roleList
+     */
+    @Override
+    public void updateUserRole(Integer id, List<Integer> roleList) {
+        userDao.deleteUserRole(id);                 //先删除user_role
+        userDao.createUserRole(id, roleList);       //再创建user_role
     }
 }
