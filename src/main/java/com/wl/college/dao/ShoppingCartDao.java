@@ -1,12 +1,12 @@
 package com.wl.college.dao;
 
-import com.wl.college.entity.Order;
 import com.wl.college.entity.ShoppingCart;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
+ *
  * Created by DIY on 2017/8/21.
  */
 public interface ShoppingCartDao {
