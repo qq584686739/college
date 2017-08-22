@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wl.college.dao.ShoppingCartDao">
+
+    <sql id="Base_Column_List">
+        id, user_id, resource_id, type, create_time
+    </sql>
+
+
+    <!--查询购物车-->
+    <select id="list" resultType="com.wl.college.entity.ShoppingCart">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM shopping_cart
+        WHERE id = #{id}
+        ORDER BY ${sort} ${order}
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <!--获得principal的购物车总数-->
+    <select id="getTotal" resultType="java.lang.Integer">
+        SELECT count(id)
+        FROM shopping_cart
+        WHERE id = #{principal}
+    </select>
+
+    <!--增加购物车-->
+    <insert id="add">
+        INSERT INTO shopping_cart(user_id, resource_id, type)
+        VALUES (#{shoppingCart.userId}, #{shoppingCart.resourceId}, #{shoppingCart.type})
+    </insert>
+
+    <!--删除购物车一条记录-->
+    <delete id="delete">
+        DELETE FROM shopping_cart
+        WHERE id = #{id}
+    </delete>
+
+    <!--增加购物车之前检查是否存在-->
+    <select id="isExist" resultType="com.wl.college.entity.ShoppingCart">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM shopping_cart
+        WHERE user_id = #{shoppingCart.userId}
+        AND resource_id = #{shoppingCart.resourceId}
+        AND type #{shoppingCart.type}
+    </select>
+</mapper>

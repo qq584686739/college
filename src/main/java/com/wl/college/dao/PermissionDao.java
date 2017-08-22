@@ -22,4 +22,11 @@ public interface PermissionDao {
      * @param permission
      */
     void createPermission(@Param("permission") Permission permission);
+
+    /**
+     * 获取principal的权限
+     * @param principal
+     * @return
+     */
+    List<Permission> hasPermissions(@Param("principal")Integer principal);
 }

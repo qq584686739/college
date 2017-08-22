@@ -2,19 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wl.college.dao.PermissionDao">
 
-    <sql id="Base_Column_List" >
+    <sql id="Base_Column_List">
         id, permission, description, pid, pids, create_time, update_time
     </sql>
 
+    <!--找到系统所有权限-->
     <select id="findAll" resultType="com.wl.college.entity.Permission">
-    SELECT
-        <include refid="Base_Column_List" />
-    FROM permission
-  </select>
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM permission
+    </select>
 
+    <!--获取principal的权限-->
+    <select id="hasPermissions" resultType="com.wl.college.entity.Permission">
+        SELECT
+            p.id,
+            p.permission,
+            p.description,
+            p.pid,
+            p.pids,
+            p.create_time,
+            p.update_time
+        FROM permission AS p
+            JOIN role_permission AS rp ON p.id = rp.permission_id
+            JOIN role AS r ON r.id = rp.role_id
+            JOIN user_role AS ur ON r.id = ur.role_id
+            JOIN user AS u ON u.id = ur.user_id
+        WHERE u.id = #{principal}
+    </select>
+
+    <!--创建一个权限-->
     <insert id="createPermission">
-        insert into permission (permission, description, pid, pids)
-        values (#{permission.permission}, #{permission.description},#{permission.pid}, #{permission.pids})
+        INSERT INTO permission (permission, description, pid, pids)
+        VALUES (#{permission.permission}, #{permission.description}, #{permission.pid}, #{permission.pids})
     </insert>
 
 </mapper>

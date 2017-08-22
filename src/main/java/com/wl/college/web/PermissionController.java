@@ -4,6 +4,7 @@ import com.wl.college.dto.BaseResult;
 import com.wl.college.entity.Permission;
 import com.wl.college.enums.OperationType;
 import com.wl.college.service.PermissionService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,5 +63,20 @@ public class PermissionController {
         log.info("invoke----------/permission/delete/{id}.DELETE");
         permissionService.createPermission(permission);
         return new BaseResult<>(true, null);
+    }
+
+
+    /**
+     * 获取自己的权限
+     * @return
+     */
+    @RequestMapping(value = "/hasPermissions", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+    public BaseResult<Object> hasPermissions() {
+        log.info("invoke----------/permission/getUserPermissions.GET");
+
+        List<Permission> list =
+                permissionService.hasPermissions((Integer)SecurityUtils.getSubject().getPrincipal());
+
+        return new BaseResult<>(true, list);
     }
 }

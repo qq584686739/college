@@ -19,4 +19,10 @@ public interface PermissionService {
      */
     void createPermission(Permission permission);
 
+    /**
+     * 获取principal的权限
+     * @param principal
+     * @return
+     */
+    List<Permission> hasPermissions(Integer principal);
 }
