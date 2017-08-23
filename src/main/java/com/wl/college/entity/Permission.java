@@ -8,11 +8,11 @@ import java.util.Date;
  * Created by yugoh on 2017/5/18.
  */
 public class Permission implements Serializable {
-    private Integer id;    //id
-    private String permission;    //名
-    private String description;    //描述
-    private Integer pid;//父id
-    private String pids;    //父连
+    private Integer id;         //id
+    private String permission;  //名
+    private String description; //描述
+    private Integer pid;        //父id
+    private String pids;        //父连
     private Date createTime;    //创建时间
     private Date updateTime;    //更新时间
 

@@ -6,11 +6,11 @@ import java.io.Serializable;
  * Created by DIY on 2017/8/17.
  */
 public class UserCourse implements Serializable {
-    private Integer id;//自增主键
-    private Integer userId;//用户id
-    private Integer courseId;//课程号
-    private Integer schedule;//进度
-    private Integer test;//是否可用考试
+    private Integer id;             //自增主键
+    private Integer userId;         //用户id
+    private Integer courseId;       //课程号
+    private Integer schedule;       //进度
+    private Integer test;           //是否可用考试
 
     private User user;
     private Course course;

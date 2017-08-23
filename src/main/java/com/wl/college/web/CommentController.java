@@ -3,7 +3,6 @@ package com.wl.college.web;
 import com.wl.college.dto.BaseResult;
 import com.wl.college.dto.BootStrapTableResult;
 import com.wl.college.entity.Comment;
-import com.wl.college.entity.Course;
 import com.wl.college.entity.User;
 import com.wl.college.service.CommentService;
 import com.wl.college.service.UserService;
@@ -12,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
+ *
  * Created by DIY on 2017/8/19.
  */
 @RestController
@@ -30,6 +30,7 @@ public class CommentController {
 
     /**
      * 添加评论（用户用）
+     *
      * @param comment
      * @return
      */
@@ -46,11 +47,12 @@ public class CommentController {
 
     /**
      * 评论评论（管理员）
+     *
      * @param comment
      * @return
      */
     //TODO 需要权限
-    @PostMapping(value = "/admin",produces = {"application/json;charset=UTF-8"})
+    @PostMapping(value = "/admin", produces = {"application/json;charset=UTF-8"})
     public BaseResult<Comment> adminCreate(Comment comment) {
         comment.setState("0");
         return new BaseResult<>(true, commentService.create(comment));
@@ -58,6 +60,7 @@ public class CommentController {
 
     /**
      * 审核评论
+     *
      * @param comment
      * @return
      */
@@ -66,8 +69,10 @@ public class CommentController {
     public BaseResult<Comment> update(Comment comment) {
         return new BaseResult<>(true, commentService.update(comment));
     }
-      /**
+
+    /**
      * 查看评论
+     *
      * @param comment
      * @return
      */
@@ -78,10 +83,11 @@ public class CommentController {
 
     /**
      * 查看评论（平台用）
+     *
      * @param comment
      * @return
      */
-    @GetMapping(value = "/dept",produces = {"application/json;charset=UTF-8"})
+    @GetMapping(value = "/dept", produces = {"application/json;charset=UTF-8"})
     public BootStrapTableResult<Comment> deptList(Comment comment) {
         comment.setDeptId((Integer) SecurityUtils.getSubject().getPrincipal());
         return new BootStrapTableResult<>(commentService.total(comment), commentService.list(comment));
@@ -89,10 +95,11 @@ public class CommentController {
 
     /**
      * 查看评论（用户用）
+     *
      * @param comment
      * @return
      */
-    @GetMapping(value = "/user",produces = {"application/json;charset=UTF-8"})
+    @GetMapping(value = "/user", produces = {"application/json;charset=UTF-8"})
     public BootStrapTableResult<Comment> userList(Comment comment) {
         User user = userService.getUserByTag((Integer) SecurityUtils.getSubject().getPrincipal(), null, null, null);
         comment.setDeptId(user.getDeptId());
@@ -104,10 +111,10 @@ public class CommentController {
      *
      * @return
      */
-    @DeleteMapping(value = "/{id}",produces = {"application/json;charset=UTF-8"})
+    @DeleteMapping(value = "/{id}", produces = {"application/json;charset=UTF-8"})
     public BaseResult delete(@PathVariable Integer id) {
         commentService.delete(id);
-        return new BaseResult(true,null);
+        return new BaseResult(true, null);
     }
 
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * UserCourseController
  * Created by DIY on 2017/8/22.
  */
 @RestController

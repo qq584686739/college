@@ -40,4 +40,13 @@ public class PermissionServiceImpl implements PermissionService {
     public List<Permission> hasPermissions(Integer principal) {
         return permissionDao.hasPermissions(principal);
     }
+
+    /**
+     * 删除一个权限
+     * @param id
+     */
+    @Override
+    public void deletePermission(Integer id) {
+        permissionDao.deletePermission(id);
+    }
 }

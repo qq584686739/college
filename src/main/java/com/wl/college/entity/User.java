@@ -9,39 +9,66 @@ import java.util.Date;
  */
 public class User implements Serializable {
     private Integer id;
-    private String name;//姓名
-    private String referralCode;//推荐码
-    private String password;//密码
-    private String salt;//盐
-    private String mail;//邮箱
-    private String phone;//电话
-    private String fullName;//真是姓名
-    private String country;//国家
-    private String city;//省
-    private String town;//市
-    private String address;//地址
-    private String idCard;//身份证
-    private String idCardFront;//身份证前面
-    private String idCardBack;//身份证后面
-    private String idCardWith;//手持
-    private Integer pid;//推荐人
-    private String pids;//推荐人连
-    private String state;//状态
-    private Date createTime;//创建时间
-    private Date updateTime;//更新
-    private String bankCard;//银行卡
-    private String bankCardFront;//正面
-    private String bankCardBack;//反面
-    private String bankCardState;//银行卡状态
-    private String idCardState;//身份证状态
-    private Date birthdate;//出生日期
-    private String gender;//性别
-    private Integer deptId;//所属平台
-    private Integer signInDay;//签到天数
-    private Date lastSignIn;//最后签到时间
+    private String name;                //姓名
+    private String referralCode;        //推荐码
+    private String password;            //密码
+    private String salt;                //盐
+    private String mail;                //邮箱
+    private String phone;               //电话
+    private String fullName;            //真是姓名
+    private String country;             //国家
+    private String city;                //省
+    private String town;                //市
+    private String address;             //地址
+    private String idCard;              //身份证
+    private String idCardFront;         //身份证前面
+    private String idCardBack;          //身份证后面
+    private String idCardWith;          //手持
+    private Integer pid;                //推荐人
+    private String pids;                //推荐人连
+    private String state;               //状态
+    private Date createTime;            //创建时间
+    private Date updateTime;            //更新
+    private String bankCard;            //银行卡
+    private String bankCardFront;       //正面
+    private String bankCardBack;        //反面
+    private String bankCardState;       //银行卡状态
+    private String idCardState;         //身份证状态
+    private Date birthdate;             //出生日期
+    private String gender;              //性别
+    private Integer deptId;             //所属平台
+    private Integer signInDay;          //签到天数
+    private Date lastSignIn;            //最后签到时间
     private String photo;
     private String head;
     private String branch;
+    private Integer gold;               //金币
+    private Double unreal_money;        //可看不可用的钱
+    private Double real_money;          //真实的钱
+
+    public Integer getGold() {
+        return gold;
+    }
+
+    public void setGold(Integer gold) {
+        this.gold = gold;
+    }
+
+    public Double getUnreal_money() {
+        return unreal_money;
+    }
+
+    public void setUnreal_money(Double unreal_money) {
+        this.unreal_money = unreal_money;
+    }
+
+    public Double getReal_money() {
+        return real_money;
+    }
+
+    public void setReal_money(Double real_money) {
+        this.real_money = real_money;
+    }
 
     public String getBranch() {
         return branch;

@@ -37,4 +37,10 @@
         VALUES (#{permission.permission}, #{permission.description}, #{permission.pid}, #{permission.pids})
     </insert>
 
+    <!--删除一个权限-->
+    <delete id="deletePermission">
+        DELETE FROM permission
+        WHERE id = #{id}
+    </delete>
+
 </mapper>

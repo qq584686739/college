@@ -8,20 +8,20 @@ import java.util.Date;
  */
 public class Course implements Serializable {
     private Integer id;
-    private String name;            //课程名
-    private Double price;        //价钱
+    private String name;        //课程名
+    private Double price;       //价钱
     private Integer deptId;     //所属平台id
     private String icon;        //课程图标
     private Integer pid;        //上级课程
     private String details;     //详情
     private String description; //描述
     private String pids;        //上级依赖连
-    private Integer number;      //产品数量
+    private Integer number;     //产品数量
     private Date updateTime;    //更新时间
     private Date createTime;    //创建时间
-    private Integer pointId; //指向id 为null就是父课 ，其他都是下方的课
-    private String type; //类型 自己上传，平台上传
-    private Double credits; // 积分
+    private Integer pointId;    //指向id 为null就是父课 ，其他都是下方的课
+    private String type;        //类型 自己上传，平台上传
+    private Double credits;     // 积分
 
     public Course() {
     }

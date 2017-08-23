@@ -7,7 +7,7 @@
         id, name, referral_code, mail, phone, full_name, country, city, address,
         id_card, id_card_front, id_card_back, id_card_with, pid, pids, state, create_time,
         update_time, bank_card, bank_card_front, bank_card_back, bank_card_state, id_card_state,
-        birthdate, gender, dept_id, sign_in_day, last_sign_in, photo, head,branch
+        birthdate, gender, dept_id, sign_in_day, last_sign_in, photo, head, branch, gold, unreal_money, real_money
     </sql>
     <!--role sql片段-->
     <sql id="Role_List">
@@ -149,6 +149,15 @@
             </if>
             <if test="user.branch != null">
                 branch = #{user.branch},
+            </if>
+            <if test="user.gold != null">
+                gold = #{user.gold},
+            </if>
+            <if test="user.unrealMoney != null">
+                unreal_money = #{user.unrealMoney},
+            </if>
+            <if test="user.realMoney != null">
+                real_money = #{user.realMoney},
             </if>
         </set>
         where id=#{userId}
@@ -421,6 +430,7 @@
         WHERE
             id = #{user.id}
     </update>
+
 
     <!--根据唯一标识获得id、password、salt-->
     <select id="getUserPwdByTag" resultType="com.wl.college.entity.User">

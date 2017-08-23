@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 购物车controller
+ * ShoppingCartController
  * Created by XJH on 2017/8/22.
  */
 @RestController
@@ -43,7 +43,7 @@ public class ShoppingCartController {
     @GetMapping(value = "/findOne", produces = {"application/json;charset=UTF-8"})
     public BaseResult findOne(@RequestParam Integer id) {
         log.info("invoke----------/shopping/car/findOne.GET");
-        return new BaseResult<>(true, shoppingCartService.findOne((Integer)SecurityUtils.getSubject().getPrincipal(), id));
+        return new BaseResult<>(true, shoppingCartService.findOne((Integer) SecurityUtils.getSubject().getPrincipal(), id));
     }
 
 
@@ -153,7 +153,7 @@ public class ShoppingCartController {
     @PostMapping(value = "/generate/order", produces = {"application/json;charset=UTF-8"})
     public BaseResult generateOrder(@RequestParam Integer id) {
         log.info("invoke----------/shopping/car/generate/order.POST");
-        Order order = shoppingCartService.generateOrder((Integer)SecurityUtils.getSubject().getPrincipal(), id);
+        Order order = shoppingCartService.generateOrder((Integer) SecurityUtils.getSubject().getPrincipal(), id);
         return new BaseResult<>(true, order);
     }
 

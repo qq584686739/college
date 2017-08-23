@@ -25,4 +25,10 @@ public interface PermissionService {
      * @return
      */
     List<Permission> hasPermissions(Integer principal);
+
+    /**
+     * 删除一个权限
+     * @param id
+     */
+    void deletePermission(Integer id);
 }

@@ -117,4 +117,5 @@ public interface UserDao {
      * @param roleList
      */
     void createUserRole(@Param("id") Integer id, @Param("roleList") List<Integer> roleList);
+
 }

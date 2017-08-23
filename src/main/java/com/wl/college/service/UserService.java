@@ -93,4 +93,11 @@ public interface UserService {
      * @param roleList
      */
     void updateUserRole(Integer id, List<Integer> roleList);
+
+    /**
+     * 用户签到
+     * @param   principal
+     * @return  Integer     返回已经签到的天数(已算上本次)
+     */
+    Integer sign(Integer principal);
 }

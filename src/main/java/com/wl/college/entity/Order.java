@@ -10,13 +10,13 @@ import java.util.Date;
 public class Order implements Serializable {
     private Integer id;         //主键id
     private String type;        //类型
-    private Integer courseId; //资源、课程类型
+    private Integer courseId;   //资源、课程类型
     private String state;       //状态（0成功 1未支付 2取消订单）
     private Date updateTime;    //更新时间
     private Date createTime;    //创建时间
     private Integer userId;     //用户id
-    private Double credits;    //所需积分
-    private Double amount;     //钱
+    private Double credits;     //所需积分
+    private Double amount;      //钱
 
     public Order() {
     }

@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
-@CrossOrigin
+/**
+ * SessionController
+ * Created by XJH on 2017/8/22.
+ */
 @RestController
 @RequestMapping("/sessions")
-@RequiresPermissions(OperationType.SESSION_ALL)
 public class SessionController {
     private final SessionDAO sessionDAO;
 
@@ -25,7 +27,7 @@ public class SessionController {
     /**
      * 管理员查看在线客户和管理员
      *
-     * @return  BaseResult 返回所有在线的管理员和客户
+     * @return BaseResult 返回所有在线的管理员和客户
      */
     @RequestMapping(method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
     public BaseResult<Object> list() {

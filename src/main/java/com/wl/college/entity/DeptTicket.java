@@ -10,10 +10,10 @@ import java.util.Date;
 public class DeptTicket implements Serializable {
     private Integer id;         //自增主键id
     private String name;        //名称
-    private String type;         //类型
+    private String type;        //类型
     private String url;         //资源路径
     private Integer deptId;     //平台id
-    private Date createTime;   //创建时间
+    private Date createTime;    //创建时间
 
     public DeptTicket() {
     }

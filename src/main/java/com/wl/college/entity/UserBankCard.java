@@ -5,12 +5,12 @@ package com.wl.college.entity;
  */
 public class UserBankCard {
     private Integer id;
-    private Integer userId; //用户ID
-    private String state;//状态
-    private String bankCard;//银行卡
-    private String bankCardFront;//正面
-    private String bankCardBack;//反面
-    private String bankCardState;//银行卡状态
+    private Integer userId;             //用户ID
+    private String state;               //状态
+    private String bankCard;            //银行卡
+    private String bankCardFront;       //正面
+    private String bankCardBack;        //反面
+    private String bankCardState;       //银行卡状态
 
     public Integer getId() {
         return id;

@@ -8,10 +8,10 @@ import java.util.Date;
  * Created by DIY on 2017/8/17.
  */
 public class UserCollection implements Serializable {
-    private Integer id;// 主键
-    private Integer userId; //用户id
-    private Integer resourceId;//z资源id
-    private Date createTime;//创建时间
+    private Integer id;                 // 主键
+    private Integer userId;             //用户id
+    private Integer resourceId;         //z资源id
+    private Date createTime;            //创建时间
 
     public UserCollection() {
     }

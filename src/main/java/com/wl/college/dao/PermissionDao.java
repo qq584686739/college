@@ -29,4 +29,10 @@ public interface PermissionDao {
      * @return
      */
     List<Permission> hasPermissions(@Param("principal")Integer principal);
+
+    /**
+     * 删除一个权限
+     * @param id
+     */
+    void deletePermission(@Param("id") Integer id);
 }

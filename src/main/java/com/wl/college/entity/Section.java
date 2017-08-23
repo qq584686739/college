@@ -7,9 +7,9 @@ import java.io.Serializable;
  */
 public class Section implements Serializable {
     private Integer id;
-    private String name;//姓名
-    private Integer courseId;//课程号
-    private String description;//描述
+    private String name;            //姓名
+    private Integer courseId;       //课程号
+    private String description;     //描述
 
     public Section() {
     }

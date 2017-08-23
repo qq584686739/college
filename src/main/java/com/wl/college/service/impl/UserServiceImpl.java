@@ -11,6 +11,7 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -170,5 +171,35 @@ public class UserServiceImpl implements UserService {
     public void updateUserRole(Integer id, List<Integer> roleList) {
         userDao.deleteUserRole(id);                 //先删除user_role
         userDao.createUserRole(id, roleList);       //再创建user_role
+    }
+
+    /**
+     * 用户签到
+     * @param principal
+     * @return
+     */
+    @Override
+    public Integer sign(Integer principal) {
+
+        Long oneDay = 86400000L;                             //一天的时间(毫秒为单位)
+        Integer fullGold = 8;                                //签到一天获得最多的金币量
+
+        User user = userDao.findById(principal);
+        if(System.currentTimeMillis() - user.getLastSignIn().getTime() > oneDay){
+            user.setSignInDay(1);                           //设置连续签到天数为1
+            user.setGold(user.getGold() + 1);               //金币+1
+        }else{
+            user.setSignInDay(user.getSignInDay() + 1);     //设置连续签到天数+1
+            if(user.getSignInDay()>=8){
+                user.setGold(user.getGold() + fullGold);    //当连续超过8天，签到获得的金币不得超过签到一天获得最多的金币量
+            }else{
+                //签到天数为 1<X<8 或得到的金币量为签到的天数（这个天数包含本次签到）
+                user.setGold(user.getGold() + user.getSignInDay());
+            }
+        }
+        user.setLastSignIn(new Date());                     //更新签到时间
+
+        userDao.update(user, user.getId());                 //金币+1、更新签到时间
+        return user.getSignInDay();
     }
 }

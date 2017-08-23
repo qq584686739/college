@@ -1,6 +1,5 @@
 package com.wl.college.web;
 
-import com.alibaba.fastjson.JSONArray;
 import com.wl.college.dto.BaseResult;
 import com.wl.college.entity.Role;
 import com.wl.college.service.RoleService;
@@ -9,9 +8,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * RoleController
+ * Created by XJH on 2017/8/22.
+ */
 @RestController
 @RequestMapping("/role")
 public class RoleController {
@@ -47,16 +49,9 @@ public class RoleController {
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
     public BaseResult createRole(@RequestParam Role role,
-                                 @RequestParam(required = false) String permissions) {
+                                 @RequestParam(value = "permissions[]", required = false) List<Integer> permissions) {
         log.info("invoke----------/role/create.POST");
-        List<Integer> permissionsList = new ArrayList<>();
-        JSONArray jsonlist = JSONArray.parseArray(permissions);
-        if (jsonlist != null) {
-            for (int i = 0; i < jsonlist.size(); i++) {
-                permissionsList.add(jsonlist.getInteger(i));
-            }
-        }
-        roleService.createRole(role, permissionsList);      //创建角色同时分配权限
+        roleService.createRole(role, permissions);      //创建角色同时分配权限
         return new BaseResult<>(true, null);
     }
 
@@ -72,16 +67,9 @@ public class RoleController {
      */
     @RequestMapping(value = "/update", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
     public BaseResult updateRole(@RequestParam Role role,
-                                 @RequestParam(required = false) String permissions) {
+                                 @RequestParam(value = "permissions[]", required = false) List<Integer> permissions) {
         log.info("invoke----------/role/update.PUT");
-        List<Integer> permissionsList = new ArrayList<>();
-        JSONArray jsonlist = JSONArray.parseArray(permissions);
-        if (jsonlist != null) {
-            for (int i = 0; i < jsonlist.size(); i++) {
-                permissionsList.add(jsonlist.getInteger(i));
-            }
-        }
-        roleService.updateRole(role, permissionsList);      //更新角色同时分配权限
+        roleService.updateRole(role, permissions);      //更新角色同时分配权限
         return new BaseResult(true, null);
     }
 

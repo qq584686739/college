@@ -8,9 +8,9 @@ import java.util.Date;
  */
 public class Param implements Serializable {
     private Integer id;
-    private String volume; //值
-    private Integer deptId;//平台id
-    private String type;//类型
+    private String volume;      //值
+    private Integer deptId;     //平台id
+    private String type;        //类型
     private Date createTime;
     private Date updateTime;
 

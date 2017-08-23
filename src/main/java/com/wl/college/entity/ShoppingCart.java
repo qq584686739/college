@@ -9,9 +9,9 @@ import java.util.Date;
 public class ShoppingCart implements Serializable {
     private Integer id;             //自增主键id
     private Integer userId;         //用户id
-    private Integer courseId;     //资源id
+    private Integer courseId;       //资源id
     private String type;            //类型
-    private Date createTime;       //创建时间
+    private Date createTime;        //创建时间
 
     private Course course;
 

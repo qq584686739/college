@@ -1,6 +1,5 @@
 package com.wl.college.web;
 
-import com.alibaba.fastjson.JSONArray;
 import com.wl.college.dto.BaseResult;
 import com.wl.college.dto.BootStrapTableResult;
 import com.wl.college.entity.Permission;
@@ -18,11 +17,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * UserController
+ * Created by XJH on 2017/8/22.
+ */
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -296,17 +298,25 @@ public class UserController {
      */
     @RequestMapping(value = "/update/role/permission", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
     public BaseResult updateUserRole(@RequestParam Integer id,
-                                     @RequestParam String roles) {
-        List<Integer> roleList = new ArrayList<>();
-        JSONArray jsonlist = JSONArray.parseArray(roles);
-        if (jsonlist != null) {
-            for (int i = 0; i < jsonlist.size(); i++) {
-                roleList.add(jsonlist.getInteger(i));
-            }
-        }
-        userService.updateUserRole(id, roleList);
+                                     @RequestParam(value = "roles[]", required = false) List<Integer> roles) {
+        log.info("invoke----------/user/update/role/permission.PUT");
+        userService.updateUserRole(id, roles);
         return new BaseResult<>(true, null);
     }
+
+
+    /**
+     * 用户签到
+     * @return
+     */
+    @RequestMapping(value = "/sign", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
+    public BaseResult sign() {
+        log.info("invoke----------/user/sign.PUT");
+        userService.sign((Integer)SecurityUtils.getSubject().getPrincipal());
+        return new BaseResult<>(true, null);
+    }
+
+
 
 
     /**

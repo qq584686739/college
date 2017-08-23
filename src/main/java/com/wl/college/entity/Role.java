@@ -10,10 +10,10 @@ import java.util.Date;
 public class Role implements Serializable {
     private Integer id;                 //id
     private String role;                //角色标志
-    private String description;    //角色描述
-    private String available;    //是否启用
-    private Date createTime;    //创建时间
-    private Date updateTime;    //更新时间
+    private String description;         //角色描述
+    private String available;           //是否启用
+    private Date createTime;            //创建时间
+    private Date updateTime;            //更新时间
 
     public Integer getId() {
         return id;
